@@ -318,6 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 295879710}
   - component: {fileID: 295879711}
+  - component: {fileID: 2077391222}
   m_Layer: 0
   m_Name: Clouds
   m_TagString: Untagged
@@ -2449,3 +2450,15 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 1951846834}
+--- !u!114 &2077391222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295879709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fa501effb1c4b769b507734f4d474ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuBackground2CLoudAnimation
