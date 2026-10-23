@@ -1,0 +1,2626 @@
+fileFormatVersion: 2
+guid: f8f0b8e72336e374a9d206486a18b003
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3705663902210250677
+    second: strawberryandsteel_formation2_idle2_0
+  - first:
+      213: 2033731831584106136
+    second: strawberryandsteel_formation2_idle2_1
+  - first:
+      213: 781669853744800094
+    second: strawberryandsteel_formation2_idle2_2
+  - first:
+      213: 1418483227562998409
+    second: strawberryandsteel_formation2_idle2_3
+  - first:
+      213: 7256602162718969922
+    second: strawberryandsteel_formation2_idle2_4
+  - first:
+      213: 7538520266948953016
+    second: strawberryandsteel_formation2_idle2_5
+  - first:
+      213: -4170104651522704802
+    second: strawberryandsteel_formation2_idle2_6
+  - first:
+      213: -1214533592110648981
+    second: strawberryandsteel_formation2_idle2_7
+  - first:
+      213: 3431811129484934987
+    second: strawberryandsteel_formation2_idle2_8
+  - first:
+      213: -5806658945644140170
+    second: strawberryandsteel_formation2_idle2_9
+  - first:
+      213: 1789174502134829199
+    second: strawberryandsteel_formation2_idle2_10
+  - first:
+      213: -189201044654159829
+    second: strawberryandsteel_formation2_idle2_11
+  - first:
+      213: 5111965139275411872
+    second: strawberryandsteel_formation2_idle2_12
+  - first:
+      213: -2075341610613708257
+    second: strawberryandsteel_formation2_idle2_13
+  - first:
+      213: -8882789800104936423
+    second: strawberryandsteel_formation2_idle2_14
+  - first:
+      213: -290785802814589480
+    second: strawberryandsteel_formation2_idle2_15
+  - first:
+      213: 876482889671444922
+    second: strawberryandsteel_formation2_idle2_16
+  - first:
+      213: -6486390567468999371
+    second: strawberryandsteel_formation2_idle2_17
+  - first:
+      213: 4613400682643349443
+    second: strawberryandsteel_formation2_idle2_18
+  - first:
+      213: -8768148849085570230
+    second: strawberryandsteel_formation2_idle2_19
+  - first:
+      213: 5839343434974757729
+    second: strawberryandsteel_formation2_idle2_20
+  - first:
+      213: 5362460958935207085
+    second: strawberryandsteel_formation2_idle2_21
+  - first:
+      213: -2841170243078197360
+    second: strawberryandsteel_formation2_idle2_22
+  - first:
+      213: -3115878780782197347
+    second: strawberryandsteel_formation2_idle2_23
+  - first:
+      213: 2724012066464950797
+    second: strawberryandsteel_formation2_idle2_24
+  - first:
+      213: 4042205694447064759
+    second: strawberryandsteel_formation2_idle2_25
+  - first:
+      213: 4342549528007575558
+    second: strawberryandsteel_formation2_idle2_26
+  - first:
+      213: -3861686100121595541
+    second: strawberryandsteel_formation2_idle2_27
+  - first:
+      213: -5814462815375499970
+    second: strawberryandsteel_formation2_idle2_28
+  - first:
+      213: 7304983948417280965
+    second: strawberryandsteel_formation2_idle2_29
+  - first:
+      213: 7490376136672667646
+    second: strawberryandsteel_formation2_idle2_30
+  - first:
+      213: 8016345561071371730
+    second: strawberryandsteel_formation2_idle2_31
+  - first:
+      213: 2293533578960442533
+    second: strawberryandsteel_formation2_idle2_32
+  - first:
+      213: -1590796513382579313
+    second: strawberryandsteel_formation2_idle2_33
+  - first:
+      213: -2528478774099641220
+    second: strawberryandsteel_formation2_idle2_34
+  - first:
+      213: -2614444644655573120
+    second: strawberryandsteel_formation2_idle2_35
+  - first:
+      213: 2894706336020442335
+    second: strawberryandsteel_formation2_idle2_36
+  - first:
+      213: -3960845269768800393
+    second: strawberryandsteel_formation2_idle2_37
+  - first:
+      213: 1650919707100589568
+    second: strawberryandsteel_formation2_idle2_38
+  - first:
+      213: 4917857928175235208
+    second: strawberryandsteel_formation2_idle2_39
+  - first:
+      213: 923648995721588859
+    second: strawberryandsteel_formation2_idle2_40
+  - first:
+      213: 7987925915031121752
+    second: strawberryandsteel_formation2_idle2_41
+  - first:
+      213: -5770427394647701327
+    second: strawberryandsteel_formation2_idle2_42
+  - first:
+      213: 5974838030273275903
+    second: strawberryandsteel_formation2_idle2_43
+  - first:
+      213: 1703836015036866267
+    second: strawberryandsteel_formation2_idle2_44
+  - first:
+      213: -6842918070351398654
+    second: strawberryandsteel_formation2_idle2_45
+  - first:
+      213: 7213063579873813070
+    second: strawberryandsteel_formation2_idle2_46
+  - first:
+      213: -8824065058275835990
+    second: strawberryandsteel_formation2_idle2_47
+  - first:
+      213: -7621306469938063135
+    second: strawberryandsteel_formation2_idle2_48
+  - first:
+      213: 161903952181641488
+    second: strawberryandsteel_formation2_idle2_49
+  - first:
+      213: 6789815186022361667
+    second: strawberryandsteel_formation2_idle2_50
+  - first:
+      213: 2126194927959736702
+    second: strawberryandsteel_formation2_idle2_51
+  - first:
+      213: -5828696538258667659
+    second: strawberryandsteel_formation2_idle2_52
+  - first:
+      213: -7339876532157481678
+    second: strawberryandsteel_formation2_idle2_53
+  - first:
+      213: 6432296696976772511
+    second: strawberryandsteel_formation2_idle2_54
+  - first:
+      213: 7918920095204997943
+    second: strawberryandsteel_formation2_idle2_55
+  - first:
+      213: 4569138078311509289
+    second: strawberryandsteel_formation2_idle2_56
+  - first:
+      213: 1779086744947902777
+    second: strawberryandsteel_formation2_idle2_57
+  - first:
+      213: -3093009471738421852
+    second: strawberryandsteel_formation2_idle2_58
+  - first:
+      213: -851056002281784748
+    second: strawberryandsteel_formation2_idle2_59
+  - first:
+      213: -5351566134461267298
+    second: strawberryandsteel_formation2_idle2_60
+  - first:
+      213: 7934683867694056477
+    second: strawberryandsteel_formation2_idle2_61
+  - first:
+      213: -7059531729426265056
+    second: strawberryandsteel_formation2_idle2_62
+  - first:
+      213: 4095936314086273789
+    second: strawberryandsteel_formation2_idle2_63
+  - first:
+      213: -1827433287311240882
+    second: strawberryandsteel_formation2_idle2_64
+  - first:
+      213: -9170660624695689174
+    second: strawberryandsteel_formation2_idle2_65
+  - first:
+      213: 5626660817368277201
+    second: strawberryandsteel_formation2_idle2_66
+  - first:
+      213: 1115078318275466642
+    second: strawberryandsteel_formation2_idle2_67
+  - first:
+      213: -8087320631872440584
+    second: strawberryandsteel_formation2_idle2_68
+  - first:
+      213: -9158392132767228578
+    second: strawberryandsteel_formation2_idle2_69
+  - first:
+      213: 4417361016357221032
+    second: strawberryandsteel_formation2_idle2_70
+  - first:
+      213: 7897550276153474773
+    second: strawberryandsteel_formation2_idle2_71
+  - first:
+      213: 4986623016970231360
+    second: strawberryandsteel_formation2_idle2_72
+  - first:
+      213: -7356331807791132272
+    second: strawberryandsteel_formation2_idle2_73
+  - first:
+      213: 131445884491063533
+    second: strawberryandsteel_formation2_idle2_74
+  - first:
+      213: -7860284123950886323
+    second: strawberryandsteel_formation2_idle2_75
+  - first:
+      213: -582066133695556895
+    second: strawberryandsteel_formation2_idle2_76
+  - first:
+      213: -2682876826711095473
+    second: strawberryandsteel_formation2_idle2_77
+  - first:
+      213: 9003518281599171569
+    second: strawberryandsteel_formation2_idle2_78
+  - first:
+      213: 1204381405371696322
+    second: strawberryandsteel_formation2_idle2_79
+  - first:
+      213: 5841746706452270358
+    second: strawberryandsteel_formation2_idle2_80
+  - first:
+      213: 5033142514712241623
+    second: strawberryandsteel_formation2_idle2_81
+  - first:
+      213: -5861473777758975179
+    second: strawberryandsteel_formation2_idle2_82
+  - first:
+      213: 798799102800835790
+    second: strawberryandsteel_formation2_idle2_83
+  - first:
+      213: 2303963720549100598
+    second: strawberryandsteel_formation2_idle2_84
+  - first:
+      213: -7483319131929737477
+    second: strawberryandsteel_formation2_idle2_85
+  - first:
+      213: 8323263769852041368
+    second: strawberryandsteel_formation2_idle2_86
+  - first:
+      213: 3175756642956709305
+    second: strawberryandsteel_formation2_idle2_87
+  - first:
+      213: 8930327141259753211
+    second: strawberryandsteel_formation2_idle2_88
+  - first:
+      213: 691582912123564976
+    second: strawberryandsteel_formation2_idle2_89
+  - first:
+      213: -5931802505112681065
+    second: strawberryandsteel_formation2_idle2_90
+  - first:
+      213: 349440532736014027
+    second: strawberryandsteel_formation2_idle2_91
+  - first:
+      213: -104403550298529598
+    second: strawberryandsteel_formation2_idle2_92
+  - first:
+      213: -1971304295834192038
+    second: strawberryandsteel_formation2_idle2_93
+  - first:
+      213: 578776825701792509
+    second: strawberryandsteel_formation2_idle2_94
+  - first:
+      213: -6999343771575219990
+    second: strawberryandsteel_formation2_idle2_95
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_0
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 2341
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b7da348fa92d6330800000000000000
+      internalID: 3705663902210250677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_1
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 2341
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 896a9fd5354493c10800000000000000
+      internalID: 2033731831584106136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_2
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 2341
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e51271c279c09da00800000000000000
+      internalID: 781669853744800094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_3
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 2341
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 98afdb2eaf67fa310800000000000000
+      internalID: 1418483227562998409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_4
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 2341
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24012394831a4b460800000000000000
+      internalID: 7256602162718969922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_5
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 2341
+        width: 116
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b34393fd343e9860800000000000000
+      internalID: 7538520266948953016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_6
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 2341
+        width: 116
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5af8c1e9efc026c0800000000000000
+      internalID: -4170104651522704802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_7
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 2341
+        width: 116
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b613772022c152fe0800000000000000
+      internalID: -1214533592110648981
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_8
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 2341
+        width: 116
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4f7e2d2a0e30af20800000000000000
+      internalID: 3431811129484934987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_9
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 2341
+        width: 116
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6796905347a9a6fa0800000000000000
+      internalID: -5806658945644140170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_10
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 2081
+        width: 116
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f80dee0fabc64d810800000000000000
+      internalID: 1789174502134829199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_11
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 2081
+        width: 117
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b28814ef6a2df5df0800000000000000
+      internalID: -189201044654159829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_12
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 2081
+        width: 118
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a1f0b6b53951f640800000000000000
+      internalID: 5111965139275411872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_13
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 2081
+        width: 118
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1a68cffcc7e233e0800000000000000
+      internalID: -2075341610613708257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_14
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 2081
+        width: 119
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91c38466dbdf9b480800000000000000
+      internalID: -8882789800104936423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_15
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 2081
+        width: 121
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d5728d5adbe6fbf0800000000000000
+      internalID: -290785802814589480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_16
+      rect:
+        serializedVersion: 2
+        x: 785
+        y: 2081
+        width: 122
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab9039a5b84e92c00800000000000000
+      internalID: 876482889671444922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_17
+      rect:
+        serializedVersion: 2
+        x: 914
+        y: 2081
+        width: 123
+        height: 253
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53dd09f2526bbf5a0800000000000000
+      internalID: -6486390567468999371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_18
+      rect:
+        serializedVersion: 2
+        x: 1044
+        y: 2081
+        width: 124
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3cf508f5a77160040800000000000000
+      internalID: 4613400682643349443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_19
+      rect:
+        serializedVersion: 2
+        x: 1173
+        y: 2081
+        width: 125
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a432180d317415680800000000000000
+      internalID: -8768148849085570230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_20
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 1821
+        width: 125
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1630e2b7ae3890150800000000000000
+      internalID: 5839343434974757729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_21
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 1821
+        width: 127
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daccb33a4d94b6a40800000000000000
+      internalID: 5362460958935207085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_22
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1821
+        width: 127
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09fe9e297b22298d0800000000000000
+      internalID: -2841170243078197360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_23
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 1821
+        width: 128
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d95cc4ce1cc22c4d0800000000000000
+      internalID: -3115878780782197347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_24
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 1821
+        width: 128
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0a6581ca82adc520800000000000000
+      internalID: 2724012066464950797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_25
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 1821
+        width: 128
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b6149e99acc81830800000000000000
+      internalID: 4042205694447064759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_26
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 1821
+        width: 128
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6088e64b9c5d34c30800000000000000
+      internalID: 4342549528007575558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_27
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 1821
+        width: 128
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b615038b3f8886ac0800000000000000
+      internalID: -3861686100121595541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_28
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 1821
+        width: 128
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3d53d130e0ee4fa0800000000000000
+      internalID: -5814462815375499970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_29
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 1821
+        width: 127
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cba7579234806560800000000000000
+      internalID: 7304983948417280965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_30
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 1561
+        width: 127
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef7ef6c196923f760800000000000000
+      internalID: 7490376136672667646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_31
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 1561
+        width: 125
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d5407cb0d7cf3f60800000000000000
+      internalID: 8016345561071371730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_32
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 1561
+        width: 123
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a41e5e63a444df10800000000000000
+      internalID: 2293533578960442533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_33
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 1561
+        width: 122
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f83c6eddffa5ce9e0800000000000000
+      internalID: -1590796513382579313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_34
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 1561
+        width: 121
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7cfcaf83f909ecd0800000000000000
+      internalID: -2528478774099641220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_35
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 1561
+        width: 120
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 087d1669270a7bbd0800000000000000
+      internalID: -2614444644655573120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_36
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 1561
+        width: 119
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fdc229763101c2820800000000000000
+      internalID: 2894706336020442335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_37
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 1561
+        width: 118
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 777f42d66304809c0800000000000000
+      internalID: -3960845269768800393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_38
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 1561
+        width: 117
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00e2c660abe39e610800000000000000
+      internalID: 1650919707100589568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_39
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 1561
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88039b0dabdbf3440800000000000000
+      internalID: 4917857928175235208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_40
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1301
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b70b12f2ed571dc00800000000000000
+      internalID: 923648995721588859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_41
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 1301
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85f21914c40dade60800000000000000
+      internalID: 7987925915031121752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_42
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 1301
+        width: 115
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b847db8bd25befa0800000000000000
+      internalID: -5770427394647701327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_43
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 1301
+        width: 115
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff7eee05883eae250800000000000000
+      internalID: 5974838030273275903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_44
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 1301
+        width: 115
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bde1acf04dd35a710800000000000000
+      internalID: 1703836015036866267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_45
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 1301
+        width: 115
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2097a9535421901a0800000000000000
+      internalID: -6842918070351398654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_46
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 1301
+        width: 115
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e42afa40c13f91460800000000000000
+      internalID: 7213063579873813070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_47
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 1301
+        width: 115
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aaf3886d49f9a8580800000000000000
+      internalID: -8824065058275835990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_48
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 1301
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e894fe152eab3690800000000000000
+      internalID: -7621306469938063135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_49
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 1301
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 011c48569c23f3200800000000000000
+      internalID: 161903952181641488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_50
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1041
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34a6a6d00f44a3e50800000000000000
+      internalID: 6789815186022361667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_51
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 1041
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e71074c9503c18d10800000000000000
+      internalID: 2126194927959736702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_52
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 1041
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5770b85516f4c1fa0800000000000000
+      internalID: -5828696538258667659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_53
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 1041
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 23df68dae25832a90800000000000000
+      internalID: -7339876532157481678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_54
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 1041
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9d083124cb144950800000000000000
+      internalID: 6432296696976772511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_55
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 1041
+        width: 115
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 73b756fced7a5ed60800000000000000
+      internalID: 7918920095204997943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_56
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 1041
+        width: 114
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92de777bfd6d86f30800000000000000
+      internalID: 4569138078311509289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_57
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 1041
+        width: 114
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 939c931f7f590b810800000000000000
+      internalID: 1779086744947902777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_58
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 1041
+        width: 114
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4addc1ed54c6315d0800000000000000
+      internalID: -3093009471738421852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_59
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 1041
+        width: 114
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45ab70433117034f0800000000000000
+      internalID: -851056002281784748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_60
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 781
+        width: 114
+        height: 255
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e920d6b54fa6bb5b0800000000000000
+      internalID: -5351566134461267298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_61
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 781
+        width: 114
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d144dea10f8ad1e60800000000000000
+      internalID: 7934683867694056477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_62
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 781
+        width: 114
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02cc2fa8b41870e90800000000000000
+      internalID: -7059531729426265056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_63
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 781
+        width: 114
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df23cbf5060b7d830800000000000000
+      internalID: 4095936314086273789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_64
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 781
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e41d61b7b17a3a6e0800000000000000
+      internalID: -1827433287311240882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_65
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 781
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a200a5500c44bb080800000000000000
+      internalID: -9170660624695689174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_66
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 781
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d068dab33ae51e40800000000000000
+      internalID: 5626660817368277201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_67
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 781
+        width: 115
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2959c8192dd897f00800000000000000
+      internalID: 1115078318275466642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_68
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 781
+        width: 116
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f63e88dbb014cf80800000000000000
+      internalID: -8087320631872440584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_69
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 781
+        width: 116
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5d5da4e0ead6e080800000000000000
+      internalID: -9158392132767228578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_70
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 521
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a271a0b07e9d4d30800000000000000
+      internalID: 4417361016357221032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_71
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 521
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5de7ae5122cb99d60800000000000000
+      internalID: 7897550276153474773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_72
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 521
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04e1c43b63b043540800000000000000
+      internalID: 4986623016970231360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_73
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 521
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 091d3b2423f09e990800000000000000
+      internalID: -7356331807791132272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_74
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 521
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de0e644e55df2d100800000000000000
+      internalID: 131445884491063533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_75
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 521
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d42d34e1c39aae290800000000000000
+      internalID: -7860284123950886323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_76
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 521
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e29a417fe51ce7f0800000000000000
+      internalID: -582066133695556895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_77
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 521
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4702c79db184cad0800000000000000
+      internalID: -2682876826711095473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_78
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 521
+        width: 117
+        height: 258
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fb3477ac2ce2fc70800000000000000
+      internalID: 9003518281599171569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_79
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 521
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c40441d182d6b010800000000000000
+      internalID: 1204381405371696322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_80
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 261
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61d45e9bdad021150800000000000000
+      internalID: 5841746706452270358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_81
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 261
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d5e65d437059d540800000000000000
+      internalID: 5033142514712241623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_82
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 261
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53bc86097acd7aea0800000000000000
+      internalID: -5861473777758975179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_83
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 261
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec438514d87e51b00800000000000000
+      internalID: 798799102800835790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_84
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 261
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c67b20cc259ff10800000000000000
+      internalID: 2303963720549100598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_85
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 261
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf68178d5e8e52890800000000000000
+      internalID: -7483319131929737477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_86
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 261
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 898d8e5dc4c228370800000000000000
+      internalID: 8323263769852041368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_87
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 261
+        width: 117
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9bd858447dd821c20800000000000000
+      internalID: 3175756642956709305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_88
+      rect:
+        serializedVersion: 2
+        x: 1047
+        y: 261
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf631d65835eeeb70800000000000000
+      internalID: 8930327141259753211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_89
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 261
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b3fad19efef89900800000000000000
+      internalID: 691582912123564976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_90
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 1
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7958cf4bc010eada0800000000000000
+      internalID: -5931802505112681065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_91
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 1
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc67ad7205679d400800000000000000
+      internalID: 349440532736014027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_92
+      rect:
+        serializedVersion: 2
+        x: 267
+        y: 1
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c0aa2f26851d8ef0800000000000000
+      internalID: -104403550298529598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_93
+      rect:
+        serializedVersion: 2
+        x: 397
+        y: 1
+        width: 116
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a57f996ff2584a4e0800000000000000
+      internalID: -1971304295834192038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_94
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 1
+        width: 116
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfafe2cd47a380800800000000000000
+      internalID: 578776825701792509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: strawberryandsteel_formation2_idle2_95
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 1
+        width: 116
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae88a628ce55dde90800000000000000
+      internalID: -6999343771575219990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      strawberryandsteel_formation2_idle2_0: 3705663902210250677
+      strawberryandsteel_formation2_idle2_1: 2033731831584106136
+      strawberryandsteel_formation2_idle2_10: 1789174502134829199
+      strawberryandsteel_formation2_idle2_11: -189201044654159829
+      strawberryandsteel_formation2_idle2_12: 5111965139275411872
+      strawberryandsteel_formation2_idle2_13: -2075341610613708257
+      strawberryandsteel_formation2_idle2_14: -8882789800104936423
+      strawberryandsteel_formation2_idle2_15: -290785802814589480
+      strawberryandsteel_formation2_idle2_16: 876482889671444922
+      strawberryandsteel_formation2_idle2_17: -6486390567468999371
+      strawberryandsteel_formation2_idle2_18: 4613400682643349443
+      strawberryandsteel_formation2_idle2_19: -8768148849085570230
+      strawberryandsteel_formation2_idle2_2: 781669853744800094
+      strawberryandsteel_formation2_idle2_20: 5839343434974757729
+      strawberryandsteel_formation2_idle2_21: 5362460958935207085
+      strawberryandsteel_formation2_idle2_22: -2841170243078197360
+      strawberryandsteel_formation2_idle2_23: -3115878780782197347
+      strawberryandsteel_formation2_idle2_24: 2724012066464950797
+      strawberryandsteel_formation2_idle2_25: 4042205694447064759
+      strawberryandsteel_formation2_idle2_26: 4342549528007575558
+      strawberryandsteel_formation2_idle2_27: -3861686100121595541
+      strawberryandsteel_formation2_idle2_28: -5814462815375499970
+      strawberryandsteel_formation2_idle2_29: 7304983948417280965
+      strawberryandsteel_formation2_idle2_3: 1418483227562998409
+      strawberryandsteel_formation2_idle2_30: 7490376136672667646
+      strawberryandsteel_formation2_idle2_31: 8016345561071371730
+      strawberryandsteel_formation2_idle2_32: 2293533578960442533
+      strawberryandsteel_formation2_idle2_33: -1590796513382579313
+      strawberryandsteel_formation2_idle2_34: -2528478774099641220
+      strawberryandsteel_formation2_idle2_35: -2614444644655573120
+      strawberryandsteel_formation2_idle2_36: 2894706336020442335
+      strawberryandsteel_formation2_idle2_37: -3960845269768800393
+      strawberryandsteel_formation2_idle2_38: 1650919707100589568
+      strawberryandsteel_formation2_idle2_39: 4917857928175235208
+      strawberryandsteel_formation2_idle2_4: 7256602162718969922
+      strawberryandsteel_formation2_idle2_40: 923648995721588859
+      strawberryandsteel_formation2_idle2_41: 7987925915031121752
+      strawberryandsteel_formation2_idle2_42: -5770427394647701327
+      strawberryandsteel_formation2_idle2_43: 5974838030273275903
+      strawberryandsteel_formation2_idle2_44: 1703836015036866267
+      strawberryandsteel_formation2_idle2_45: -6842918070351398654
+      strawberryandsteel_formation2_idle2_46: 7213063579873813070
+      strawberryandsteel_formation2_idle2_47: -8824065058275835990
+      strawberryandsteel_formation2_idle2_48: -7621306469938063135
+      strawberryandsteel_formation2_idle2_49: 161903952181641488
+      strawberryandsteel_formation2_idle2_5: 7538520266948953016
+      strawberryandsteel_formation2_idle2_50: 6789815186022361667
+      strawberryandsteel_formation2_idle2_51: 2126194927959736702
+      strawberryandsteel_formation2_idle2_52: -5828696538258667659
+      strawberryandsteel_formation2_idle2_53: -7339876532157481678
+      strawberryandsteel_formation2_idle2_54: 6432296696976772511
+      strawberryandsteel_formation2_idle2_55: 7918920095204997943
+      strawberryandsteel_formation2_idle2_56: 4569138078311509289
+      strawberryandsteel_formation2_idle2_57: 1779086744947902777
+      strawberryandsteel_formation2_idle2_58: -3093009471738421852
+      strawberryandsteel_formation2_idle2_59: -851056002281784748
+      strawberryandsteel_formation2_idle2_6: -4170104651522704802
+      strawberryandsteel_formation2_idle2_60: -5351566134461267298
+      strawberryandsteel_formation2_idle2_61: 7934683867694056477
+      strawberryandsteel_formation2_idle2_62: -7059531729426265056
+      strawberryandsteel_formation2_idle2_63: 4095936314086273789
+      strawberryandsteel_formation2_idle2_64: -1827433287311240882
+      strawberryandsteel_formation2_idle2_65: -9170660624695689174
+      strawberryandsteel_formation2_idle2_66: 5626660817368277201
+      strawberryandsteel_formation2_idle2_67: 1115078318275466642
+      strawberryandsteel_formation2_idle2_68: -8087320631872440584
+      strawberryandsteel_formation2_idle2_69: -9158392132767228578
+      strawberryandsteel_formation2_idle2_7: -1214533592110648981
+      strawberryandsteel_formation2_idle2_70: 4417361016357221032
+      strawberryandsteel_formation2_idle2_71: 7897550276153474773
+      strawberryandsteel_formation2_idle2_72: 4986623016970231360
+      strawberryandsteel_formation2_idle2_73: -7356331807791132272
+      strawberryandsteel_formation2_idle2_74: 131445884491063533
+      strawberryandsteel_formation2_idle2_75: -7860284123950886323
+      strawberryandsteel_formation2_idle2_76: -582066133695556895
+      strawberryandsteel_formation2_idle2_77: -2682876826711095473
+      strawberryandsteel_formation2_idle2_78: 9003518281599171569
+      strawberryandsteel_formation2_idle2_79: 1204381405371696322
+      strawberryandsteel_formation2_idle2_8: 3431811129484934987
+      strawberryandsteel_formation2_idle2_80: 5841746706452270358
+      strawberryandsteel_formation2_idle2_81: 5033142514712241623
+      strawberryandsteel_formation2_idle2_82: -5861473777758975179
+      strawberryandsteel_formation2_idle2_83: 798799102800835790
+      strawberryandsteel_formation2_idle2_84: 2303963720549100598
+      strawberryandsteel_formation2_idle2_85: -7483319131929737477
+      strawberryandsteel_formation2_idle2_86: 8323263769852041368
+      strawberryandsteel_formation2_idle2_87: 3175756642956709305
+      strawberryandsteel_formation2_idle2_88: 8930327141259753211
+      strawberryandsteel_formation2_idle2_89: 691582912123564976
+      strawberryandsteel_formation2_idle2_9: -5806658945644140170
+      strawberryandsteel_formation2_idle2_90: -5931802505112681065
+      strawberryandsteel_formation2_idle2_91: 349440532736014027
+      strawberryandsteel_formation2_idle2_92: -104403550298529598
+      strawberryandsteel_formation2_idle2_93: -1971304295834192038
+      strawberryandsteel_formation2_idle2_94: 578776825701792509
+      strawberryandsteel_formation2_idle2_95: -6999343771575219990
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
