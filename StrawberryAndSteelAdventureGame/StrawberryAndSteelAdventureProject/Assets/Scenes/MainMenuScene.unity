@@ -4203,6 +4203,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1663985664}
   - component: {fileID: 1663985665}
+  - component: {fileID: 1663985666}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -4247,6 +4248,47 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1663985666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663985663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9453ca7ed6fb9654f8ef622e8f2b9b68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationTestRunner
+  characters:
+  - label: Karakter A
+    controller: {fileID: 9100000, guid: ed3476c7e150d2643a0b36d0c4df0905, type: 2}
+    defaultSprite: {fileID: 9109876332083028749, guid: 7100f659e7a15d246ac270ad73e3ca3a, type: 3}
+    spriteChildName: 
+    position: {x: -2, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    sortingOrder: 0
+    instance: {fileID: 0}
+    animator: {fileID: 0}
+  - label: Karakter B
+    controller: {fileID: 9100000, guid: ffdead97f92c62f4d9c8dd4c8dd7f29d, type: 2}
+    defaultSprite: {fileID: -1821249056792355235, guid: bdf5ae53ba758894d94cb654033250a6, type: 3}
+    spriteChildName: 
+    position: {x: 2, y: 0, z: 0}
+    scale: {x: 1, y: 1, z: 1}
+    sortingOrder: 0
+    instance: {fileID: 0}
+    animator: {fileID: 0}
+  parameterSequence:
+  - IsIdle
+  - IsRun
+  - IsDeath
+  - IsHurt
+  - IsAttack
+  secondsPerState: 3
+  loop: 1
+  autoStart: 1
+  rebindBeforeEachState: 1
 --- !u!1 &1669698550
 GameObject:
   m_ObjectHideFlags: 0
