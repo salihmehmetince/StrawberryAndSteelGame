@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: a82a6425650bac743acb60d254fb2cf7
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4116654300372476965
+    second: transformation1death_0
+  - first:
+      213: -7767212395308595036
+    second: transformation1death_1
+  - first:
+      213: 6636037781534727996
+    second: transformation1death_2
+  - first:
+      213: -5844876181878810130
+    second: transformation1death_3
+  - first:
+      213: -4170530755860450582
+    second: transformation1death_4
+  - first:
+      213: -1456637021726721742
+    second: transformation1death_5
+  - first:
+      213: 2846722045446198000
+    second: transformation1death_6
+  - first:
+      213: -5409826668538685697
+    second: transformation1death_7
+  - first:
+      213: 1611237082559034649
+    second: transformation1death_8
+  - first:
+      213: 3415737724636071113
+    second: transformation1death_9
+  - first:
+      213: -3288316139140544142
+    second: transformation1death_10
+  - first:
+      213: -3817338988636192989
+    second: transformation1death_11
+  - first:
+      213: 3897503691766911322
+    second: transformation1death_12
+  - first:
+      213: 1086485301712058202
+    second: transformation1death_13
+  - first:
+      213: -4523754461741335287
+    second: transformation1death_14
+  - first:
+      213: 7969260361628763240
+    second: transformation1death_15
+  - first:
+      213: 8931973036891678300
+    second: transformation1death_16
+  - first:
+      213: -348258174669078229
+    second: transformation1death_17
+  - first:
+      213: -6184674470801904758
+    second: transformation1death_18
+  - first:
+      213: 174839773183787530
+    second: transformation1death_19
+  - first:
+      213: 7687109075936472502
+    second: transformation1death_20
+  - first:
+      213: 1711330110019409001
+    second: transformation1death_21
+  - first:
+      213: -5953726256408276075
+    second: transformation1death_22
+  - first:
+      213: -1626217080708626133
+    second: transformation1death_23
+  - first:
+      213: -8230749860460801439
+    second: transformation1death_24
+  - first:
+      213: -3286772220015036399
+    second: transformation1death_25
+  - first:
+      213: 8821988991043636714
+    second: transformation1death_26
+  - first:
+      213: -8454233243513919301
+    second: transformation1death_27
+  - first:
+      213: -4256534382484709996
+    second: transformation1death_28
+  - first:
+      213: 573823778872344992
+    second: transformation1death_29
+  - first:
+      213: -1318337558518654167
+    second: transformation1death_30
+  - first:
+      213: 8396890101825880255
+    second: transformation1death_31
+  - first:
+      213: 6304730451016742070
+    second: transformation1death_32
+  - first:
+      213: 8006597387373127656
+    second: transformation1death_33
+  - first:
+      213: 9116951544490843316
+    second: transformation1death_34
+  - first:
+      213: 1467252903206782760
+    second: transformation1death_35
+  - first:
+      213: -4190645040650539662
+    second: transformation1death_36
+  - first:
+      213: -4721210454907095260
+    second: transformation1death_37
+  - first:
+      213: 3769167394994016278
+    second: transformation1death_38
+  - first:
+      213: -6231744786279312070
+    second: transformation1death_39
+  - first:
+      213: 6069362010035425949
+    second: transformation1death_40
+  - first:
+      213: 5089180520371510550
+    second: transformation1death_41
+  - first:
+      213: -2326480397450833710
+    second: transformation1death_42
+  - first:
+      213: -7500065955029357970
+    second: transformation1death_43
+  - first:
+      213: 3962323434209629337
+    second: transformation1death_44
+  - first:
+      213: 4646403554338402354
+    second: transformation1death_45
+  - first:
+      213: 7759650917979781374
+    second: transformation1death_46
+  - first:
+      213: 4288872412964274865
+    second: transformation1death_47
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: transformation1death_0
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 4
+        width: 111
+        height: 112
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52429c4764b412930800000000000000
+      internalID: 4116654300372476965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1death_5
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 4
+        width: 117
+        height: 104
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 239bb49a85cf8cbe0800000000000000
+      internalID: -1456637021726721742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1death_6
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 4
+        width: 122
+        height: 93
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f218152e96918720800000000000000
+      internalID: 2846722045446198000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1death_11
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 4
+        width: 149
+        height: 82
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32f371b3a66160bc0800000000000000
+      internalID: -3817338988636192989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1death_16
+      rect:
+        serializedVersion: 2
+        x: 590
+        y: 4
+        width: 171
+        height: 73
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c56ab47472eb4fb70800000000000000
+      internalID: 8931973036891678300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1death_21
+      rect:
+        serializedVersion: 2
+        x: 762
+        y: 4
+        width: 173
+        height: 60
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96413250baddfb710800000000000000
+      internalID: 1711330110019409001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1death_33
+      rect:
+        serializedVersion: 2
+        x: 954
+        y: 4
+        width: 170
+        height: 51
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e722fd27e52d1f60800000000000000
+      internalID: 8006597387373127656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1death_36
+      rect:
+        serializedVersion: 2
+        x: 1305
+        y: 4
+        width: 202
+        height: 117
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27da54cd986d7d5c0800000000000000
+      internalID: -4190645040650539662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1death_41
+      rect:
+        serializedVersion: 2
+        x: 1139
+        y: 6
+        width: 159
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61dd49a38b660a640800000000000000
+      internalID: 5089180520371510550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c3fb3c9675b85c14e90db09a65523e6c
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      transformation1death_0: 4116654300372476965
+      transformation1death_1: -7767212395308595036
+      transformation1death_10: -3288316139140544142
+      transformation1death_11: -3817338988636192989
+      transformation1death_12: 3897503691766911322
+      transformation1death_13: 1086485301712058202
+      transformation1death_14: -4523754461741335287
+      transformation1death_15: 7969260361628763240
+      transformation1death_16: 8931973036891678300
+      transformation1death_17: -348258174669078229
+      transformation1death_18: -6184674470801904758
+      transformation1death_19: 174839773183787530
+      transformation1death_2: 6636037781534727996
+      transformation1death_20: 7687109075936472502
+      transformation1death_21: 1711330110019409001
+      transformation1death_22: -5953726256408276075
+      transformation1death_23: -1626217080708626133
+      transformation1death_24: -8230749860460801439
+      transformation1death_25: -3286772220015036399
+      transformation1death_26: 8821988991043636714
+      transformation1death_27: -8454233243513919301
+      transformation1death_28: -4256534382484709996
+      transformation1death_29: 573823778872344992
+      transformation1death_3: -5844876181878810130
+      transformation1death_30: -1318337558518654167
+      transformation1death_31: 8396890101825880255
+      transformation1death_32: 6304730451016742070
+      transformation1death_33: 8006597387373127656
+      transformation1death_34: 9116951544490843316
+      transformation1death_35: 1467252903206782760
+      transformation1death_36: -4190645040650539662
+      transformation1death_37: -4721210454907095260
+      transformation1death_38: 3769167394994016278
+      transformation1death_39: -6231744786279312070
+      transformation1death_4: -4170530755860450582
+      transformation1death_40: 6069362010035425949
+      transformation1death_41: 5089180520371510550
+      transformation1death_42: -2326480397450833710
+      transformation1death_43: -7500065955029357970
+      transformation1death_44: 3962323434209629337
+      transformation1death_45: 4646403554338402354
+      transformation1death_46: 7759650917979781374
+      transformation1death_47: 4288872412964274865
+      transformation1death_5: -1456637021726721742
+      transformation1death_6: 2846722045446198000
+      transformation1death_7: -5409826668538685697
+      transformation1death_8: 1611237082559034649
+      transformation1death_9: 3415737724636071113
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

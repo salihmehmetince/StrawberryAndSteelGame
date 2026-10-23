@@ -1,0 +1,520 @@
+fileFormatVersion: 2
+guid: c1d512436d119ec4e97beb06256991b2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1542067741819523460
+    second: transformation1Hurt_0
+  - first:
+      213: -5772704692098877829
+    second: transformation1Hurt_1
+  - first:
+      213: -7224356489345375008
+    second: transformation1Hurt_2
+  - first:
+      213: -1570499464800196694
+    second: transformation1Hurt_3
+  - first:
+      213: 3084046010334527657
+    second: transformation1Hurt_4
+  - first:
+      213: -6472447068660210741
+    second: transformation1Hurt_5
+  - first:
+      213: -6029702622837722156
+    second: transformation1Hurt_6
+  - first:
+      213: 147770379024538325
+    second: transformation1Hurt_7
+  - first:
+      213: 860938835727911358
+    second: transformation1Hurt_8
+  - first:
+      213: 670461616498299964
+    second: transformation1Hurt_9
+  - first:
+      213: -6694318501087533211
+    second: transformation1Hurt_10
+  - first:
+      213: 3116155520863092947
+    second: transformation1Hurt_11
+  - first:
+      213: 2307324830684813508
+    second: transformation1Hurt_12
+  - first:
+      213: -6091468591947074288
+    second: transformation1Hurt_13
+  - first:
+      213: -1418030025128653921
+    second: transformation1Hurt_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: transformation1Hurt_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 5
+        width: 98
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7e224d1f89799ae0800000000000000
+      internalID: -1542067741819523460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_1
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 6
+        width: 99
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b76373aeaab33efa0800000000000000
+      internalID: -5772704692098877829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_2
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 6
+        width: 110
+        height: 130
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0e4e7c99c0eedbb90800000000000000
+      internalID: -7224356489345375008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_3
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 100
+        width: 11
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa7a4a0ce07743ae0800000000000000
+      internalID: -1570499464800196694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_4
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 7
+        width: 113
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9a043f4a18bbcca20800000000000000
+      internalID: 3084046010334527657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_5
+      rect:
+        serializedVersion: 2
+        x: 636
+        y: 96
+        width: 11
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc36dfcfeaf3d26a0800000000000000
+      internalID: -6472447068660210741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_6
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 7
+        width: 117
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d334884961325ca0800000000000000
+      internalID: -6029702622837722156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_7
+      rect:
+        serializedVersion: 2
+        x: 804
+        y: 7
+        width: 114
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5da1516706cfc0200800000000000000
+      internalID: 147770379024538325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_8
+      rect:
+        serializedVersion: 2
+        x: 961
+        y: 7
+        width: 99
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eb986e44f4ba2fb00800000000000000
+      internalID: 860938835727911358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_9
+      rect:
+        serializedVersion: 2
+        x: 1121
+        y: 7
+        width: 95
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c345ae6b945fd4900800000000000000
+      internalID: 670461616498299964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_10
+      rect:
+        serializedVersion: 2
+        x: 1207
+        y: 99
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5672a519ac00913a0800000000000000
+      internalID: -6694318501087533211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_11
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 7
+        width: 116
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d0cae5afeece3b20800000000000000
+      internalID: 3116155520863092947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_12
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 86
+        width: 14
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c8186275b3450020800000000000000
+      internalID: 2307324830684813508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_13
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 79
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 015bb80f691c67ba0800000000000000
+      internalID: -6091468591947074288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: transformation1Hurt_14
+      rect:
+        serializedVersion: 2
+        x: 580
+        y: 61
+        width: 12
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9b4e578435225ce0800000000000000
+      internalID: -1418030025128653921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      transformation1Hurt_0: -1542067741819523460
+      transformation1Hurt_1: -5772704692098877829
+      transformation1Hurt_10: -6694318501087533211
+      transformation1Hurt_11: 3116155520863092947
+      transformation1Hurt_12: 2307324830684813508
+      transformation1Hurt_13: -6091468591947074288
+      transformation1Hurt_14: -1418030025128653921
+      transformation1Hurt_2: -7224356489345375008
+      transformation1Hurt_3: -1570499464800196694
+      transformation1Hurt_4: 3084046010334527657
+      transformation1Hurt_5: -6472447068660210741
+      transformation1Hurt_6: -6029702622837722156
+      transformation1Hurt_7: 147770379024538325
+      transformation1Hurt_8: 860938835727911358
+      transformation1Hurt_9: 670461616498299964
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
