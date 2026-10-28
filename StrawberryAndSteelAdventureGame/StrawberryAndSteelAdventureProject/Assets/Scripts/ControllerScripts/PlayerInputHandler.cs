@@ -49,29 +49,51 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool ConsumeAttack()
     {
-        bool pressed = attackPressed;
+        bool result = attackPressed;
         attackPressed = false;
-        return pressed;
+        return result;
     }
 
     public bool ConsumeDash()
     {
-        bool pressed = dashPressed;
+        bool result = dashPressed;
         dashPressed = false;
-        return pressed;
+        return result;
     }
 
     public bool ConsumeInteract()
     {
-        bool pressed = interactPressed;
+        bool result = interactPressed;
         interactPressed = false;
-        return pressed;
+        return result;
     }
 
     public bool ConsumePause()
     {
-        bool pressed = pausePressed;
+        bool result = pausePressed;
         pausePressed = false;
-        return pressed;
+        return result;
+    }
+
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (!hasFocus)
+            ResetInputs();
+    }
+
+    private void OnDisable()
+    {
+        ResetInputs();
+    }
+
+    private void ResetInputs()
+    {
+        MoveInput = Vector2.zero;
+        IsDefending = false;
+
+        attackPressed = false;
+        dashPressed = false;
+        interactPressed = false;
+        pausePressed = false;
     }
 }
