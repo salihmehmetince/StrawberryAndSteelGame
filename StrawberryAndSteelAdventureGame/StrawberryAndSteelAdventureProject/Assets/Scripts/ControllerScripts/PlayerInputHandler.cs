@@ -8,71 +8,81 @@ public class PlayerInputHandler : MonoBehaviour
 
     public bool IsDefending { get; private set; }
 
+    private bool jumpPressed;
     private bool attackPressed;
     private bool dashPressed;
     private bool interactPressed;
-    private bool pausePressed;
 
+    private bool wasUpPressed;
+
+    // WASD, yön tuþlarý ve gamepad sol analog çubuðu.
     public void OnMove(InputValue value)
     {
         MoveInput = value.Get<Vector2>();
+
+        // Yukarý yönüne ilk basýþ zýplama isteði oluþturur.
+        bool isUpPressed = MoveInput.y > 0.5f;
+
+        if (isUpPressed && !wasUpPressed)
+            jumpPressed = true;
+
+        wasUpPressed = isUpPressed;
+
     }
 
+    // Sol fare tuþu / Gamepad West.
     public void OnAttack(InputValue value)
     {
         if (value.isPressed)
             attackPressed = true;
     }
 
+    // F / Gamepad East.
     public void OnDefend(InputValue value)
     {
         IsDefending = value.isPressed;
     }
 
+    // Shift / Gamepad South.
     public void OnDash(InputValue value)
     {
         if (value.isPressed)
             dashPressed = true;
     }
 
+    // E / Gamepad North.
     public void OnInteract(InputValue value)
     {
         if (value.isPressed)
             interactPressed = true;
     }
 
-    public void OnPause(InputValue value)
+    public bool ConsumeJump()
     {
-        if (value.isPressed)
-            pausePressed = true;
+        bool pressed = jumpPressed;
+        jumpPressed = false;
+        return pressed;
     }
 
     public bool ConsumeAttack()
     {
-        bool result = attackPressed;
+        bool pressed = attackPressed;
         attackPressed = false;
-        return result;
+        return pressed;
     }
 
     public bool ConsumeDash()
     {
-        bool result = dashPressed;
+        bool pressed = dashPressed;
         dashPressed = false;
-        return result;
+        return pressed;
     }
 
     public bool ConsumeInteract()
     {
-        bool result = interactPressed;
+        bool pressed = interactPressed;
         interactPressed = false;
-        return result;
-    }
-
-    public bool ConsumePause()
-    {
-        bool result = pausePressed;
-        pausePressed = false;
-        return result;
+        return pressed;
     }
 
     private void OnApplicationFocus(bool hasFocus)
@@ -91,9 +101,11 @@ public class PlayerInputHandler : MonoBehaviour
         MoveInput = Vector2.zero;
         IsDefending = false;
 
+        jumpPressed = false;
         attackPressed = false;
         dashPressed = false;
         interactPressed = false;
-        pausePressed = false;
+
+        wasUpPressed = false;
     }
 }
