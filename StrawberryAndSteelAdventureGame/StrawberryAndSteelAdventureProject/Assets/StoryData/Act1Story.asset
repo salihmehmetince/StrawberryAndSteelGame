@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 887bfd84842dd0d4584556120a106f9f, type: 3}
+  m_Name: Act1Story
+  m_EditorClassIdentifier: Assembly-CSharp::ActStoryData
+  storyParts:
+  - video: {fileID: 32900000, guid: bd8772ab08391d948955e336a8fb27e7, type: 3}
+    backgroundMusic: {fileID: 8300000, guid: c301256a98e7d4927b11ad389f99beae, type: 3}
+    storyText: story 1story 1story 1story 1story 1story 1story 1story 1story 1story
+      1story 1story 1story 1story 1story 1story 1story 1story 1story 1story 1story
+      1story 1story 1story 1story 1story 1story 1story 1story 1story 1story 1story
+      1story 1story 1story 1story 1story 1story 1story 1story 1story 1story 1story
+      1story 1story 1story 1story 1story 1story 1
+  - video: {fileID: 32900000, guid: 480e91de23c80044f828c3bd6821e123, type: 3}
+    backgroundMusic: {fileID: 8300000, guid: 17cd76dba35fcd04fbd3813b94fa5428, type: 3}
+    storyText: story 2story 2story 2story 2story 2story 2story 2story 2story 2story
+      2story 2story 2story 2story 2story 2story 2story 2story 2story 2story 2story
+      2story 2story 2story 2story 2story 2story 2story 2story 2story 2story 2story
+      2story 2story 2story 2story 2story 2story 2story 2story 2story 2story 2story
+      2story 2story 2story 2story 2story 2story 2story 2
+  - video: {fileID: 32900000, guid: 980cc1aacb52b0d4fbfa2b6461a04403, type: 3}
+    backgroundMusic: {fileID: 8300000, guid: 4c4fea01bfb4b4aed9cacc0dfdb6ee37, type: 3}
+    storyText: story 3story 3story 3story 3story 3story 3story 3story 3story 3story
+      3story 3story 3story 3story 3story 3story 3story 3story 3story 3story 3story
+      3story 3story 3story 3story 3story 3story 3story 3story 3story 3story 3story
+      3story 3story 3story 3story 3story 3story 3story 3story 3story 3story 3story
+      3story 3
