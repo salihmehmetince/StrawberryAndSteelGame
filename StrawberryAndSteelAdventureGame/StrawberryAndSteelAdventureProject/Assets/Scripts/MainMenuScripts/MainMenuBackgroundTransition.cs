@@ -70,16 +70,7 @@ public sealed class MainMenuBackgroundTransition : MonoBehaviour
 
     private void SelectCurrentBackground()
     {
-        currentBackgroundIndex = 0;
-        for (int i = 0; i < backgrounds.Length; i++)
-        {
-            if (backgrounds[i] != null && backgrounds[i].activeSelf)
-            {
-                currentBackgroundIndex = i;
-                break;
-            }
-        }
-
+        currentBackgroundIndex = Random.Range(0, backgrounds.Length);
         SetActiveBackground(currentBackgroundIndex);
     }
 

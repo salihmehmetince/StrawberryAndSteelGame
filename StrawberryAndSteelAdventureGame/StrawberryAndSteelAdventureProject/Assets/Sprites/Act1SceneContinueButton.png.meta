@@ -1,0 +1,1066 @@
+fileFormatVersion: 2
+guid: 1846f33e8b9921340a2ca8bb0d903a2d
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4808707749887542593
+    second: Act1SceneContinueButton_0
+  - first:
+      213: 1748560159227722409
+    second: Act1SceneContinueButton_1
+  - first:
+      213: 5116619114478779915
+    second: Act1SceneContinueButton_2
+  - first:
+      213: -1478427394204346978
+    second: Act1SceneContinueButton_3
+  - first:
+      213: 3625172258258556278
+    second: Act1SceneContinueButton_4
+  - first:
+      213: -9033170226240396302
+    second: Act1SceneContinueButton_5
+  - first:
+      213: -5509725961476638070
+    second: Act1SceneContinueButton_6
+  - first:
+      213: -6360922003182267117
+    second: Act1SceneContinueButton_7
+  - first:
+      213: 3033769585381942401
+    second: Act1SceneContinueButton_8
+  - first:
+      213: 8122893050801477752
+    second: Act1SceneContinueButton_9
+  - first:
+      213: 8757127607896054192
+    second: Act1SceneContinueButton_10
+  - first:
+      213: -6883208047684427217
+    second: Act1SceneContinueButton_11
+  - first:
+      213: -6231546006390529071
+    second: Act1SceneContinueButton_12
+  - first:
+      213: -7059644464427918418
+    second: Act1SceneContinueButton_13
+  - first:
+      213: 2224530220587635170
+    second: Act1SceneContinueButton_14
+  - first:
+      213: 3219545278168226565
+    second: Act1SceneContinueButton_15
+  - first:
+      213: -7827676677806567382
+    second: Act1SceneContinueButton_16
+  - first:
+      213: -3746618360711661994
+    second: Act1SceneContinueButton_17
+  - first:
+      213: -546319481441105069
+    second: Act1SceneContinueButton_18
+  - first:
+      213: -3901681317953927280
+    second: Act1SceneContinueButton_19
+  - first:
+      213: -6252138677378251097
+    second: Act1SceneContinueButton_20
+  - first:
+      213: 4504459007553541249
+    second: Act1SceneContinueButton_21
+  - first:
+      213: -2466461410507063341
+    second: Act1SceneContinueButton_22
+  - first:
+      213: 3757427272622339021
+    second: Act1SceneContinueButton_23
+  - first:
+      213: -3300372093376061107
+    second: Act1SceneContinueButton_24
+  - first:
+      213: -3781465918987214482
+    second: Act1SceneContinueButton_25
+  - first:
+      213: 2527723742627798094
+    second: Act1SceneContinueButton_26
+  - first:
+      213: -2994436324751670636
+    second: Act1SceneContinueButton_27
+  - first:
+      213: -4076333046765207468
+    second: Act1SceneContinueButton_28
+  - first:
+      213: -3770751614339845
+    second: Act1SceneContinueButton_29
+  - first:
+      213: 6666588720480045004
+    second: Act1SceneContinueButton_30
+  - first:
+      213: -4993599579415029278
+    second: Act1SceneContinueButton_31
+  - first:
+      213: -4776610430625370476
+    second: Act1SceneContinueButton_32
+  - first:
+      213: -2634811959986553723
+    second: Act1SceneContinueButton_33
+  - first:
+      213: 7559241293465530246
+    second: Act1SceneContinueButton_34
+  - first:
+      213: -7601140839300570647
+    second: Act1SceneContinueButton_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 0
+        width: 1533
+        height: 1024
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14507bc8836fbb240800000000000000
+      internalID: 4808707749887542593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_1
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 866
+        width: 6
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9aa3b275332244810800000000000000
+      internalID: 1748560159227722409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_2
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 834
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b0e3b71c9f1e10740800000000000000
+      internalID: 5116619114478779915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_3
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 827
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e955e363e129b7be0800000000000000
+      internalID: -1478427394204346978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_4
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 824
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6751a1f36f23f4230800000000000000
+      internalID: 3625172258258556278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_5
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 748
+        width: 6
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f36e4df98bb3a280800000000000000
+      internalID: -9033170226240396302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_6
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 732
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8aff680e658983b0800000000000000
+      internalID: -5509725961476638070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_7
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 726
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 315da54c32779b7a0800000000000000
+      internalID: -6360922003182267117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_8
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 694
+        width: 8
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18423134d5d1a1a20800000000000000
+      internalID: 3033769585381942401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_9
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 638
+        width: 9
+        height: 52
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 878d28951305ab070800000000000000
+      internalID: 8122893050801477752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_10
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 620
+        width: 8
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b919618921978970800000000000000
+      internalID: 8757127607896054192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_11
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 571
+        width: 10
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f22e8aadfbee970a0800000000000000
+      internalID: -6883208047684427217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_12
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 603
+        width: 8
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d3a69f5ce91589a0800000000000000
+      internalID: -6231546006390529071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_13
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 566
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eab983163ca170e90800000000000000
+      internalID: -7059644464427918418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_14
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 558
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e15f36137e1fde10800000000000000
+      internalID: 2224530220587635170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_15
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 550
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50bd0836f5f1eac20800000000000000
+      internalID: 3219545278168226565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_16
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 526
+        width: 8
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a20dabac8818e5390800000000000000
+      internalID: -7827676677806567382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_17
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 532
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65633dc8376510cc0800000000000000
+      internalID: -3746618360711661994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_18
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 520
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35bc3de73551b68f0800000000000000
+      internalID: -546319481441105069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_19
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 503
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 097049863817ad9c0800000000000000
+      internalID: -3901681317953927280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_20
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 478
+        width: 10
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a683688ff0fb39a0800000000000000
+      internalID: -6252138677378251097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_21
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 484
+        width: 9
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 184998a0a9d038e30800000000000000
+      internalID: 4504459007553541249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_22
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 470
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3df748e3a6e55cdd0800000000000000
+      internalID: -2466461410507063341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_23
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 395
+        width: 11
+        height: 66
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc3f40e5230152430800000000000000
+      internalID: 3757427272622339021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_24
+      rect:
+        serializedVersion: 2
+        x: 79
+        y: 382
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4125b33119b232d0800000000000000
+      internalID: -3300372093376061107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_25
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 376
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e61658028c8858bc0800000000000000
+      internalID: -3781465918987214482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_26
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 355
+        width: 8
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e4c96a9f957441320800000000000000
+      internalID: 2527723742627798094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_27
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 350
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49286a02700a176d0800000000000000
+      internalID: -2994436324751670636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_28
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 356
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 450cf59f0b4fd67c0800000000000000
+      internalID: -4076333046765207468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_29
+      rect:
+        serializedVersion: 2
+        x: 1282
+        y: 347
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf4bd79758a92fff0800000000000000
+      internalID: -3770751614339845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_30
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 335
+        width: 8
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc7c6d3ce1b748c50800000000000000
+      internalID: 6666588720480045004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_31
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 302
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e95d66c3ab23bab0800000000000000
+      internalID: -4993599579415029278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_32
+      rect:
+        serializedVersion: 2
+        x: 994
+        y: 200
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49e2624fe1216bdb0800000000000000
+      internalID: -4776610430625370476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_33
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 182
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 58cfc037b744f6bd0800000000000000
+      internalID: -2634811959986553723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_34
+      rect:
+        serializedVersion: 2
+        x: 995
+        y: 3
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68f2a74e7e1d7e860800000000000000
+      internalID: 7559241293465530246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Act1SceneContinueButton_35
+      rect:
+        serializedVersion: 2
+        x: 1041
+        y: 0
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e166c1eda2538690800000000000000
+      internalID: -7601140839300570647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Act1SceneContinueButton_0: 4808707749887542593
+      Act1SceneContinueButton_1: 1748560159227722409
+      Act1SceneContinueButton_10: 8757127607896054192
+      Act1SceneContinueButton_11: -6883208047684427217
+      Act1SceneContinueButton_12: -6231546006390529071
+      Act1SceneContinueButton_13: -7059644464427918418
+      Act1SceneContinueButton_14: 2224530220587635170
+      Act1SceneContinueButton_15: 3219545278168226565
+      Act1SceneContinueButton_16: -7827676677806567382
+      Act1SceneContinueButton_17: -3746618360711661994
+      Act1SceneContinueButton_18: -546319481441105069
+      Act1SceneContinueButton_19: -3901681317953927280
+      Act1SceneContinueButton_2: 5116619114478779915
+      Act1SceneContinueButton_20: -6252138677378251097
+      Act1SceneContinueButton_21: 4504459007553541249
+      Act1SceneContinueButton_22: -2466461410507063341
+      Act1SceneContinueButton_23: 3757427272622339021
+      Act1SceneContinueButton_24: -3300372093376061107
+      Act1SceneContinueButton_25: -3781465918987214482
+      Act1SceneContinueButton_26: 2527723742627798094
+      Act1SceneContinueButton_27: -2994436324751670636
+      Act1SceneContinueButton_28: -4076333046765207468
+      Act1SceneContinueButton_29: -3770751614339845
+      Act1SceneContinueButton_3: -1478427394204346978
+      Act1SceneContinueButton_30: 6666588720480045004
+      Act1SceneContinueButton_31: -4993599579415029278
+      Act1SceneContinueButton_32: -4776610430625370476
+      Act1SceneContinueButton_33: -2634811959986553723
+      Act1SceneContinueButton_34: 7559241293465530246
+      Act1SceneContinueButton_35: -7601140839300570647
+      Act1SceneContinueButton_4: 3625172258258556278
+      Act1SceneContinueButton_5: -9033170226240396302
+      Act1SceneContinueButton_6: -5509725961476638070
+      Act1SceneContinueButton_7: -6360922003182267117
+      Act1SceneContinueButton_8: 3033769585381942401
+      Act1SceneContinueButton_9: 8122893050801477752
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

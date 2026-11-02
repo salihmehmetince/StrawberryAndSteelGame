@@ -15,22 +15,19 @@ MonoBehaviour:
   storyParts:
   - video: {fileID: 32900000, guid: bd8772ab08391d948955e336a8fb27e7, type: 3}
     backgroundMusic: {fileID: 8300000, guid: c301256a98e7d4927b11ad389f99beae, type: 3}
-    storyText: story 1story 1story 1story 1story 1story 1story 1story 1story 1story
-      1story 1story 1story 1story 1story 1story 1story 1story 1story 1story 1story
-      1story 1story 1story 1story 1story 1story 1story 1story 1story 1story 1story
-      1story 1story 1story 1story 1story 1story 1story 1story 1story 1story 1story
-      1story 1story 1story 1story 1story 1story 1
+    storyText: In a world ruled by ancient forests and magical crystals, Strawberry
+      and Steel lived together in peace. Inseparable companions, they had shared
+      countless adventures. But neither of them knew that darkness was approaching.
   - video: {fileID: 32900000, guid: 480e91de23c80044f828c3bd6821e123, type: 3}
     backgroundMusic: {fileID: 8300000, guid: 17cd76dba35fcd04fbd3813b94fa5428, type: 3}
-    storyText: story 2story 2story 2story 2story 2story 2story 2story 2story 2story
-      2story 2story 2story 2story 2story 2story 2story 2story 2story 2story 2story
-      2story 2story 2story 2story 2story 2story 2story 2story 2story 2story 2story
-      2story 2story 2story 2story 2story 2story 2story 2story 2story 2story 2story
-      2story 2story 2story 2story 2story 2story 2story 2
+    storyText: One day, creatures of the Dark Element attacked the forest. Strawberry
+      and Steel fought back, but their enemies were too powerful. Dark chains wrapped
+      around Steel and dragged him into an unknown realm. Strawberry reached out
+      to save him, but it was too late.
   - video: {fileID: 32900000, guid: 980cc1aacb52b0d4fbfa2b6461a04403, type: 3}
     backgroundMusic: {fileID: 8300000, guid: 4c4fea01bfb4b4aed9cacc0dfdb6ee37, type: 3}
-    storyText: story 3story 3story 3story 3story 3story 3story 3story 3story 3story
-      3story 3story 3story 3story 3story 3story 3story 3story 3story 3story 3story
-      3story 3story 3story 3story 3story 3story 3story 3story 3story 3story 3story
-      3story 3story 3story 3story 3story 3story 3story 3story 3story 3story 3story
-      3story 3
+    storyText: 'Left alone in the silence, Strawberry felt an overwhelming pain after
+      losing his closest companion. That pain slowly turned into anger, awakening
+      a power he never knew existed. His body transformed, merging the powers of
+      Strawberry and Steel into a new form. Now, he had only one purpose: to find
+      Steel and put an end to the darkness.'
