@@ -35,7 +35,7 @@ public class MainMenuSlimesAnimation : MonoBehaviour
 
             GameObject slimeObject = new GameObject("Slime");
             slimeObject.transform.SetParent(transform, false);
-            slimeObject.transform.localPosition = new Vector3(-22f, -7f, 0f);
+            slimeObject.transform.localPosition = new Vector3(-30f, -7f, 0f);
             slimeObject.transform.localScale = new Vector3(5f, 5f, 1f);
 
             slimeObject.AddComponent<SpriteRenderer>();

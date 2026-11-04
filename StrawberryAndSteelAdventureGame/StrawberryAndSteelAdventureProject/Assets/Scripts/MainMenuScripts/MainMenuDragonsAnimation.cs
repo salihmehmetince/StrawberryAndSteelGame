@@ -12,8 +12,8 @@ public sealed class MainMenuDragonsAnimation : MonoBehaviour
     [SerializeField, Min(0.1f)] private float minimumSpawnDelay = 15f;
     [SerializeField, Min(0.1f)] private float maximumSpawnDelay = 20f;
     [SerializeField, Min(1)] private int maximumDragonCount = 4;
-    [SerializeField] private float leftEdge = -22f;
-    [SerializeField] private float rightEdge = 22f;
+    [SerializeField] private float leftEdge = -30f;
+    [SerializeField] private float rightEdge = 30f;
     [SerializeField] private float spawnY = 6f;
     [SerializeField, Min(0.1f)] private float movementSpeed = 6.6f;
     [SerializeField, Min(0.1f)] private float sineSegmentDuration = 1.6666667f;

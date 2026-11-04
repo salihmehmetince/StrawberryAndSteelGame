@@ -4,8 +4,8 @@ using UnityEngine;
 public class MainMenuSlimeAnimation : MonoBehaviour
 {
     private const float MovementSpeed = 5f;
-    private const float StartX = -22f;
-    private const float EndX = 22f;
+    private const float StartX = -30f;
+    private const float EndX = 30f;
     private const float LaneY = -7f;
 
     private SlimeController slimeController;

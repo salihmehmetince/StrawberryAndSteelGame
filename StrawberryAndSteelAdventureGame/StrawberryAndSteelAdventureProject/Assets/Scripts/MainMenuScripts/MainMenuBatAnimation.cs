@@ -5,8 +5,8 @@ using System.Collections;
 public class MainMenuBatAnimation : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float startX = -22f;
-    [SerializeField] private float endX = 22f;
+    [SerializeField] private float startX = -30f;
+    [SerializeField] private float endX = 30f;
     [SerializeField] private float minY = 4f;
     [SerializeField] private float maxY = 5f;
     [SerializeField] private float movementSpeed = 5f;

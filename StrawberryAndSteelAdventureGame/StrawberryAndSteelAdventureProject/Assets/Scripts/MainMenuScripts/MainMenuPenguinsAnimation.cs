@@ -11,8 +11,8 @@ public sealed class MainMenuPenguinsAnimation : MonoBehaviour
     [SerializeField, Min(0.1f)] private float jumpDuration = 0.7f;
     [SerializeField, Min(0f)] private float jumpHeight = 2f;
 
-    private const float LeftEdge = -22f;
-    private const float RightEdge = 22f;
+    private const float LeftEdge = -30f;
+    private const float RightEdge = 30f;
     private const float LaneY = -6.3f;
     private const float SlideLaneY = -6.5f;
 

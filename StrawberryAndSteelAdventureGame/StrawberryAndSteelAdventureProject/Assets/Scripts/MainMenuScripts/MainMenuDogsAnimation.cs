@@ -41,7 +41,7 @@ public class MainMenuDogsAnimation : MonoBehaviour
 
             GameObject dogObject = new GameObject("Dog");
             dogObject.transform.SetParent(transform, false);
-            dogObject.transform.localPosition = new Vector3(-2.75f, 0f, 0f);
+            dogObject.transform.localPosition = new Vector3(-5f, 0f, 0f);
 
             dogObject.AddComponent<SpriteRenderer>();
 

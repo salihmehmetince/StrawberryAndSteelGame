@@ -4,8 +4,8 @@ using UnityEngine;
 public class MainMenuDogAnimation : MonoBehaviour
 {
     private const float MovementSpeed = 0.625f;
-    private const float StartX = -2.75f;
-    private const float EndX = 2.75f;
+    private const float StartX = -5f;
+    private const float EndX = 5f;
     private const float LaneY = 0f;
 
     private DogController dogController;

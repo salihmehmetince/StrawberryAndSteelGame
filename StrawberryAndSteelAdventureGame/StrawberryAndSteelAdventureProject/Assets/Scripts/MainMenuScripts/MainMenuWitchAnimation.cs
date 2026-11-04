@@ -3,8 +3,8 @@ using UnityEngine;
 public class MainMenuWitchAnimation : MonoBehaviour
 {
     private const float MovementSpeed = 5f;
-    private const float StartX = -22f;
-    private const float EndX = 22f;
+    private const float StartX = -30f;
+    private const float EndX = 30f;
     private const float MinY = 4f;
     private const float MaxY = 5f;
 

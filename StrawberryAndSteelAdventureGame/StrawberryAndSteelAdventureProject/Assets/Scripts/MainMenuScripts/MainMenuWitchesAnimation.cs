@@ -9,8 +9,8 @@ public class MainMenuWitchesAnimation : MonoBehaviour
 
     private const float MinWaitTime = 10f;
     private const float MaxWaitTime = 16f;
-    private const float StartX = -22f;
-    private const float EndX = 22f;
+    private const float StartX = -30f;
+    private const float EndX = 30f;
     private const float MinY = 4f;
     private const float MaxY = 5f;
     private const int MaxWitchCount = 5;
