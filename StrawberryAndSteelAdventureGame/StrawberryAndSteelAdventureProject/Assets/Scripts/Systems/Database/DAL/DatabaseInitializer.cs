@@ -1,50 +1,19 @@
 
-using System.IO;
 using SQLite;
-using UnityEngine;
 
-public class GameDatabase : MonoBehaviour
+public static class DatabaseInitializer
 {
-    private static GameDatabase instance;
-
-    private SQLiteConnection database;
-
-    public static GameDatabase Instance => instance;
-    public SQLiteConnection Database => database;
-    private void Awake()
+    public static void Initialize(DatabaseContext context)
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
+        SQLiteConnection database = context.Connection;
 
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        CreateTables(database);
+        SeedData(database);
 
-        InitializeDatabase();
+        UnityEngine.Debug.Log("Database initialization completed.");
     }
 
-    private void InitializeDatabase()
-    {
-        string databasePath = Path.Combine(
-            Application.persistentDataPath,
-            "StrawberryAndSteel.db"
-        );
-
-        database = new SQLiteConnection(databasePath);
-
-        database.Execute("PRAGMA foreign_keys = ON;");
-
-        CreateTables();
-        InsertInitialItemTypes();
-        InsertInitialItems();
-
-        Debug.Log("SQLite database connected: " + databasePath);
-        Debug.Log("Database initialized successfully.");
-    }
-
-    private void CreateTables()
+    private static void CreateTables(SQLiteConnection database)
     {
         // 1. Player
         database.Execute(@"
@@ -112,6 +81,7 @@ public class GameDatabase : MonoBehaviour
         ");
 
         // 6. PlayerSettings
+        // Geçiþ tamamlanana kadar eski tabloyu koruyoruz.
         database.Execute(@"
             CREATE TABLE IF NOT EXISTS PlayerSettings (
                 PlayerId INTEGER PRIMARY KEY,
@@ -140,9 +110,50 @@ public class GameDatabase : MonoBehaviour
                     REFERENCES PlayerHasItem(PlayerHasItemId, PlayerId)
             );
         ");
+
+        // 8. GameSettings
+        database.Execute(@"
+            CREATE TABLE IF NOT EXISTS GameSettings (
+                GameSettingsId INTEGER PRIMARY KEY
+                    CHECK (GameSettingsId = 1),
+
+                AudioLevel REAL NOT NULL
+                    CHECK (AudioLevel >= 0 AND AudioLevel <= 1),
+
+                MusicLevel REAL NOT NULL
+                    CHECK (MusicLevel >= 0 AND MusicLevel <= 1),
+
+                Sensitivity REAL NOT NULL
+                    CHECK (Sensitivity >= 0 AND Sensitivity <= 1)
+            );
+        ");
     }
 
-    private void InsertInitialItemTypes()
+    private static void SeedData(SQLiteConnection database)
+    {
+        database.RunInTransaction(() =>
+        {
+            InsertGameSettings(database);
+            InsertItemTypes(database);
+            InsertItems(database);
+        });
+    }
+
+    private static void InsertGameSettings(SQLiteConnection database)
+    {
+        database.Execute(@"
+            INSERT OR IGNORE INTO GameSettings
+            (
+                GameSettingsId,
+                AudioLevel,
+                MusicLevel,
+                Sensitivity
+            )
+            VALUES (1, 1.0, 1.0, 1.0);
+        ");
+    }
+
+    private static void InsertItemTypes(SQLiteConnection database)
     {
         database.Execute(@"
             INSERT OR IGNORE INTO ItemTypes
@@ -155,11 +166,12 @@ public class GameDatabase : MonoBehaviour
         ");
     }
 
-    private void InsertInitialItems()
+    private static void InsertItems(SQLiteConnection database)
     {
         database.Execute(@"
             INSERT OR IGNORE INTO Item
-            (ItemId, ItemName, ItemTypeId, ItemDescription, ItemValue, IsStackable, MaxStack)
+            (ItemId, ItemName, ItemTypeId, ItemDescription,
+             ItemValue, IsStackable, MaxStack)
             VALUES
 
             -- Collectables
@@ -214,23 +226,5 @@ public class GameDatabase : MonoBehaviour
             (41, 'HolyBeam', 4, 'Holy damage spell.', 60, 0, 1),
             (42, 'DragonFlame', 4, 'Powerful dragon fire spell.', 100, 0, 1);
         ");
-    }
-
-    private void OnDestroy()
-    {
-        if (instance != this)
-            return;
-
-        database?.Close();
-        database?.Dispose();
-
-        instance = null;
-    }
-
-    private void OnApplicationQuit()
-    {
-        database?.Close();
-        database?.Dispose();
-        database = null;
     }
 }

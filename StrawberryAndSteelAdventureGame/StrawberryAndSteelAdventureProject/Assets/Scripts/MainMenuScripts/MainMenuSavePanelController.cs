@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,35 +15,64 @@ public class GameSlotUI
 
 public class MainMenuSavePanelController : MonoBehaviour
 {
-    [Header("Database")]
-    [SerializeField] private GameDatabaseManager databaseManager;
+    private enum SlotSelectionMode
+    {
+        None,
+        Save,
+        Load
+    }
+
+    [Header("BL Services")]
+    private PlayerService playerService;
+    private PlayerProfileService playerProfileService;
+
+    [Header("Game Session")]
+    private GameSession gameSession;
 
     [Header("Main Menu")]
     [SerializeField] private Button NewGameButton;
+    [SerializeField] private Button LoadGameButton;
 
     [Header("Save Panel")]
     [SerializeField] private GameObject GameSlotsPanelSave;
-    [SerializeField] private GameSlotUI[] GameSlots = new GameSlotUI[3];
+    [SerializeField] private GameSlotUI[] GameSlotsSave = new GameSlotUI[3];
     [SerializeField] private Button GameSlotsCloseButton;
 
-    [Header("New Player Panel")]
-    [SerializeField] private GameObject NewPlayerPanel;
-    [SerializeField] private TMP_InputField PlayerNameInput;
-    [SerializeField] private Button ContinueButton;
-    [SerializeField] private Button NewPlayerCancelButton;
+    [Header("Save - New Player Panel")]
+    [SerializeField] private GameObject NewPlayerPanelSave;
+    [SerializeField] private TMP_InputField PlayerNameInputSave;
+    [SerializeField] private Button ContinueButtonSave;
+    [SerializeField] private Button CancelButtonSave;
 
     [Header("Override Panel")]
     [SerializeField] private GameObject OverridePanel;
     [SerializeField] private Button OverrideButton;
-    [SerializeField] private Button CancelButton;
+    [SerializeField] private Button OverrideCancelButton;
+
+    [Header("Load Panel")]
+    [SerializeField] private GameObject GameSlotsPanelLoad;
+    [SerializeField] private GameSlotUI[] GameSlotsLoad = new GameSlotUI[3];
+    [SerializeField] private Button GameSlotsLoadCloseButton;
+
+    [Header("Load - New Player Panel")]
+    [SerializeField] private GameObject NewPlayerPanelLoad;
+    [SerializeField] private TMP_InputField PlayerNameInputLoad;
+    [SerializeField] private Button ContinueButtonLoad;
+    [SerializeField] private Button CancelButtonLoad;
 
     [Header("Scene")]
     [SerializeField] private string LoadingSceneName = "LoadingScene";
 
-    private PlayerData[] slotPlayers = new PlayerData[3];
+    private Player[] slotPlayers;
 
     private int selectedSlotIndex = -1;
     private int selectedPlayerId = 0;
+
+    private SlotSelectionMode selectionMode = SlotSelectionMode.None;
+
+    // =====================================================
+    // INITIALIZATION
+    // =====================================================
 
     private void Awake()
     {
@@ -50,122 +80,342 @@ public class MainMenuSavePanelController : MonoBehaviour
         RegisterButtonEvents();
     }
 
+    private void Start()
+    {
+        if (GameBootstrapper.Instance == null)
+        {
+            Debug.LogError("GameBootstrapper instance could not be found.");
+            enabled = false;
+            return;
+        }
+
+        playerService = GameBootstrapper.Instance.PlayerService;
+        playerProfileService = GameBootstrapper.Instance.PlayerProfileService;
+        gameSession = GameBootstrapper.Instance.GameSession;
+
+        if (playerService == null ||
+            playerProfileService == null ||
+            gameSession == null)
+        {
+            Debug.LogError("Required services or GameSession could not be initialized.");
+            enabled = false;
+            return;
+        }
+    }
+
     private void InitializePanels()
     {
-        GameSlotsPanelSave.SetActive(false);
-        NewPlayerPanel.SetActive(false);
-        OverridePanel.SetActive(false);
+        if (GameSlotsPanelSave != null)
+            GameSlotsPanelSave.SetActive(false);
+
+        if (GameSlotsPanelLoad != null)
+            GameSlotsPanelLoad.SetActive(false);
+
+        if (NewPlayerPanelSave != null)
+            NewPlayerPanelSave.SetActive(false);
+
+        if (NewPlayerPanelLoad != null)
+            NewPlayerPanelLoad.SetActive(false);
+
+        if (OverridePanel != null)
+            OverridePanel.SetActive(false);
     }
 
     private void RegisterButtonEvents()
     {
-        NewGameButton.onClick.AddListener(OpenSavePanel);
+        if (NewGameButton != null)
+            NewGameButton.onClick.AddListener(OpenSavePanel);
 
-        GameSlotsCloseButton.onClick.AddListener(CloseSavePanel);
+        if (LoadGameButton != null)
+            LoadGameButton.onClick.AddListener(OpenLoadPanel);
 
-        for (int i = 0; i < GameSlots.Length; i++)
+        if (GameSlotsCloseButton != null)
+            GameSlotsCloseButton.onClick.AddListener(CloseSavePanel);
+
+        if (GameSlotsLoadCloseButton != null)
+            GameSlotsLoadCloseButton.onClick.AddListener(CloseLoadPanel);
+
+        RegisterSlotButtons(GameSlotsSave, SlotSelectionMode.Save);
+        RegisterSlotButtons(GameSlotsLoad, SlotSelectionMode.Load);
+
+        if (ContinueButtonSave != null)
         {
-            int slotIndex = i;
-
-            GameSlots[i].GameSlotButton.onClick.AddListener(
-                () => SelectSlot(slotIndex)
+            ContinueButtonSave.onClick.AddListener(
+                () => CreatePlayer(SlotSelectionMode.Save)
             );
         }
 
-        ContinueButton.onClick.AddListener(CreatePlayer);
+        if (CancelButtonSave != null)
+            CancelButtonSave.onClick.AddListener(CancelNewPlayerSave);
 
-        NewPlayerCancelButton.onClick.AddListener(CancelNewPlayer);
+        if (OverrideButton != null)
+            OverrideButton.onClick.AddListener(OpenNewPlayerSave);
 
-        OverrideButton.onClick.AddListener(OpenNewPlayerPanel);
+        if (OverrideCancelButton != null)
+            OverrideCancelButton.onClick.AddListener(CancelOverridePanel);
 
-        CancelButton.onClick.AddListener(CloseOverridePanel);
+        if (ContinueButtonLoad != null)
+        {
+            ContinueButtonLoad.onClick.AddListener(
+                () => CreatePlayer(SlotSelectionMode.Load)
+            );
+        }
+
+        if (CancelButtonLoad != null)
+            CancelButtonLoad.onClick.AddListener(CancelNewPlayerLoad);
     }
 
-    private void OpenSavePanel()
+    private void RegisterSlotButtons(
+        GameSlotUI[] slots,
+        SlotSelectionMode mode)
     {
-        RefreshSlots();
+        if (slots == null)
+            return;
 
-        GameSlotsPanelSave.SetActive(true);
-        NewPlayerPanel.SetActive(false);
-        OverridePanel.SetActive(false);
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i] == null ||
+                slots[i].GameSlotButton == null)
+                continue;
+
+            int slotIndex = i;
+
+            slots[i].GameSlotButton.onClick.AddListener(
+                () => SelectSlot(slotIndex, mode)
+            );
+        }
+    }
+
+    // =====================================================
+    // SAVE PANEL
+    // =====================================================
+
+    public void OpenSavePanel()
+    {
+        if (playerService == null)
+            return;
 
         ResetSelection();
+
+        selectionMode = SlotSelectionMode.Save;
+
+        RefreshSlots(GameSlotsSave);
+
+        GameSlotsPanelLoad.SetActive(false);
+        GameSlotsPanelSave.SetActive(true);
+
+        NewPlayerPanelSave.SetActive(false);
+        OverridePanel.SetActive(false);
     }
 
     private void CloseSavePanel()
     {
         GameSlotsPanelSave.SetActive(false);
-        NewPlayerPanel.SetActive(false);
-        OverridePanel.SetActive(false);
 
         ResetSelection();
+        selectionMode = SlotSelectionMode.None;
     }
 
-    private void RefreshSlots()
-    {
-        var players = databaseManager.GetAllPlayers();
+    // =====================================================
+    // LOAD PANEL
+    // =====================================================
 
-        for (int i = 0; i < GameSlots.Length; i++)
+    public void OpenLoadPanel()
+    {
+        if (playerService == null)
+            return;
+
+        ResetSelection();
+
+        selectionMode = SlotSelectionMode.Load;
+
+        RefreshSlots(GameSlotsLoad);
+
+        GameSlotsPanelSave.SetActive(false);
+        GameSlotsPanelLoad.SetActive(true);
+
+        NewPlayerPanelLoad.SetActive(false);
+    }
+
+    private void CloseLoadPanel()
+    {
+        GameSlotsPanelLoad.SetActive(false);
+
+        ResetSelection();
+        selectionMode = SlotSelectionMode.None;
+    }
+
+    // =====================================================
+    // SLOT MANAGEMENT
+    // =====================================================
+
+    private void RefreshSlots(GameSlotUI[] slots)
+    {
+        List<Player> players = playerService.GetAllPlayers();
+
+        slotPlayers = new Player[slots.Length];
+
+        for (int i = 0; i < slots.Length; i++)
         {
-            PlayerData player = i < players.Count
+            Player player = i < players.Count
                 ? players[i]
                 : null;
 
             slotPlayers[i] = player;
 
-            GameSlots[i].PlayerText.text = player == null
-                ? "New Game"
-                : player.PlayerName;
+            if (slots[i] == null)
+                continue;
 
-            GameSlots[i].GameSlotButton.interactable = true;
+            if (slots[i].PlayerText != null)
+            {
+                slots[i].PlayerText.text = player == null
+                    ? "New Game"
+                    : player.PlayerName;
+            }
+
+            if (slots[i].GameSlotButton != null)
+                slots[i].GameSlotButton.interactable = true;
         }
     }
 
-    private void SelectSlot(int slotIndex)
+    private void SelectSlot(
+        int slotIndex,
+        SlotSelectionMode mode)
     {
-        RefreshSlots();
+        if (mode != selectionMode || slotIndex < 0)
+            return;
+
+        GameSlotUI[] slots = GetCurrentSlots();
+
+        if (slots == null || slotIndex >= slots.Length)
+            return;
+
+        RefreshSlots(slots);
 
         selectedSlotIndex = slotIndex;
 
-        PlayerData selectedPlayer = slotPlayers[slotIndex];
+        Player selectedPlayer = slotPlayers[slotIndex];
 
-        NewPlayerPanel.SetActive(false);
-        OverridePanel.SetActive(false);
+        if (selectionMode == SlotSelectionMode.Save)
+        {
+            NewPlayerPanelSave.SetActive(false);
+            OverridePanel.SetActive(false);
+        }
+        else
+        {
+            NewPlayerPanelLoad.SetActive(false);
+        }
 
         if (selectedPlayer == null)
         {
             selectedPlayerId = 0;
-            OpenNewPlayerPanel();
+
+            if (selectionMode == SlotSelectionMode.Save)
+                OpenNewPlayerSave();
+            else
+                OpenNewPlayerLoad();
+
+            return;
         }
-        else
+
+        selectedPlayerId = selectedPlayer.PlayerId;
+
+        if (selectionMode == SlotSelectionMode.Save)
         {
-            selectedPlayerId = selectedPlayer.PlayerId;
+            OverridePanel.SetActive(true);
+        }
+        else if (selectionMode == SlotSelectionMode.Load)
+        {
+            LoadPlayer(selectedPlayer.PlayerId);
+        }
+    }
+
+    private GameSlotUI[] GetCurrentSlots()
+    {
+        if (selectionMode == SlotSelectionMode.Save)
+            return GameSlotsSave;
+
+        if (selectionMode == SlotSelectionMode.Load)
+            return GameSlotsLoad;
+
+        return null;
+    }
+
+    // =====================================================
+    // SAVE - NEW PLAYER
+    // =====================================================
+
+    private void OpenNewPlayerSave()
+    {
+        OverridePanel.SetActive(false);
+
+        PlayerNameInputSave.text = string.Empty;
+
+        NewPlayerPanelSave.SetActive(true);
+
+        PlayerNameInputSave.ActivateInputField();
+    }
+
+    private void CancelNewPlayerSave()
+    {
+        NewPlayerPanelSave.SetActive(false);
+
+        PlayerNameInputSave.text = string.Empty;
+
+        if (selectedPlayerId > 0)
+        {
             OverridePanel.SetActive(true);
         }
     }
 
-    private void OpenNewPlayerPanel()
+    // =====================================================
+    // LOAD - NEW PLAYER
+    // =====================================================
+
+    private void OpenNewPlayerLoad()
     {
-        OverridePanel.SetActive(false);
+        PlayerNameInputLoad.text = string.Empty;
 
-        PlayerNameInput.text = string.Empty;
-        NewPlayerPanel.SetActive(true);
+        NewPlayerPanelLoad.SetActive(true);
 
-        PlayerNameInput.ActivateInputField();
+        PlayerNameInputLoad.ActivateInputField();
     }
 
-    private void CreatePlayer()
+    private void CancelNewPlayerLoad()
     {
-        string playerName = PlayerNameInput.text.Trim();
+        NewPlayerPanelLoad.SetActive(false);
+
+        PlayerNameInputLoad.text = string.Empty;
+    }
+
+    // =====================================================
+    // PLAYER CREATION / OVERWRITE
+    // =====================================================
+
+    private void CreatePlayer(SlotSelectionMode mode)
+    {
+        if (mode != selectionMode)
+            return;
+
+        TMP_InputField nameInput = mode == SlotSelectionMode.Save
+            ? PlayerNameInputSave
+            : PlayerNameInputLoad;
+
+        string playerName = nameInput.text.Trim();
 
         if (string.IsNullOrWhiteSpace(playerName))
         {
-            Debug.LogWarning("Please enter a player name.");
-            PlayerNameInput.ActivateInputField();
+            Debug.LogWarning("Player name cannot be empty.");
+
+            nameInput.ActivateInputField();
             return;
         }
 
-        if (selectedSlotIndex < 0 || selectedSlotIndex >= 3)
+        GameSlotUI[] slots = GetCurrentSlots();
+
+        if (slots == null ||
+            selectedSlotIndex < 0 ||
+            selectedSlotIndex >= slots.Length)
         {
             Debug.LogError("No valid save slot selected.");
             return;
@@ -173,58 +423,99 @@ public class MainMenuSavePanelController : MonoBehaviour
 
         try
         {
-            if (selectedPlayerId > 0)
+            int activePlayerId;
+
+            if (mode == SlotSelectionMode.Save && selectedPlayerId > 0)
             {
-                databaseManager.OverwritePlayerWithDefaults(
+                bool result = playerProfileService.OverwritePlayerWithDefaults(
                     selectedPlayerId,
                     playerName
                 );
+
+                if (!result)
+                {
+                    Debug.LogError("Player overwrite operation failed.");
+                    return;
+                }
+
+                activePlayerId = selectedPlayerId;
             }
             else
             {
-                databaseManager.CreatePlayerWithDefaults(
+                activePlayerId = playerProfileService.CreatePlayerWithDefaults(
                     playerName
                 );
+
+                if (activePlayerId <= 0)
+                {
+                    Debug.LogError("Player creation operation failed.");
+                    return;
+                }
             }
 
-            Debug.Log("Player saved successfully: " + playerName);
+            gameSession.SetCurrentPlayer(activePlayerId);
+
+            Debug.Log(
+                "Player saved successfully. Player ID: " + activePlayerId
+            );
 
             SceneManager.LoadScene(LoadingSceneName);
         }
         catch (Exception exception)
         {
             Debug.LogError(
-                "Player save failed: " + exception.Message
+                "Player save operation failed: " + exception.Message
             );
         }
     }
 
-    private void CancelNewPlayer()
-    {
-        NewPlayerPanel.SetActive(false);
-        PlayerNameInput.text = string.Empty;
+    // =====================================================
+    // LOAD PLAYER
+    // =====================================================
 
-        if (selectedPlayerId > 0)
+    private void LoadPlayer(int playerId)
+    {
+        if (playerId <= 0)
         {
-            // Return to the override confirmation panel.
-            OverridePanel.SetActive(true);
+            Debug.LogError("Invalid PlayerId.");
+            return;
         }
-        else
+
+        try
         {
-            // Return to the save slots panel.
-            ResetSelection();
+            gameSession.SetCurrentPlayer(playerId);
+
+            Debug.Log("Player loaded. Player ID: " + playerId);
+
+            SceneManager.LoadScene(LoadingSceneName);
+        }
+        catch (Exception exception)
+        {
+            Debug.LogError(
+                "Player loading failed: " + exception.Message
+            );
         }
     }
 
-    private void CloseOverridePanel()
+    // =====================================================
+    // OVERRIDE PANEL
+    // =====================================================
+
+    private void CancelOverridePanel()
     {
         OverridePanel.SetActive(false);
+
         ResetSelection();
     }
+
+    // =====================================================
+    // HELPERS
+    // =====================================================
 
     private void ResetSelection()
     {
         selectedSlotIndex = -1;
         selectedPlayerId = 0;
+        slotPlayers = null;
     }
 }
