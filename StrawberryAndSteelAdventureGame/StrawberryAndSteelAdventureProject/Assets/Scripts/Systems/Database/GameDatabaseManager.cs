@@ -237,6 +237,107 @@ public class GameDatabaseManager : MonoBehaviour
             playerId
         ) > 0;
     }
+
+
+    public PlayerData CreatePlayerWithDefaults(string playerName)
+    {
+        if (string.IsNullOrWhiteSpace(playerName))
+            throw new System.ArgumentException("Player name cannot be empty.");
+
+        if (GetAllPlayers().Count >= 3)
+            throw new System.InvalidOperationException("All save slots are full.");
+
+        PlayerData player = new PlayerData
+        {
+            PlayerName = playerName.Trim(),
+            CreatedAt = System.DateTime.Now.ToString("o")
+        };
+
+        Database.RunInTransaction(() =>
+        {
+            Database.Insert(player);
+
+            Database.Insert(new PlayerProgressData
+            {
+                PlayerId = player.PlayerId,
+                LastUnlockedLevel = 1,
+                CurrentLevel = 1
+            });
+
+            Database.Insert(new PlayerSettingsData
+            {
+                PlayerId = player.PlayerId,
+                AudioLevel = 1f,
+                MusicLevel = 1f,
+                Sensitivity = 1f
+            });
+        });
+
+        return player;
+    }
+
+    public PlayerData OverwritePlayerWithDefaults(int playerId, string playerName)
+    {
+        if (string.IsNullOrWhiteSpace(playerName))
+            throw new System.ArgumentException("Player name cannot be empty.");
+
+        PlayerData player = GetPlayer(playerId);
+
+        if (player == null)
+            throw new System.InvalidOperationException("Player record not found.");
+
+        Database.RunInTransaction(() =>
+        {
+            // Remove old equipment.
+            Database.Execute(
+                "DELETE FROM PlayerEquipment WHERE PlayerId = ?",
+                playerId
+            );
+
+            // Remove old inventory.
+            Database.Execute(
+                "DELETE FROM PlayerHasItem WHERE PlayerId = ?",
+                playerId
+            );
+
+            // Remove old settings and progress.
+            Database.Execute(
+                "DELETE FROM PlayerSettings WHERE PlayerId = ?",
+                playerId
+            );
+
+            Database.Execute(
+                "DELETE FROM PlayerProgress WHERE PlayerId = ?",
+                playerId
+            );
+
+            // Update the existing player record.
+            player.PlayerName = playerName.Trim();
+            player.CreatedAt = System.DateTime.Now.ToString("o");
+
+            Database.Update(player);
+
+            // Create default progress.
+            Database.Insert(new PlayerProgressData
+            {
+                PlayerId = playerId,
+                LastUnlockedLevel = 1,
+                CurrentLevel = 1
+            });
+
+            // Create default settings.
+            Database.Insert(new PlayerSettingsData
+            {
+                PlayerId = playerId,
+                AudioLevel = 1f,
+                MusicLevel = 1f,
+                Sensitivity = 1f
+            });
+        });
+
+        return GetPlayer(playerId);
+    }
+
 }
 
 // =========================================================
