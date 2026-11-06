@@ -21,6 +21,7 @@ public class MainMenuOptionsController : MonoBehaviour
     [Header("Music Settings")]
     [SerializeField] private Slider MusicSlider;
     [SerializeField] private TMP_Text MusicValueText;
+    [SerializeField] private MainMenuMusicPlayer MusicPlayer;
 
     [Header("Sensitivity Settings")]
     [SerializeField] private Slider SensitivitySlider;
@@ -53,10 +54,6 @@ public class MainMenuOptionsController : MonoBehaviour
         }
     }
 
-    // =====================================================
-    // INITIALIZATION
-    // =====================================================
-
     private void RegisterButtonEvents()
     {
         OptionsButton.onClick.AddListener(OpenOptionsPanel);
@@ -71,14 +68,9 @@ public class MainMenuOptionsController : MonoBehaviour
         SensitivitySlider.onValueChanged.AddListener(UpdateSensitivityValueText);
     }
 
-    // =====================================================
-    // OPTIONS PANEL
-    // =====================================================
-
     private void OpenOptionsPanel()
     {
         LoadSettings();
-
         OptionsPanel.SetActive(true);
     }
 
@@ -86,10 +78,6 @@ public class MainMenuOptionsController : MonoBehaviour
     {
         OptionsPanel.SetActive(false);
     }
-
-    // =====================================================
-    // LOAD SETTINGS
-    // =====================================================
 
     private void LoadSettings()
     {
@@ -119,10 +107,6 @@ public class MainMenuOptionsController : MonoBehaviour
         SensitivitySlider.value = settings.Sensitivity;
     }
 
-    // =====================================================
-    // SAVE SETTINGS
-    // =====================================================
-
     private void SaveSettings()
     {
         bool result = gameSettingsService.UpdateSettings(
@@ -137,12 +121,20 @@ public class MainMenuOptionsController : MonoBehaviour
             return;
         }
 
+        if (MainMenuAudioController.Instance != null)
+        {
+            MainMenuAudioController.Instance.SetAudioVolume(
+                AudioSlider.value
+            );
+        }
+
+        if (MusicPlayer != null)
+        {
+            MusicPlayer.SetMusicVolume(MusicSlider.value);
+        }
+
         Debug.Log("Game settings saved successfully.");
     }
-
-    // =====================================================
-    // SLIDER VALUE TEXTS
-    // =====================================================
 
     private void UpdateAudioValueText(float value)
     {

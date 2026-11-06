@@ -22,6 +22,8 @@ public class MainMenuMusicPlayer : MonoBehaviour
 
     private void Start()
     {
+        LoadMusicVolume();
+
         if (musicClips == null || musicClips.Length == 0)
         {
             Debug.LogWarning("Herhangi bir müzik eklenmemiþ.");
@@ -41,6 +43,52 @@ public class MainMenuMusicPlayer : MonoBehaviour
         {
             PlayNextMusic();
         }
+    }
+
+    private void LoadMusicVolume()
+    {
+        if (GameBootstrapper.Instance == null)
+        {
+            Debug.LogError("GameBootstrapper instance could not be found.");
+            return;
+        }
+
+        GameSettingsService gameSettingsService =
+            GameBootstrapper.Instance.GameSettingsService;
+
+        if (gameSettingsService == null)
+        {
+            Debug.LogError("GameSettingsService could not be found.");
+            return;
+        }
+
+        GameSettings settings = gameSettingsService.GetSettings();
+
+        if (settings == null)
+        {
+            Debug.LogWarning("Game settings not found. Creating default settings.");
+
+            if (!gameSettingsService.EnsureDefaultSettings())
+            {
+                Debug.LogError("Default game settings could not be created.");
+                return;
+            }
+
+            settings = gameSettingsService.GetSettings();
+        }
+
+        if (settings == null)
+        {
+            Debug.LogError("Game settings could not be loaded.");
+            return;
+        }
+
+        SetMusicVolume(settings.MusicLevel);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        audioSource.volume = Mathf.Clamp01(volume);
     }
 
     private void CreateMusicOrder()
@@ -96,6 +144,5 @@ public class MainMenuMusicPlayer : MonoBehaviour
 
         audioSource.clip = selectedMusic;
         audioSource.Play();
-
     }
 }
