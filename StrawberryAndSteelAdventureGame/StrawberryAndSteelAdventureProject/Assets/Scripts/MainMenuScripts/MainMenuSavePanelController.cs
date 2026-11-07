@@ -459,7 +459,7 @@ public class MainMenuSavePanelController : MonoBehaviour
                 "Player saved successfully. Player ID: " + activePlayerId
             );
 
-            SceneManager.LoadScene(LoadingSceneName);
+            SceneTransitionManager.Instance.LoadScene("LevelSelectionScene");
         }
         catch (Exception exception)
         {
@@ -487,7 +487,7 @@ public class MainMenuSavePanelController : MonoBehaviour
 
             Debug.Log("Player loaded. Player ID: " + playerId);
 
-            SceneManager.LoadScene(LoadingSceneName);
+            SceneTransitionManager.Instance.LoadScene("LevelSelectionScene");
         }
         catch (Exception exception)
         {
