@@ -67,8 +67,17 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator LoadTargetScene(string targetSceneName)
     {
-        // Loading Scene'in ilk karesinin görüntülenmesine izin ver.
         yield return null;
+
+        LoadingSceneController loadingController =
+            FindFirstObjectByType<LoadingSceneController>();
+
+        if (loadingController == null)
+        {
+            Debug.LogError("LoadingSceneController bulunamadý.");
+            isTransitioning = false;
+            yield break;
+        }
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(
             targetSceneName,
@@ -84,13 +93,26 @@ public class SceneTransitionManager : MonoBehaviour
 
         operation.allowSceneActivation = false;
 
-        // Her 5 saniyede bir sahnenin yüklenme durumunu kontrol et.
-        while (operation.progress < 0.9f)
+        float nextCheckTime =
+            Time.realtimeSinceStartup + LoadingIntervalSeconds;
+
+        while (true)
         {
-            yield return new WaitForSecondsRealtime(LoadingIntervalSeconds);
+            yield return null;
+
+            if (Time.realtimeSinceStartup < nextCheckTime)
+                continue;
+
+            if (operation.progress >= 0.9f)
+                break;
+
+            nextCheckTime += LoadingIntervalSeconds;
         }
 
-        // Sahne yüklenmeye hazýr. Aktivasyona izin ver.
+        loadingController.PlayExitAnimation();
+
+        yield return new WaitUntil(() => loadingController.IsActionFinished);
+
         operation.allowSceneActivation = true;
 
         while (!operation.isDone)
