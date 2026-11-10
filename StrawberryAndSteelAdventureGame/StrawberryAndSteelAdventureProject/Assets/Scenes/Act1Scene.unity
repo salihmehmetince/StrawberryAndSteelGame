@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 57487236}
   - component: {fileID: 57487235}
   m_Layer: 5
-  m_Name: "V\u0130deoDisplay"
+  m_Name: VideoDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
   continueButton: {fileID: 682613095}
   actStoryData: {fileID: 11400000, guid: da10c312b5c1bd147aed5f1be498186e, type: 2}
   backgroundMusic: {fileID: 1062180674}
-  firstLevelSceneName: MainMenuScene
+  firstLevelSceneName: Level1Scene
 --- !u!4 &302770924
 Transform:
   m_ObjectHideFlags: 0
@@ -689,6 +689,7 @@ GameObject:
   - component: {fileID: 682613095}
   - component: {fileID: 682613099}
   - component: {fileID: 682613098}
+  - component: {fileID: 682613100}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -828,6 +829,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0.6627451, g: 0.7176471, b: 0.78431374, a: 0.5}
   m_EffectDistance: {x: 2, y: -2}
   m_UseGraphicAlpha: 1
+--- !u!114 &682613100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682613093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63b357013a543fc4fb360230699d923b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Act1ButtonSound
 --- !u!1 &1062180673
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,0 +1,1066 @@
+fileFormatVersion: 2
+guid: f2badd03dbf2a2a4ca59809eb967f940
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6591361883158017132
+    second: Level1BackroundDecorations_0
+  - first:
+      213: 533311752544191550
+    second: Level1BackroundDecorations_1
+  - first:
+      213: -2762322318111983728
+    second: Level1BackroundDecorations_2
+  - first:
+      213: -2634340200427669394
+    second: Level1BackroundDecorations_3
+  - first:
+      213: 5043352227379358698
+    second: Level1BackroundDecorations_4
+  - first:
+      213: 789860840763187718
+    second: Level1BackroundDecorations_5
+  - first:
+      213: -938944729437586521
+    second: Level1BackroundDecorations_6
+  - first:
+      213: -6712361321876402115
+    second: Level1BackroundDecorations_7
+  - first:
+      213: 2934420033696772611
+    second: Level1BackroundDecorations_8
+  - first:
+      213: 2431199205422525939
+    second: Level1BackroundDecorations_9
+  - first:
+      213: 7828033883185270034
+    second: Level1BackroundDecorations_10
+  - first:
+      213: -1103314020397639041
+    second: Level1BackroundDecorations_11
+  - first:
+      213: -3862304930649496474
+    second: Level1BackroundDecorations_12
+  - first:
+      213: 2233339276729079323
+    second: Level1BackroundDecorations_13
+  - first:
+      213: 6456313520177834938
+    second: Level1BackroundDecorations_14
+  - first:
+      213: -1206736716017103281
+    second: Level1BackroundDecorations_15
+  - first:
+      213: -4286551482225287409
+    second: Level1BackroundDecorations_16
+  - first:
+      213: 7836144398332501110
+    second: Level1BackroundDecorations_17
+  - first:
+      213: 4791775966271042022
+    second: Level1BackroundDecorations_18
+  - first:
+      213: -3800566873134030681
+    second: Level1BackroundDecorations_19
+  - first:
+      213: 3325319012856750096
+    second: Level1BackroundDecorations_20
+  - first:
+      213: -4475781353559018045
+    second: Level1BackroundDecorations_21
+  - first:
+      213: -6721556213348659873
+    second: Level1BackroundDecorations_22
+  - first:
+      213: -2304286197933945022
+    second: Level1BackroundDecorations_23
+  - first:
+      213: 2708223194522491878
+    second: Level1BackroundDecorations_24
+  - first:
+      213: 2132024828624709550
+    second: Level1BackroundDecorations_25
+  - first:
+      213: -2353013375272108285
+    second: Level1BackroundDecorations_26
+  - first:
+      213: 4250539268026010439
+    second: Level1BackroundDecorations_27
+  - first:
+      213: -5020707095618389146
+    second: Level1BackroundDecorations_28
+  - first:
+      213: 6728611501915572114
+    second: Level1BackroundDecorations_29
+  - first:
+      213: -3340063816913211034
+    second: Level1BackroundDecorations_30
+  - first:
+      213: 434709675868307822
+    second: Level1BackroundDecorations_31
+  - first:
+      213: 8839667224408412669
+    second: Level1BackroundDecorations_32
+  - first:
+      213: -7816470430484691237
+    second: Level1BackroundDecorations_33
+  - first:
+      213: 1838177873905947091
+    second: Level1BackroundDecorations_34
+  - first:
+      213: 4459231638116707064
+    second: Level1BackroundDecorations_35
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 652
+        width: 233
+        height: 180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c64feafc5b8397b50800000000000000
+      internalID: 6591361883158017132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_1
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 659
+        width: 163
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3400fc9634b66700800000000000000
+      internalID: 533311752544191550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_2
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 651
+        width: 198
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0973dc1bc724aa9d0800000000000000
+      internalID: -2762322318111983728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_3
+      rect:
+        serializedVersion: 2
+        x: 776
+        y: 714
+        width: 55
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e683af78b81f07bd0800000000000000
+      internalID: -2634340200427669394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_4
+      rect:
+        serializedVersion: 2
+        x: 782
+        y: 656
+        width: 147
+        height: 166
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aeb2f1641269df540800000000000000
+      internalID: 5043352227379358698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_5
+      rect:
+        serializedVersion: 2
+        x: 886
+        y: 734
+        width: 50
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6026ea3ff3626fa00800000000000000
+      internalID: 789860840763187718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_6
+      rect:
+        serializedVersion: 2
+        x: 1015
+        y: 659
+        width: 233
+        height: 173
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7abb52a4eb238f2f0800000000000000
+      internalID: -938944729437586521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_7
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 474
+        width: 223
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d305c7df0f6e8d2a0800000000000000
+      internalID: -6712361321876402115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_8
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 470
+        width: 146
+        height: 172
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3023942397729b820800000000000000
+      internalID: 2934420033696772611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_9
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 468
+        width: 227
+        height: 159
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3fdeb69dbca5db120800000000000000
+      internalID: 2431199205422525939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_10
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 472
+        width: 138
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21dcaf09753c2ac60800000000000000
+      internalID: 7828033883185270034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_11
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 473
+        width: 204
+        height: 169
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7a9d7a7ebd30b0f0800000000000000
+      internalID: -1103314020397639041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_12
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 323
+        width: 107
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 664a5620126566ac0800000000000000
+      internalID: -3862304930649496474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_13
+      rect:
+        serializedVersion: 2
+        x: 309
+        y: 323
+        width: 106
+        height: 129
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b165d5c4d3a6efe10800000000000000
+      internalID: 2233339276729079323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_14
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 324
+        width: 136
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abb60c880fe699950800000000000000
+      internalID: 6456313520177834938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_15
+      rect:
+        serializedVersion: 2
+        x: 764
+        y: 316
+        width: 156
+        height: 136
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4e0160b95fc04fe0800000000000000
+      internalID: -1206736716017103281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_16
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 361
+        width: 13
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f0f9986532c1384c0800000000000000
+      internalID: -4286551482225287409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_17
+      rect:
+        serializedVersion: 2
+        x: 1020
+        y: 313
+        width: 154
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67c964700d39fbc60800000000000000
+      internalID: 7836144398332501110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_18
+      rect:
+        serializedVersion: 2
+        x: 922
+        y: 347
+        width: 16
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1f6d87adecf7240800000000000000
+      internalID: 4791775966271042022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_19
+      rect:
+        serializedVersion: 2
+        x: 913
+        y: 329
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a0aabda09ca14bc0800000000000000
+      internalID: -3800566873134030681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_20
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 162
+        width: 162
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 010ed2e1608e52e20800000000000000
+      internalID: 3325319012856750096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_21
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 169
+        width: 161
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c53cc89294d2e1c0800000000000000
+      internalID: -4475781353559018045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_22
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 165
+        width: 32
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5d888d7c3c38b2a0800000000000000
+      internalID: -6721556213348659873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_23
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 161
+        width: 139
+        height: 144
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 24fcf4f59e78500e0800000000000000
+      internalID: -2304286197933945022
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_24
+      rect:
+        serializedVersion: 2
+        x: 755
+        y: 161
+        width: 179
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6eb9cf985aa859520800000000000000
+      internalID: 2708223194522491878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_25
+      rect:
+        serializedVersion: 2
+        x: 999
+        y: 161
+        width: 201
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea72d722949769d10800000000000000
+      internalID: 2132024828624709550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_26
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 191
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30fb92f4dca685fd0800000000000000
+      internalID: -2353013375272108285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_27
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 83
+        width: 62
+        height: 53
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74b0a86a1f2fcfa30800000000000000
+      internalID: 4250539268026010439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_28
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 15
+        width: 159
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66bf1645f7dd25ab0800000000000000
+      internalID: -5020707095618389146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_29
+      rect:
+        serializedVersion: 2
+        x: 498
+        y: 16
+        width: 87
+        height: 118
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2970943e284d06d50800000000000000
+      internalID: 6728611501915572114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_30
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 13
+        width: 120
+        height: 117
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 661b0c9a7a5b5a1d0800000000000000
+      internalID: -3340063816913211034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_31
+      rect:
+        serializedVersion: 2
+        x: 873
+        y: 8
+        width: 122
+        height: 131
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e614e82a526680600800000000000000
+      internalID: 434709675868307822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_32
+      rect:
+        serializedVersion: 2
+        x: 1063
+        y: 0
+        width: 185
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df1d68b818eccaa70800000000000000
+      internalID: 8839667224408412669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_33
+      rect:
+        serializedVersion: 2
+        x: 491
+        y: 63
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd68d919e81568390800000000000000
+      internalID: -7816470430484691237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_34
+      rect:
+        serializedVersion: 2
+        x: 585
+        y: 59
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d195288905828910800000000000000
+      internalID: 1838177873905947091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Level1BackroundDecorations_35
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 11
+        width: 60
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8fa21218c8f52ed30800000000000000
+      internalID: 4459231638116707064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Level1BackroundDecorations_0: 6591361883158017132
+      Level1BackroundDecorations_1: 533311752544191550
+      Level1BackroundDecorations_10: 7828033883185270034
+      Level1BackroundDecorations_11: -1103314020397639041
+      Level1BackroundDecorations_12: -3862304930649496474
+      Level1BackroundDecorations_13: 2233339276729079323
+      Level1BackroundDecorations_14: 6456313520177834938
+      Level1BackroundDecorations_15: -1206736716017103281
+      Level1BackroundDecorations_16: -4286551482225287409
+      Level1BackroundDecorations_17: 7836144398332501110
+      Level1BackroundDecorations_18: 4791775966271042022
+      Level1BackroundDecorations_19: -3800566873134030681
+      Level1BackroundDecorations_2: -2762322318111983728
+      Level1BackroundDecorations_20: 3325319012856750096
+      Level1BackroundDecorations_21: -4475781353559018045
+      Level1BackroundDecorations_22: -6721556213348659873
+      Level1BackroundDecorations_23: -2304286197933945022
+      Level1BackroundDecorations_24: 2708223194522491878
+      Level1BackroundDecorations_25: 2132024828624709550
+      Level1BackroundDecorations_26: -2353013375272108285
+      Level1BackroundDecorations_27: 4250539268026010439
+      Level1BackroundDecorations_28: -5020707095618389146
+      Level1BackroundDecorations_29: 6728611501915572114
+      Level1BackroundDecorations_3: -2634340200427669394
+      Level1BackroundDecorations_30: -3340063816913211034
+      Level1BackroundDecorations_31: 434709675868307822
+      Level1BackroundDecorations_32: 8839667224408412669
+      Level1BackroundDecorations_33: -7816470430484691237
+      Level1BackroundDecorations_34: 1838177873905947091
+      Level1BackroundDecorations_35: 4459231638116707064
+      Level1BackroundDecorations_4: 5043352227379358698
+      Level1BackroundDecorations_5: 789860840763187718
+      Level1BackroundDecorations_6: -938944729437586521
+      Level1BackroundDecorations_7: -6712361321876402115
+      Level1BackroundDecorations_8: 2934420033696772611
+      Level1BackroundDecorations_9: 2431199205422525939
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

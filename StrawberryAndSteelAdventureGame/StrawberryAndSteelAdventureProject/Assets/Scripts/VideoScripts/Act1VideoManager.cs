@@ -14,8 +14,7 @@ public class Act1VideoManager : MonoBehaviour
     [SerializeField] private ActStoryData actStoryData;
     [SerializeField] private AudioSource backgroundMusic;
 
-    [SerializeField] private string firstLevelSceneName;
-
+    [SerializeField] private string firstLevelSceneName = "Level1Scene";
     private int currentVideoIndex;
 
     private void Start()
