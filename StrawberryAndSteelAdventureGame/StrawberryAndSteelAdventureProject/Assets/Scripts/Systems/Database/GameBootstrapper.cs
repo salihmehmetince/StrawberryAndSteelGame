@@ -18,6 +18,7 @@ public class GameBootstrapper : MonoBehaviour
     public ItemTypeService ItemTypeService { get; private set; }
     public PlayerProfileService PlayerProfileService { get; private set; }
 
+    public LevelCollectableSession LevelCollectableSession { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,6 +38,8 @@ public class GameBootstrapper : MonoBehaviour
     private void InitializeSession()
     {
         GameSession = new GameSession();
+        LevelCollectableSession = new LevelCollectableSession();
+
     }
 
     private void InitializeDatabase()

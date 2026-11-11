@@ -1,3 +1,4 @@
+
 using System;
 
 public class PlayerProgressService
@@ -65,6 +66,26 @@ public class PlayerProgressService
 
         if (level > progress.LastUnlockedLevel)
             progress.LastUnlockedLevel = level;
+
+        return progressRepository.Update(progress);
+    }
+
+    public bool CompleteLevel(int playerId, int completedLevel)
+    {
+        if (playerId <= 0 || completedLevel <= 0)
+            return false;
+
+        PlayerProgress progress = progressRepository.GetByPlayerId(playerId);
+
+        if (progress == null)
+            return false;
+
+        int nextLevel = completedLevel + 1;
+
+        if (nextLevel > progress.LastUnlockedLevel)
+            progress.LastUnlockedLevel = nextLevel;
+
+        progress.CurrentLevel = nextLevel;
 
         return progressRepository.Update(progress);
     }
