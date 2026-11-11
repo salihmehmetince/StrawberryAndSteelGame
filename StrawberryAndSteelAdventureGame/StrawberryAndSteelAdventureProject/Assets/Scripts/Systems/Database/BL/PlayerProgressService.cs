@@ -3,6 +3,8 @@ using System;
 
 public class PlayerProgressService
 {
+    private const int TotalLevelCount = 10;
+
     private readonly PlayerProgressRepository progressRepository;
 
     public PlayerProgressService(PlayerProgressRepository progressRepository)
@@ -38,7 +40,7 @@ public class PlayerProgressService
 
     public bool UpdateCurrentLevel(int playerId, int level)
     {
-        if (playerId <= 0 || level <= 0)
+        if (playerId <= 0 || level < 1 || level > TotalLevelCount)
             return false;
 
         PlayerProgress progress = progressRepository.GetByPlayerId(playerId);
@@ -56,7 +58,7 @@ public class PlayerProgressService
 
     public bool UnlockLevel(int playerId, int level)
     {
-        if (playerId <= 0 || level <= 0)
+        if (playerId <= 0 || level < 1 || level > TotalLevelCount)
             return false;
 
         PlayerProgress progress = progressRepository.GetByPlayerId(playerId);
@@ -64,15 +66,24 @@ public class PlayerProgressService
         if (progress == null)
             return false;
 
-        if (level > progress.LastUnlockedLevel)
-            progress.LastUnlockedLevel = level;
+        // Daha önce açýlmýþ bir seviyeyi tekrar açmaya gerek yok.
+        if (level <= progress.LastUnlockedLevel)
+            return true;
+
+        // Arada seviye atlayarak kilit açýlmasýný engelle.
+        if (level != progress.LastUnlockedLevel + 1)
+            return false;
+
+        progress.LastUnlockedLevel = level;
 
         return progressRepository.Update(progress);
     }
 
     public bool CompleteLevel(int playerId, int completedLevel)
     {
-        if (playerId <= 0 || completedLevel <= 0)
+        if (playerId <= 0 ||
+            completedLevel < 1 ||
+            completedLevel > TotalLevelCount)
             return false;
 
         PlayerProgress progress = progressRepository.GetByPlayerId(playerId);
@@ -80,12 +91,22 @@ public class PlayerProgressService
         if (progress == null)
             return false;
 
-        int nextLevel = completedLevel + 1;
+        // Kilitli veya mevcut oynanan seviye dýþýndaki
+        // bir seviyenin tamamlanmasýný engelle.
+        if (completedLevel > progress.LastUnlockedLevel ||
+            completedLevel != progress.CurrentLevel)
+            return false;
 
-        if (nextLevel > progress.LastUnlockedLevel)
-            progress.LastUnlockedLevel = nextLevel;
+        // Son seviyeden sonra yeni seviye oluþturma.
+        if (completedLevel < TotalLevelCount)
+        {
+            int nextLevel = completedLevel + 1;
 
-        progress.CurrentLevel = nextLevel;
+            if (nextLevel > progress.LastUnlockedLevel)
+                progress.LastUnlockedLevel = nextLevel;
+
+            progress.CurrentLevel = nextLevel;
+        }
 
         return progressRepository.Update(progress);
     }

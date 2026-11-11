@@ -37,7 +37,7 @@ public class LevelSelectionSceneCollectables : MonoBehaviour
         }
 
         List<Item> items =
-            bootstrapper.ItemService.GetItemsByTypeId(itemType.ItemTypeId);
+            bootstrapper.ItemService.GetItemsByType(itemType.ItemTypeId);
 
         int coinItemId = 0;
         int diamondItemId = 0;
@@ -51,7 +51,7 @@ public class LevelSelectionSceneCollectables : MonoBehaviour
         }
 
         List<PlayerHasItem> inventory =
-            bootstrapper.PlayerHasItemService.GetInventory(playerId);
+            bootstrapper.PlayerHasItemService.GetPlayerItems(playerId);
 
         int totalCoins = 0;
         int totalDiamonds = 0;

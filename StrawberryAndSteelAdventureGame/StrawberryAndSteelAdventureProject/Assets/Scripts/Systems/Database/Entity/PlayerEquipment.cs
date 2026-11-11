@@ -11,4 +11,7 @@ public class PlayerEquipment
 
     [NotNull]
     public int PlayerHasItemId { get; set; }
+
+    [NotNull]
+    public int EquipmentSlotId { get; set; }
 }

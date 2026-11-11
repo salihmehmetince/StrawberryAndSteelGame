@@ -146,10 +146,10 @@ public class Level1PortalManager : MonoBehaviour
             bootstrapper.DatabaseContext.Connection.RunInTransaction(() =>
             {
                 if (coinCount > 0 &&
-                    !bootstrapper.PlayerHasItemService.AddItem(
+                    bootstrapper.PlayerHasItemService.AddItem(
                         playerId,
                         coinItemId,
-                        coinCount))
+                        coinCount) <= 0)
                 {
                     throw new InvalidOperationException(
                         "Coin rewards could not be saved."
@@ -157,10 +157,10 @@ public class Level1PortalManager : MonoBehaviour
                 }
 
                 if (diamondCount > 0 &&
-                    !bootstrapper.PlayerHasItemService.AddItem(
+                    bootstrapper.PlayerHasItemService.AddItem(
                         playerId,
                         diamondItemId,
-                        diamondCount))
+                        diamondCount) <= 0)
                 {
                     throw new InvalidOperationException(
                         "Diamond rewards could not be saved."
@@ -203,7 +203,7 @@ public class Level1PortalManager : MonoBehaviour
             return 0;
 
         List<Item> items =
-            bootstrapper.ItemService.GetItemsByTypeId(itemType.ItemTypeId);
+            bootstrapper.ItemService.GetItemsByType(itemType.ItemTypeId);
 
         foreach (Item item in items)
         {

@@ -1,3 +1,5 @@
+
+using System;
 using System.Collections.Generic;
 
 public class PlayerService
@@ -12,12 +14,12 @@ public class PlayerService
     public int CreatePlayer(string playerName)
     {
         if (string.IsNullOrWhiteSpace(playerName))
-            throw new System.ArgumentException("Player name cannot be empty.");
+            throw new ArgumentException("Player name cannot be empty.");
 
         Player player = new Player
         {
             PlayerName = playerName.Trim(),
-            CreatedAt = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
+            CreatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")
         };
 
         return playerRepository.Add(player);
@@ -38,11 +40,11 @@ public class PlayerService
 
     public bool UpdatePlayer(Player player)
     {
-        if (player == null)
+        if (player == null || player.PlayerId <= 0)
             return false;
 
         if (string.IsNullOrWhiteSpace(player.PlayerName))
-            throw new System.ArgumentException("Player name cannot be empty.");
+            throw new ArgumentException("Player name cannot be empty.");
 
         player.PlayerName = player.PlayerName.Trim();
 

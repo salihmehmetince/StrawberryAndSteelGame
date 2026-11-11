@@ -1,5 +1,7 @@
-using System.Collections.Generic;
+
 using SQLite;
+using System.Collections.Generic;
+using System.Linq;
 
 public class PlayerEquipmentRepository
 {
@@ -24,9 +26,18 @@ public class PlayerEquipmentRepository
     public List<PlayerEquipment> GetByPlayerId(int playerId)
     {
         return database.Query<PlayerEquipment>(
-            "SELECT * FROM PlayerEquipment WHERE PlayerId = ? ORDER BY PlayerEquipmentId",
+            "SELECT * FROM PlayerEquipment WHERE PlayerId = ? ORDER BY EquipmentSlotId",
             playerId
         );
+    }
+
+    public PlayerEquipment GetByPlayerAndSlot(int playerId, int equipmentSlotId)
+    {
+        return database.Query<PlayerEquipment>(
+            "SELECT * FROM PlayerEquipment WHERE PlayerId = ? AND EquipmentSlotId = ?",
+            playerId,
+            equipmentSlotId
+        ).FirstOrDefault();
     }
 
     public bool Update(PlayerEquipment playerEquipment)
@@ -47,15 +58,9 @@ public class PlayerEquipmentRepository
         );
     }
 
-    public bool Exists(int playerId, int playerHasItemId)
+    public bool Exists(int playerId, int equipmentSlotId)
     {
-        List<PlayerEquipment> results = database.Query<PlayerEquipment>(
-            "SELECT * FROM PlayerEquipment WHERE PlayerId = ? AND PlayerHasItemId = ?",
-            playerId,
-            playerHasItemId
-        );
-
-        return results.Count > 0;
+        return GetByPlayerAndSlot(playerId, equipmentSlotId) != null;
     }
 
     public int CountByPlayerId(int playerId)

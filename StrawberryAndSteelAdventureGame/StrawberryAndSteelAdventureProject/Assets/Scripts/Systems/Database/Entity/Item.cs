@@ -3,23 +3,19 @@ using SQLite;
 [Table("Item")]
 public class Item
 {
-    [PrimaryKey]
+    [PrimaryKey, AutoIncrement]
     public int ItemId { get; set; }
 
-    [NotNull]
+    [NotNull, Unique]
     public string ItemName { get; set; }
 
     [NotNull]
     public int ItemTypeId { get; set; }
 
+    public int? EquipmentSlotId { get; set; }
+
     public string ItemDescription { get; set; }
 
     [NotNull]
-    public int ItemValue { get; set; }
-
-    [NotNull]
-    public int IsStackable { get; set; }
-
-    [NotNull]
-    public int MaxStack { get; set; }
+    public int IsActive { get; set; }
 }

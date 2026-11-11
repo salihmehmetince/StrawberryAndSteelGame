@@ -1,10 +1,11 @@
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 [Serializable]
 public class GameSlotUI
@@ -187,6 +188,24 @@ public class MainMenuSavePanelController : MonoBehaviour
     }
 
     // =====================================================
+    // INPUT FIELD FOCUS
+    // =====================================================
+
+    private IEnumerator SetInputFieldFocus(TMP_InputField inputField)
+    {
+        yield return null;
+
+        if (inputField == null || !inputField.gameObject.activeInHierarchy)
+            yield break;
+
+        EventSystem.current.SetSelectedGameObject(inputField.gameObject);
+
+        inputField.Select();
+        inputField.ActivateInputField();
+        inputField.MoveTextEnd(false);
+    }
+
+    // =====================================================
     // SAVE PANEL
     // =====================================================
 
@@ -353,7 +372,7 @@ public class MainMenuSavePanelController : MonoBehaviour
 
         NewPlayerPanelSave.SetActive(true);
 
-        PlayerNameInputSave.ActivateInputField();
+        StartCoroutine(SetInputFieldFocus(PlayerNameInputSave));
     }
 
     private void CancelNewPlayerSave()
@@ -363,9 +382,7 @@ public class MainMenuSavePanelController : MonoBehaviour
         PlayerNameInputSave.text = string.Empty;
 
         if (selectedPlayerId > 0)
-        {
             OverridePanel.SetActive(true);
-        }
     }
 
     // =====================================================
@@ -378,7 +395,7 @@ public class MainMenuSavePanelController : MonoBehaviour
 
         NewPlayerPanelLoad.SetActive(true);
 
-        PlayerNameInputLoad.ActivateInputField();
+        StartCoroutine(SetInputFieldFocus(PlayerNameInputLoad));
     }
 
     private void CancelNewPlayerLoad()
@@ -407,7 +424,7 @@ public class MainMenuSavePanelController : MonoBehaviour
         {
             Debug.LogWarning("Player name cannot be empty.");
 
-            nameInput.ActivateInputField();
+            StartCoroutine(SetInputFieldFocus(nameInput));
             return;
         }
 

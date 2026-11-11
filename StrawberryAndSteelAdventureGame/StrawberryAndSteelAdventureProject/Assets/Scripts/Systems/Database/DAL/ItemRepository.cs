@@ -1,3 +1,4 @@
+
 using System.Collections.Generic;
 using SQLite;
 
@@ -26,6 +27,14 @@ public class ItemRepository
         return database.Query<Item>(
             "SELECT * FROM Item WHERE ItemTypeId = ? ORDER BY ItemId",
             itemTypeId
+        );
+    }
+
+    public List<Item> GetByEquipmentSlotId(int equipmentSlotId)
+    {
+        return database.Query<Item>(
+            "SELECT * FROM Item WHERE EquipmentSlotId = ? ORDER BY ItemId",
+            equipmentSlotId
         );
     }
 

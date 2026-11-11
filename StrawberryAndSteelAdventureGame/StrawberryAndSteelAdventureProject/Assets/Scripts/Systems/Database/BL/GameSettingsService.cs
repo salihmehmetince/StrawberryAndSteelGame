@@ -62,6 +62,9 @@ public class GameSettingsService
 
     private bool IsValidLevel(float value)
     {
-        return value >= 0f && value <= 1f;
+        return !float.IsNaN(value) &&
+               !float.IsInfinity(value) &&
+               value >= 0f &&
+               value <= 1f;
     }
 }
