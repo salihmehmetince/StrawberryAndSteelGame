@@ -22,11 +22,20 @@ public class PlayerCharacterStatsService
     public int CreateStats(int playerId)
     {
         if (playerId <= 0)
-            throw new ArgumentException("Invalid player ID.");
+        {
+            UnityEngine.Debug.LogError(
+                "CreateStats: Invalid PlayerId: " + playerId
+            );
+            return 0;
+        }
 
         if (statsRepository.Exists(playerId))
-            throw new InvalidOperationException(
-                "Player character stats already exists.");
+        {
+            UnityEngine.Debug.LogError(
+                "CreateStats: Stats already exist. PlayerId: " + playerId
+            );
+            return 0;
+        }
 
         PlayerCharacterStats stats = new PlayerCharacterStats
         {
@@ -34,9 +43,26 @@ public class PlayerCharacterStatsService
             TotalXP = 0
         };
 
-        return statsRepository.Add(stats);
-    }
+        try
+        {
+            int result = statsRepository.Add(stats);
 
+            UnityEngine.Debug.Log(
+                "CreateStats: Insert result = " + result +
+                ", PlayerId = " + playerId
+            );
+
+            return result;
+        }
+        catch (Exception exception)
+        {
+            UnityEngine.Debug.LogError(
+                "CreateStats database error: " + exception
+            );
+
+            return 0;
+        }
+    }
     public bool AddXP(int playerId, long amount)
     {
         if (playerId <= 0 || amount <= 0)

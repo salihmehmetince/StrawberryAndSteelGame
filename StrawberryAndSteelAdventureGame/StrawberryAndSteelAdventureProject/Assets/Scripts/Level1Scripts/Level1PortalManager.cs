@@ -20,6 +20,7 @@ public class Level1PortalManager : MonoBehaviour
     private bool playerInRange;
     private bool isCompleting;
 
+
     private void Start()
     {
         if (portalButtonIcon != null)
@@ -27,11 +28,81 @@ public class Level1PortalManager : MonoBehaviour
 
         GameBootstrapper bootstrapper = GameBootstrapper.Instance;
 
-        if (bootstrapper != null &&
-            bootstrapper.LevelCollectableSession != null)
+        if (bootstrapper == null ||
+            !bootstrapper.GameSession.HasActivePlayer ||
+            bootstrapper.LevelCollectableSession == null ||
+            bootstrapper.PlayerCharacterSession == null)
         {
-            bootstrapper.LevelCollectableSession.Clear();
+            Debug.LogError("Game session could not be initialized.");
+            return;
         }
+
+        bootstrapper.LevelCollectableSession.Clear();
+
+        int playerId = bootstrapper.GameSession.CurrentPlayerId;
+
+        if (!bootstrapper.PlayerProfileService.EnsureCharacterStats(playerId))
+        {
+            Debug.LogError("Player character stats could not be created.");
+            return;
+        }
+
+        // Initialize character stats
+        PlayerCharacterLevelStats characterStats =
+            bootstrapper.PlayerCharacterLevelStatsService.GetLevelStats(playerId);
+
+        if (characterStats == null)
+        {
+            Debug.LogError("Player character stats could not be loaded.");
+            return;
+        }
+
+        bootstrapper.PlayerCharacterSession.Initialize(characterStats);
+
+        // Load saved XP
+        PlayerCharacterStats playerStats =
+            bootstrapper.PlayerCharacterStatsService.GetStats(playerId);
+
+        if (playerStats == null)
+        {
+            Debug.LogError("Player character XP data not found.");
+            return;
+        }
+
+        long savedXP = playerStats.TotalXP;
+
+        // Get current level definition
+        CharacterLevelDefinition currentDefinition =
+            bootstrapper.CharacterLevelDefinitionService
+                .GetDefinitionByTotalXP(savedXP);
+
+        if (currentDefinition == null)
+        {
+            Debug.LogError("Current character level definition not found.");
+            return;
+        }
+
+        // Get next level definition
+        CharacterLevelDefinition nextDefinition =
+            bootstrapper.CharacterLevelDefinitionService
+                .GetDefinitionByLevel(currentDefinition.Level + 1);
+
+        long nextLevelRequiredXP = nextDefinition != null
+            ? nextDefinition.RequiredTotalXP
+            : 0;
+
+        // Initialize XP session
+        bootstrapper.PlayerCharacterSession.InitializeXP(
+            savedXP,
+            currentDefinition.RequiredTotalXP,
+            nextLevelRequiredXP
+        );
+
+        Debug.Log(
+            "XP Session Initialized | Saved XP: " + savedXP +
+            " | Level: " + currentDefinition.Level +
+            " | Next Level XP: " + nextLevelRequiredXP
+        );
     }
 
     private void Update()
@@ -178,6 +249,7 @@ public class Level1PortalManager : MonoBehaviour
             });
 
             bootstrapper.LevelCollectableSession.Clear();
+            bootstrapper.PlayerCharacterSession.Clear();
 
             SceneManager.LoadScene(levelsSelectionSceneName);
         }

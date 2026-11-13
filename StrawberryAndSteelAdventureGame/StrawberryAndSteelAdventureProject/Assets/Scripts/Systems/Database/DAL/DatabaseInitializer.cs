@@ -4,7 +4,7 @@ using SQLite;
 
 public static class DatabaseInitializer
 {
-    private const int CurrentSchemaVersion = 5;
+    private const int CurrentSchemaVersion = 6;
 
     public static void Initialize(DatabaseContext context)
     {
@@ -143,17 +143,21 @@ public static class DatabaseInitializer
         ");
 
         database.Execute(@"
-            CREATE TABLE IF NOT EXISTS CharacterLevelDefinition
-            (
-                CharacterLevelDefinitionId INTEGER PRIMARY KEY AUTOINCREMENT,
-                Level INTEGER NOT NULL UNIQUE,
-                RequiredTotalXP INTEGER NOT NULL UNIQUE,
-                BaseMaxHealth INTEGER NOT NULL,
-                BaseMaxMana INTEGER NOT NULL,
-                HealthIncrease INTEGER NOT NULL,
-                ManaIncrease INTEGER NOT NULL
-            );
-        ");
+    CREATE TABLE IF NOT EXISTS CharacterLevelDefinition
+    (
+        CharacterLevelDefinitionId INTEGER PRIMARY KEY AUTOINCREMENT,
+        Level INTEGER NOT NULL UNIQUE,
+        RequiredTotalXP INTEGER NOT NULL UNIQUE,
+        BaseMaxHealth INTEGER NOT NULL,
+        BaseMaxMana INTEGER NOT NULL,
+        HealthIncrease INTEGER NOT NULL,
+        ManaIncrease INTEGER NOT NULL,
+        BaseStrength INTEGER NOT NULL,
+        StrengthIncrease INTEGER NOT NULL,
+        BaseMovementSpeed REAL NOT NULL,
+        MovementSpeedIncrease REAL NOT NULL
+    );
+");
 
         database.Execute(@"
             CREATE TABLE IF NOT EXISTS Item
@@ -470,11 +474,11 @@ public static class DatabaseInitializer
     {
         int[] requiredXP =
         {
-            0, 100, 300, 600, 1000,
-            1500, 2100, 2800, 3600, 4500,
-            5500, 6600, 7800, 9100, 10500,
-            12000, 13600, 15300, 17100, 19000
-        };
+        0, 100, 300, 600, 1000,
+        1500, 2100, 2800, 3600, 4500,
+        5500, 6600, 7800, 9100, 10500,
+        12000, 13600, 15300, 17100, 19000
+    };
 
         for (int level = 1; level <= 20; level++)
         {
@@ -483,14 +487,20 @@ public static class DatabaseInitializer
                 CharacterLevelDefinitionId = level,
                 Level = level,
                 RequiredTotalXP = requiredXP[level - 1],
+
                 BaseMaxHealth = 100,
                 BaseMaxMana = 100,
                 HealthIncrease = (level - 1) * 10,
-                ManaIncrease = (level - 1) * 5
+                ManaIncrease = (level - 1) * 5,
+
+                BaseStrength = 10,
+                StrengthIncrease = (level - 1) * 5,
+
+                BaseMovementSpeed = 30f,
+                MovementSpeedIncrease = (level - 1) * 1f
             });
         }
     }
-
     // ==================================================
     // SPELLS
     // ==================================================

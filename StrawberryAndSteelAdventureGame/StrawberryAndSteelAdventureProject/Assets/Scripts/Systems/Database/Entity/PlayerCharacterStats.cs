@@ -3,7 +3,7 @@ using SQLite;
 [Table("PlayerCharacterStats")]
 public class PlayerCharacterStats
 {
-    [PrimaryKey]
+    [PrimaryKey, AutoIncrement]
     public int PlayerCharacterStatsId { get; set; }
 
     [NotNull, Unique]

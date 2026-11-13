@@ -79,6 +79,7 @@ public class PlayerProgressService
         return progressRepository.Update(progress);
     }
 
+
     public bool CompleteLevel(int playerId, int completedLevel)
     {
         if (playerId <= 0 ||
@@ -91,10 +92,17 @@ public class PlayerProgressService
         if (progress == null)
             return false;
 
-        // Kilitli veya mevcut oynanan seviye dýþýndaki
-        // bir seviyenin tamamlanmasýný engelle.
-        if (completedLevel > progress.LastUnlockedLevel ||
-            completedLevel != progress.CurrentLevel)
+        // Kilidi açýlmamýþ bir seviye tamamlanamaz.
+        if (completedLevel > progress.LastUnlockedLevel)
+            return false;
+
+        // Daha önce tamamlanmýþ bir seviyenin tekrar bitirilmesi.
+        // Mevcut ilerleme deðiþtirilmez.
+        if (completedLevel < progress.CurrentLevel)
+            return true;
+
+        // Oyuncunun mevcut oynadýðý seviye olmalý.
+        if (completedLevel != progress.CurrentLevel)
             return false;
 
         // Son seviyeden sonra yeni seviye oluþturma.

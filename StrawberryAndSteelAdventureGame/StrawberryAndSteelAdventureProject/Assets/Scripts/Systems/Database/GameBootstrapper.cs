@@ -11,6 +11,8 @@ public class GameBootstrapper : MonoBehaviour
 
     public LevelCollectableSession LevelCollectableSession { get; private set; }
 
+    public PlayerCharacterSession PlayerCharacterSession { get; private set; }
+
     // Services
     public PlayerService PlayerService { get; private set; }
     public PlayerProgressService PlayerProgressService { get; private set; }
@@ -32,6 +34,8 @@ public class GameBootstrapper : MonoBehaviour
     public DatabaseSchemaVersionService DatabaseSchemaVersionService { get; private set; }
     public PlayerProfileService PlayerProfileService { get; private set; }
 
+    public PlayerCharacterLevelStatsService PlayerCharacterLevelStatsService { get; private set; }
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -52,6 +56,7 @@ public class GameBootstrapper : MonoBehaviour
     {
         GameSession = new GameSession();
         LevelCollectableSession = new LevelCollectableSession();
+        PlayerCharacterSession = new PlayerCharacterSession();
     }
 
     private void InitializeDatabase()
@@ -167,7 +172,16 @@ public class GameBootstrapper : MonoBehaviour
             new CharacterLevelDefinitionService(
                 characterLevelDefinitionRepository
             );
-
+            
+        PlayerCharacterLevelStatsService =
+            new PlayerCharacterLevelStatsService(
+                PlayerCharacterStatsService,
+                CharacterLevelDefinitionService,
+                PlayerEquipmentService,
+                PlayerHasItemService,
+                ItemService,
+                ItemStatModifierService
+            );
         PlayerLevelCompletionService =
             new PlayerLevelCompletionService(
                 playerLevelCompletionRepository
@@ -184,15 +198,14 @@ public class GameBootstrapper : MonoBehaviour
 
 
         // Player Profile
-
         PlayerProfileService = new PlayerProfileService(
             DatabaseContext,
             PlayerService,
             PlayerProgressService,
             equipmentRepository,
-            playerHasItemRepository
+            playerHasItemRepository,
+            PlayerCharacterStatsService
         );
-
 
         // Default Settings
 
