@@ -12,8 +12,12 @@ public class EnemyMovementSystem
 
     private JumpBehaviour jumpBehaviour;
 
+    private bool isLocked;
+
     public bool HasActiveBehaviour => activeBehaviour != null;
     public bool HasActiveAction => activeAction != null;
+
+    public bool IsLocked => isLocked;
 
     public bool IsMoving =>
         activeAction != null ||
@@ -21,6 +25,12 @@ public class EnemyMovementSystem
 
     public bool IsJumping =>
         jumpBehaviour != null && jumpBehaviour.IsActive;
+
+    public IEnemyMovementBehaviour ActiveBehaviour => activeBehaviour;
+    public IEnemyMovementAction ActiveAction => activeAction;
+
+    public bool IsNormalMovementActive => activeBehaviour != null;
+    public bool IsSpecialMovementActive => activeAction != null;
 
     public EnemyMovementSystem(EnemyController controller)
     {
@@ -34,7 +44,7 @@ public class EnemyMovementSystem
 
     public void SetBehaviour(IEnemyMovementBehaviour behaviour)
     {
-        if (activeBehaviour == behaviour)
+        if (isLocked || activeBehaviour == behaviour)
             return;
 
         StopActiveAction();
@@ -51,12 +61,14 @@ public class EnemyMovementSystem
             physicsSettings.RestoreOriginalSettings();
         }
 
-        if (activeBehaviour != null)
-            activeBehaviour.Initialize(controller);
+        activeBehaviour?.Initialize(controller);
     }
 
     public void Move(Vector2 direction)
     {
+        if (isLocked)
+            return;
+
         activeBehaviour?.Move(direction);
     }
 
@@ -67,6 +79,9 @@ public class EnemyMovementSystem
 
     public void SetSpeed(float speed)
     {
+        if (isLocked)
+            return;
+
         activeBehaviour?.SetSpeed(speed);
     }
 
@@ -74,6 +89,9 @@ public class EnemyMovementSystem
 
     public void SetJumpBehaviour(JumpBehaviour behaviour)
     {
+        if (isLocked)
+            return;
+
         if (jumpBehaviour != null && jumpBehaviour != behaviour)
             jumpBehaviour.Stop();
 
@@ -82,7 +100,7 @@ public class EnemyMovementSystem
 
     public bool Jump()
     {
-        if (jumpBehaviour == null)
+        if (isLocked || jumpBehaviour == null)
             return false;
 
         return TryActivateAction(
@@ -96,19 +114,16 @@ public class EnemyMovementSystem
         IEnemyMovementAction action,
         Func<bool> startAction)
     {
-        if (action == null || startAction == null)
+        if (isLocked || action == null || startAction == null)
             return false;
 
         if (activeAction == action)
             return false;
 
-        if (activeAction != null)
+        if (activeAction != null &&
+            action.Priority <= activeAction.Priority)
         {
-            if (action.Priority <= activeAction.Priority)
-                return false;
-
-            activeAction.Stop();
-            activeAction = null;
+            return false;
         }
 
         if (!startAction())
@@ -116,6 +131,12 @@ public class EnemyMovementSystem
 
         if (!action.IsActive)
             return false;
+
+        if (activeAction != null)
+        {
+            activeAction.Stop();
+            activeAction = null;
+        }
 
         activeAction = action;
 
@@ -129,21 +150,88 @@ public class EnemyMovementSystem
 
         activeAction.Stop();
         activeAction = null;
+
+        SynchronizeBehaviourVelocity();
+    }
+
+    public bool StopAction(IEnemyMovementAction action)
+    {
+        if (action == null || activeAction != action)
+            return false;
+
+        StopActiveAction();
+
+        return true;
+    }
+
+    public bool IsActionActive(IEnemyMovementAction action)
+    {
+        return action != null && activeAction == action;
+    }
+
+    private void SynchronizeBehaviourVelocity()
+    {
+        if (activeBehaviour is not IEnemyMovementVelocityReceiver receiver)
+            return;
+
+        if (controller.EnemyRigidbody == null)
+            return;
+
+        receiver.SynchronizeVelocity(
+            controller.EnemyRigidbody.linearVelocity);
+    }
+
+    // Movement Lock
+
+    public void Lock()
+    {
+        if (isLocked)
+            return;
+
+        isLocked = true;
+
+        StopActiveAction();
+        StopNormalMovement();
+    }
+
+    public void Unlock()
+    {
+        if (!isLocked)
+            return;
+
+        isLocked = false;
+
+        StopNormalMovement();
     }
 
     // Update
 
+
     public void Update(float deltaTime)
     {
+        if (isLocked)
+            return;
+
         if (activeAction != null)
         {
             activeAction.Update(deltaTime);
 
-            if (activeAction.IsActive)
-                return;
+            if (!activeAction.IsActive)
+            {
+                activeAction = null;
 
-            activeAction = null;
+                SynchronizeBehaviourVelocity();
+            }
         }
+
+        if (activeAction == jumpBehaviour)
+        {
+            activeBehaviour?.Update(deltaTime);
+            return;
+        }
+
+        if (activeAction != null)
+            return;
 
         activeBehaviour?.Update(deltaTime);
     }
@@ -160,12 +248,17 @@ public class EnemyMovementSystem
 
     public void Reset()
     {
-        Stop();
+        StopActiveAction();
 
         jumpBehaviour?.Stop();
         jumpBehaviour = null;
 
+        activeBehaviour?.Stop();
         activeBehaviour = null;
+
+        activeAction = null;
+
+        isLocked = false;
 
         physicsSettings.RestoreOriginalSettings();
     }

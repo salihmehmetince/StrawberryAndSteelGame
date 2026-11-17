@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class FlyingMovement :
     IEnemyMovementBehaviour,
-    IEnemyMovementPhysicsBehaviour
+    IEnemyMovementPhysicsBehaviour,
+    IEnemyMovementVelocityReceiver
 {
     private Rigidbody2D enemyRigidbody;
 
@@ -25,14 +26,15 @@ public class FlyingMovement :
         movementSpeed = controller.Definition.MovementSpeed;
         acceleration = controller.Definition.Acceleration;
 
-        currentVelocity = Vector2.zero;
-        targetVelocity = Vector2.zero;
-
         if (enemyRigidbody == null)
         {
             Debug.LogError(
                 "FlyingMovement requires a Rigidbody2D component.");
+            return;
         }
+
+        currentVelocity = enemyRigidbody.linearVelocity;
+        targetVelocity = currentVelocity;
     }
 
     public void Move(Vector2 direction)
@@ -51,6 +53,11 @@ public class FlyingMovement :
     public void SetSpeed(float speed)
     {
         movementSpeed = speed;
+    }
+
+    public void SynchronizeVelocity(Vector2 velocity)
+    {
+        currentVelocity = velocity;
     }
 
     public void Update(float deltaTime)

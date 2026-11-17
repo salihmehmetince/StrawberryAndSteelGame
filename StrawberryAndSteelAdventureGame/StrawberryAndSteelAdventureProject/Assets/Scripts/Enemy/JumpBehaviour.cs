@@ -7,6 +7,8 @@ public class JumpBehaviour : IEnemyMovementAction
     private EnemyGroundDetection groundDetection;
 
     private float jumpForce;
+    private float takeoffTimeout;
+    private float takeoffTimer;
 
     private bool hasLeftGround;
 
@@ -21,14 +23,17 @@ public class JumpBehaviour : IEnemyMovementAction
     public void Initialize(
         EnemyController controller,
         EnemyGroundDetection groundDetection,
-        float jumpForce)
+        float jumpForce,
+        float takeoffTimeout)
     {
         enemyRigidbody = controller.EnemyRigidbody;
         this.groundDetection = groundDetection;
         this.jumpForce = jumpForce;
+        this.takeoffTimeout = takeoffTimeout;
 
         IsActive = false;
         hasLeftGround = false;
+        takeoffTimer = 0f;
 
         if (enemyRigidbody == null)
         {
@@ -42,6 +47,12 @@ public class JumpBehaviour : IEnemyMovementAction
             Debug.LogError(
                 "JumpBehaviour requires an EnemyGroundDetection instance.");
         }
+
+        if (takeoffTimeout <= 0f)
+        {
+            Debug.LogError(
+                "JumpBehaviour requires a positive takeoff timeout.");
+        }
     }
 
     public bool StartJump()
@@ -53,8 +64,12 @@ public class JumpBehaviour : IEnemyMovementAction
             return false;
         }
 
-        if (!groundDetection.CheckGround() || jumpForce <= 0f)
+        if (!groundDetection.CheckGround() ||
+            jumpForce <= 0f ||
+            takeoffTimeout <= 0f)
+        {
             return false;
+        }
 
         Vector2 velocity = enemyRigidbody.linearVelocity;
         velocity.y = 0f;
@@ -66,6 +81,7 @@ public class JumpBehaviour : IEnemyMovementAction
 
         IsActive = true;
         hasLeftGround = false;
+        takeoffTimer = 0f;
 
         return true;
     }
@@ -77,13 +93,23 @@ public class JumpBehaviour : IEnemyMovementAction
 
         bool isGrounded = groundDetection.CheckGround();
 
-        if (!isGrounded)
+        if (!hasLeftGround)
         {
-            hasLeftGround = true;
+            if (!isGrounded)
+            {
+                hasLeftGround = true;
+                return;
+            }
+
+            takeoffTimer += deltaTime;
+
+            if (takeoffTimer >= takeoffTimeout)
+                Stop();
+
             return;
         }
 
-        if (hasLeftGround)
+        if (isGrounded)
             Stop();
     }
 
@@ -91,5 +117,6 @@ public class JumpBehaviour : IEnemyMovementAction
     {
         IsActive = false;
         hasLeftGround = false;
+        takeoffTimer = 0f;
     }
 }

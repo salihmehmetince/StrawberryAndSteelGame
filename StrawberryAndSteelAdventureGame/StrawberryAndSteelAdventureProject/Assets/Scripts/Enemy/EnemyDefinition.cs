@@ -23,9 +23,18 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float defense;
     [SerializeField] private int xpReward;
 
+
+
     [Header("Movement")]
     [SerializeField] private float movementSpeed;
     [SerializeField] private float acceleration;
+    [SerializeField] private float deceleration;
+    [SerializeField] private float airAcceleration;
+    [SerializeField] private float airDeceleration;
+    [SerializeField] private float turnDeceleration;
+    [SerializeField] private float airTurnDeceleration;
+
+
 
     [Header("Detection")]
     [SerializeField] private float detectionRange;
@@ -35,6 +44,14 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float attackDamage;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackCooldown;
+
+
+    [Header("Target Search")]
+    [SerializeField] private float targetSearchSpeed;
+    [SerializeField] private float targetSearchArrivalDistance;
+    [SerializeField] private float targetSearchDuration;
+    [SerializeField] private float targetSearchVerticalArrivalDistance;
+
 
     public string EnemyId => enemyId;
     public string EnemyName => enemyName;
@@ -57,8 +74,65 @@ public class EnemyDefinition : ScriptableObject
     public float AttackRange => attackRange;
     public float AttackCooldown => attackCooldown;
 
+    public float AirAcceleration => airAcceleration;
+
+
+    public float Deceleration => deceleration;
+    public float AirDeceleration => airDeceleration;
+
+    public float TurnDeceleration => turnDeceleration;
+    public float AirTurnDeceleration => airTurnDeceleration;
+
+
+    public float TargetSearchSpeed => targetSearchSpeed;
+
+    public float TargetSearchArrivalDistance =>
+        targetSearchArrivalDistance;
+
+    public float TargetSearchDuration => targetSearchDuration;
+
+    public float TargetSearchVerticalArrivalDistance =>
+    targetSearchVerticalArrivalDistance;
+
     public bool HasCapability(EnemyCapability capability)
     {
         return (capabilities & capability) == capability;
     }
+
+
+    private void OnValidate()
+    {
+        maxHealth = Mathf.Max(1, maxHealth);
+        defense = Mathf.Max(0f, defense);
+        xpReward = Mathf.Max(0, xpReward);
+
+        movementSpeed = Mathf.Max(0f, movementSpeed);
+        acceleration = Mathf.Max(0f, acceleration);
+        airAcceleration = Mathf.Max(0f, airAcceleration);
+
+        detectionRange = Mathf.Max(0f, detectionRange);
+        visionAngle = Mathf.Clamp(visionAngle, 0f, 360f);
+
+        attackDamage = Mathf.Max(0f, attackDamage);
+        attackRange = Mathf.Max(0f, attackRange);
+        attackCooldown = Mathf.Max(0f, attackCooldown);
+
+        deceleration = Mathf.Max(0f, deceleration);
+        airDeceleration = Mathf.Max(0f, airDeceleration);
+
+        turnDeceleration = Mathf.Max(0f, turnDeceleration);
+        airTurnDeceleration = Mathf.Max(0f, airTurnDeceleration);
+
+
+        targetSearchSpeed = Mathf.Max(0.01f, targetSearchSpeed);
+
+        targetSearchArrivalDistance =
+            Mathf.Max(0f, targetSearchArrivalDistance);
+
+        targetSearchDuration = Mathf.Max(0.01f, targetSearchDuration);
+        targetSearchVerticalArrivalDistance =
+    Mathf.Max(0f, targetSearchVerticalArrivalDistance);
+
+    }
+
 }

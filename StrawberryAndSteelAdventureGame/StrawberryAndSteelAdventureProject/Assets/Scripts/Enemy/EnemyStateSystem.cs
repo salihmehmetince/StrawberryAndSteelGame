@@ -27,4 +27,5 @@ public class EnemyStateSystem
     {
         CurrentState = EnemyState.Idle;
     }
+
 }
