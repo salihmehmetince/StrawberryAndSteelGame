@@ -41,6 +41,7 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float visionAngle;
 
     [Header("Combat")]
+    [SerializeField] private EnemyAttackType attackType;
     [SerializeField] private float attackDamage;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackCooldown;
@@ -94,6 +95,7 @@ public class EnemyDefinition : ScriptableObject
     public float TargetSearchVerticalArrivalDistance =>
     targetSearchVerticalArrivalDistance;
 
+    public EnemyAttackType AttackType => attackType;
     public bool HasCapability(EnemyCapability capability)
     {
         return (capabilities & capability) == capability;
@@ -132,6 +134,11 @@ public class EnemyDefinition : ScriptableObject
         targetSearchDuration = Mathf.Max(0.01f, targetSearchDuration);
         targetSearchVerticalArrivalDistance =
     Mathf.Max(0f, targetSearchVerticalArrivalDistance);
+
+        if (!System.Enum.IsDefined(typeof(EnemyAttackType), attackType))
+        {
+            attackType = EnemyAttackType.None;
+        }
 
     }
 

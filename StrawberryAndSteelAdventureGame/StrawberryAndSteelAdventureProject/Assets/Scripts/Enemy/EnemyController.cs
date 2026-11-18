@@ -24,6 +24,22 @@ public class EnemyController : MonoBehaviour
     [Header("Target Scanning")]
     [SerializeField] private float targetScanRadius;
 
+
+    [Header("Hurt Configuration")]
+    [SerializeField] private float knockbackForce;
+    [SerializeField] private float verticalKnockbackForce;
+
+    [Header("Death Configuration")]
+    [SerializeField] private float deathDestroyDelay;
+
+    [Header("Feedback Configuration")]
+    [SerializeField] private AudioSource feedbackAudioSource;
+    [SerializeField] private AudioClip hurtSound;
+    [SerializeField] private AudioClip deathSound;
+    [SerializeField] private ParticleSystem hurtEffect;
+    [SerializeField] private ParticleSystem deathEffect;
+
+
     private Rigidbody2D enemyRigidbody;
     private Collider2D mainCollider;
     private Animator animator;
@@ -46,11 +62,22 @@ public class EnemyController : MonoBehaviour
     private EnemyTargetSystem targetSystem;
 
     private IEnemyTargetSearchBehaviour targetSearchBehaviour;
+
+
+    private EnemyHealthSystem healthSystem;
+    private EnemyDamageSystem damageSystem;
+    private EnemyHurtSystem hurtSystem;
+    private EnemyDeathSystem deathSystem;
+    private EnemyFeedbackSystem feedbackSystem;
+    private EnemyHealthEventHandler healthEventHandler;
+
     public EnemyDefinition Definition => definition;
 
     public Rigidbody2D EnemyRigidbody => enemyRigidbody;
     public Collider2D MainCollider => mainCollider;
     public Animator Animator => animator;
+
+    private EnemyAnimationEventRelay animationEventRelay;
     public SpriteRenderer[] SpriteRenderers => spriteRenderers;
 
     public EnemyStateSystem StateSystem => stateSystem;
@@ -72,6 +99,21 @@ public class EnemyController : MonoBehaviour
     public IEnemyTargetSearchBehaviour TargetSearchBehaviour =>
     targetSearchBehaviour;
 
+
+    public EnemyHealthSystem HealthSystem => healthSystem;
+    public EnemyDamageSystem DamageSystem => damageSystem;
+    public EnemyHurtSystem HurtSystem => hurtSystem;
+    public EnemyDeathSystem DeathSystem => deathSystem;
+    public EnemyFeedbackSystem FeedbackSystem => feedbackSystem;
+
+    public bool IsDead =>
+        healthSystem != null && healthSystem.IsDead;
+
+    public int CurrentHealth =>
+        healthSystem != null ? healthSystem.CurrentHealth : 0;
+
+    public int MaxHealth =>
+        healthSystem != null ? healthSystem.MaxHealth : 0;
 
     public bool IsJumping =>
         movementSystem != null && movementSystem.IsJumping;
@@ -123,6 +165,24 @@ public class EnemyController : MonoBehaviour
         targetSearchBehaviour?.Update(Time.fixedDeltaTime);
     }
 
+    private void Update()
+    {
+        if (!isInitialized)
+            return;
+
+        deathSystem?.Update(Time.deltaTime);
+    }
+
+    public void CompleteHurtAnimation()
+    {
+        hurtSystem?.CompleteHurt();
+    }
+
+    public void CompleteDeathAnimation()
+    {
+        deathSystem?.CompleteDeathAnimation();
+    }
+
     public void Initialize()
     {
         if (isInitialized) return;
@@ -137,6 +197,8 @@ public class EnemyController : MonoBehaviour
 
         CacheComponents();
 
+        InitializeAnimationEventRelay();
+
         stateSystem = new EnemyStateSystem();
         movementSystem = new EnemyMovementSystem(this);
 
@@ -150,6 +212,7 @@ public class EnemyController : MonoBehaviour
         targetSystem = new EnemyTargetSystem();
 
         InitializeTargetSearchBehaviour();
+        InitializeHealthSystems();
 
         isInitialized = true;
     }
@@ -492,4 +555,93 @@ public class EnemyController : MonoBehaviour
             definition.TargetSearchSpeed);
     }
 
+
+    private void InitializeHealthSystems()
+    {
+        healthSystem = new EnemyHealthSystem(
+            definition.MaxHealth,
+            definition.Defense);
+
+        damageSystem = new EnemyDamageSystem();
+        damageSystem.Initialize(healthSystem);
+
+        hurtSystem = new EnemyHurtSystem();
+        hurtSystem.Initialize(
+            this,
+            enemyRigidbody,
+            animator,
+            knockbackForce,
+            verticalKnockbackForce);
+
+        deathSystem = new EnemyDeathSystem();
+        deathSystem.Initialize(
+            this,
+            enemyRigidbody,
+            mainCollider,
+            animator,
+            deathDestroyDelay);
+
+        feedbackSystem = new EnemyFeedbackSystem();
+
+        if (feedbackAudioSource == null)
+            feedbackAudioSource = GetComponent<AudioSource>();
+
+        feedbackSystem.Initialize(
+            feedbackAudioSource,
+            hurtSound,
+            deathSound,
+            hurtEffect,
+            deathEffect);
+
+        healthEventHandler = new EnemyHealthEventHandler();
+        healthEventHandler.Initialize(
+            healthSystem,
+            damageSystem,
+            hurtSystem,
+            deathSystem,
+            feedbackSystem);
+    }
+
+
+    public int ReceiveDamage(
+        int incomingDamage,
+        Vector2 attackPosition)
+    {
+        if (!isInitialized || IsDead)
+            return 0;
+
+        return damageSystem.ReceiveDamage(
+            incomingDamage,
+            attackPosition);
+    }
+
+    public int Heal(int healAmount)
+    {
+        if (!isInitialized || IsDead)
+            return 0;
+
+        return healthSystem.Heal(healAmount);
+    }
+
+    private void OnDestroy()
+    {
+        healthEventHandler?.Dispose();
+    }
+
+    private void InitializeAnimationEventRelay()
+    {
+        if (animator == null)
+            return;
+
+        animationEventRelay =
+            animator.GetComponent<EnemyAnimationEventRelay>();
+
+        if (animationEventRelay == null)
+        {
+            animationEventRelay =
+                animator.gameObject.AddComponent<EnemyAnimationEventRelay>();
+        }
+
+        animationEventRelay.Initialize(this);
+    }
 }
