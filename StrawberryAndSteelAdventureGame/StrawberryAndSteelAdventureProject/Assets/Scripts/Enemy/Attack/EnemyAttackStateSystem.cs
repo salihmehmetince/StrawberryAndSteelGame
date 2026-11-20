@@ -4,6 +4,9 @@ public class EnemyAttackStateSystem
     public EnemyAttackState CurrentState { get; private set; } =
         EnemyAttackState.Idle;
 
+    public bool IsIdle =>
+        CurrentState == EnemyAttackState.Idle;
+
     public bool IsAttacking =>
         CurrentState == EnemyAttackState.Attacking;
 
@@ -19,68 +22,59 @@ public class EnemyAttackStateSystem
     public bool IsInterrupted =>
         CurrentState == EnemyAttackState.Interrupted;
 
-    public void SetState(EnemyAttackState newState)
-    {
-        if (CurrentState == newState)
-            return;
-
-        CurrentState = newState;
-    }
-
     public bool CanStartAttack()
     {
-        return CurrentState == EnemyAttackState.Idle;
+        return IsIdle;
     }
 
-    public void StartPreparing()
+    public bool StartPreparing()
     {
         if (!CanStartAttack())
-            return;
+            return false;
 
         SetState(EnemyAttackState.Preparing);
+        return true;
     }
 
-    public void StartAttacking()
+    public bool StartAttacking()
     {
-        if (CurrentState != EnemyAttackState.Preparing &&
-            CurrentState != EnemyAttackState.Idle)
-        {
-            return;
-        }
+        if (!IsPreparing)
+            return false;
 
         SetState(EnemyAttackState.Attacking);
+        return true;
     }
 
-    public void StartRecovery()
+    public bool StartRecovery()
     {
-        if (CurrentState != EnemyAttackState.Attacking)
-            return;
+        if (!IsAttacking)
+            return false;
 
         SetState(EnemyAttackState.Recovery);
+        return true;
     }
 
-    public void StartCooldown()
+    public bool StartCooldown()
     {
-        if (CurrentState != EnemyAttackState.Recovery &&
-            CurrentState != EnemyAttackState.Attacking)
-        {
-            return;
-        }
+        if (!IsRecovering)
+            return false;
 
         SetState(EnemyAttackState.Cooldown);
+        return true;
     }
 
-    public void CompleteCooldown()
+    public bool CompleteCooldown()
     {
-        if (CurrentState != EnemyAttackState.Cooldown)
-            return;
+        if (!IsOnCooldown)
+            return false;
 
         SetState(EnemyAttackState.Idle);
+        return true;
     }
 
     public void Interrupt()
     {
-        if (CurrentState == EnemyAttackState.Idle)
+        if (IsIdle || IsInterrupted)
             return;
 
         SetState(EnemyAttackState.Interrupted);
@@ -89,5 +83,10 @@ public class EnemyAttackStateSystem
     public void Reset()
     {
         SetState(EnemyAttackState.Idle);
+    }
+
+    private void SetState(EnemyAttackState newState)
+    {
+        CurrentState = newState;
     }
 }

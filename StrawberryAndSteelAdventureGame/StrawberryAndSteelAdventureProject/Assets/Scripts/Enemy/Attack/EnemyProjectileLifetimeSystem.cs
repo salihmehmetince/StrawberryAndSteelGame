@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public class EnemyProjectileLifetimeSystem
@@ -15,10 +14,17 @@ public class EnemyProjectileLifetimeSystem
 
     public void Initialize(float lifetime)
     {
-        if (lifetime <= 0f)
+        this.lifetime = 0f;
+        remainingLifetime = 0f;
+        IsInitialized = false;
+
+        if (float.IsNaN(lifetime) ||
+            float.IsInfinity(lifetime) ||
+            lifetime <= 0f)
         {
             Debug.LogError(
                 "EnemyProjectileLifetimeSystem received an invalid lifetime.");
+
             return;
         }
 
@@ -30,8 +36,14 @@ public class EnemyProjectileLifetimeSystem
 
     public void Update(float deltaTime)
     {
-        if (!IsInitialized || IsExpired)
+        if (!IsInitialized ||
+            IsExpired ||
+            float.IsNaN(deltaTime) ||
+            float.IsInfinity(deltaTime) ||
+            deltaTime < 0f)
+        {
             return;
+        }
 
         remainingLifetime = Mathf.Max(
             0f,

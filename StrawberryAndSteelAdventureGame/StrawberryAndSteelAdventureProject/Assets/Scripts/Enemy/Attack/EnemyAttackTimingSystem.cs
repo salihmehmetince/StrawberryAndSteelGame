@@ -10,6 +10,7 @@ public class EnemyAttackTimingSystem
     private float remainingTime;
 
     public bool IsInitialized { get; private set; }
+    public bool IsRunning { get; private set; }
 
     public float RemainingTime => remainingTime;
 
@@ -22,12 +23,26 @@ public class EnemyAttackTimingSystem
         float attackDuration,
         float recoveryDuration)
     {
-        if (preparationDuration < 0f ||
+        this.preparationDuration = 0f;
+        this.attackDuration = 0f;
+        this.recoveryDuration = 0f;
+
+        remainingTime = 0f;
+        IsRunning = false;
+        IsInitialized = false;
+
+        if (float.IsNaN(preparationDuration) ||
+            float.IsInfinity(preparationDuration) ||
+            preparationDuration < 0f ||
+            float.IsNaN(attackDuration) ||
+            float.IsInfinity(attackDuration) ||
             attackDuration <= 0f ||
+            float.IsNaN(recoveryDuration) ||
+            float.IsInfinity(recoveryDuration) ||
             recoveryDuration < 0f)
         {
             Debug.LogError(
-                "EnemyAttackTimingSystem received invalid timing values.");
+                "Enemy attack timing values must be finite. Preparation and recovery must be non-negative, and attack duration must be greater than zero.");
 
             return;
         }
@@ -36,48 +51,57 @@ public class EnemyAttackTimingSystem
         this.attackDuration = attackDuration;
         this.recoveryDuration = recoveryDuration;
 
-        remainingTime = 0f;
         IsInitialized = true;
     }
 
     public void StartPreparation()
     {
-        if (!IsInitialized)
-            return;
-
-        remainingTime = preparationDuration;
+        StartTimer(preparationDuration);
     }
 
     public void StartAttack()
     {
-        if (!IsInitialized)
-            return;
-
-        remainingTime = attackDuration;
+        StartTimer(attackDuration);
     }
 
     public void StartRecovery()
     {
+        StartTimer(recoveryDuration);
+    }
+
+    private void StartTimer(float duration)
+    {
         if (!IsInitialized)
             return;
 
-        remainingTime = recoveryDuration;
+        remainingTime = duration;
+        IsRunning = duration > 0f;
     }
 
     public bool Update(float deltaTime)
     {
-        if (!IsInitialized || remainingTime <= 0f)
-            return true;
+        if (!IsInitialized ||
+            !IsRunning ||
+            float.IsNaN(deltaTime) ||
+            float.IsInfinity(deltaTime) ||
+            deltaTime < 0f)
+        {
+            return false;
+        }
 
         remainingTime = Mathf.Max(
             0f,
             remainingTime - deltaTime);
 
-        return remainingTime <= 0f;
-    }
+        if (remainingTime > 0f)
+            return false;
 
+        IsRunning = false;
+        return true;
+    }
     public void Reset()
     {
         remainingTime = 0f;
+        IsRunning = false;
     }
 }

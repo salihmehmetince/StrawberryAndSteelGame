@@ -29,6 +29,12 @@ public class EnemyMeleeAttackBehaviour : IEnemyAttackBehaviour
         EnemyAttackValidationSystem validationSystem,
         EnemyMeleeHitDetectionSystem hitDetectionSystem)
     {
+        this.attackSystem = null;
+        this.targetSystem = null;
+        this.damageSystem = null;
+        this.validationSystem = null;
+        this.hitDetectionSystem = null;
+
         if (attackSystem == null ||
             targetSystem == null ||
             damageSystem == null ||
@@ -71,10 +77,7 @@ public class EnemyMeleeAttackBehaviour : IEnemyAttackBehaviour
         List<IDamageable> detectedTargets =
             hitDetectionSystem.DetectTargets();
 
-        if (detectedTargets.Count == 0)
-            return false;
-
-        if (!attackSystem.TryStartAttack())
+        if (detectedTargets == null || detectedTargets.Count == 0)
             return false;
 
         Vector2 attackPosition =
@@ -84,6 +87,9 @@ public class EnemyMeleeAttackBehaviour : IEnemyAttackBehaviour
 
         foreach (IDamageable target in detectedTargets)
         {
+            if (target == null)
+                continue;
+
             if (damageSystem.ApplyDamage(target, attackPosition))
                 damageApplied = true;
         }

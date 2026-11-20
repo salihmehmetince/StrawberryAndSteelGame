@@ -6,16 +6,21 @@ public class EnemyAttackLineOfSightSystem
     private Transform attackOrigin;
     private LayerMask obstacleLayers;
 
-    public bool IsInitialized => attackOrigin != null;
+    public bool IsInitialized =>
+        attackOrigin != null;
 
     public void Initialize(
         Transform attackOrigin,
         LayerMask obstacleLayers)
     {
+        this.attackOrigin = null;
+        this.obstacleLayers = default;
+
         if (attackOrigin == null)
         {
             Debug.LogError(
                 "EnemyAttackLineOfSightSystem requires an attack origin.");
+
             return;
         }
 
@@ -25,8 +30,13 @@ public class EnemyAttackLineOfSightSystem
 
     public bool HasLineOfSight(Transform target)
     {
-        if (!IsInitialized || target == null)
+        if (!IsInitialized ||
+            target == null ||
+            !target.gameObject.activeInHierarchy ||
+            !target.root.gameObject.activeInHierarchy)
+        {
             return false;
+        }
 
         Vector2 origin = attackOrigin.position;
         Vector2 destination = target.position;

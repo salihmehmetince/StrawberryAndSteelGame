@@ -23,6 +23,8 @@ public class EnemyDeathSystem
         Animator enemyAnimator,
         float destroyDelay)
     {
+        Clear();
+
         if (enemyController == null)
         {
             Debug.LogError(
@@ -31,7 +33,9 @@ public class EnemyDeathSystem
             return;
         }
 
-        if (destroyDelay < 0f)
+        if (float.IsNaN(destroyDelay) ||
+            float.IsInfinity(destroyDelay) ||
+            destroyDelay < 0f)
         {
             Debug.LogError(
                 "EnemyDeathSystem received an invalid destroy delay.");
@@ -44,11 +48,6 @@ public class EnemyDeathSystem
         this.enemyCollider = enemyCollider;
         this.enemyAnimator = enemyAnimator;
         this.destroyDelay = destroyDelay;
-
-        IsDead = false;
-        IsDeathAnimationCompleted = false;
-        IsDestroyed = false;
-        destroyTimer = 0f;
     }
 
     public void Die()
@@ -91,6 +90,11 @@ public class EnemyDeathSystem
             IsDestroyed)
             return;
 
+        if (float.IsNaN(deltaTime) ||
+            float.IsInfinity(deltaTime) ||
+            deltaTime < 0f)
+            return;
+
         destroyTimer -= deltaTime;
 
         if (destroyTimer <= 0f)
@@ -99,10 +103,25 @@ public class EnemyDeathSystem
 
     private void DestroyEnemy()
     {
-        if (IsDestroyed)
+        if (IsDestroyed || enemyController == null)
             return;
 
         IsDestroyed = true;
         Object.Destroy(enemyController.gameObject);
+    }
+
+    private void Clear()
+    {
+        enemyController = null;
+        enemyRigidbody = null;
+        enemyCollider = null;
+        enemyAnimator = null;
+
+        destroyDelay = 0f;
+        destroyTimer = 0f;
+
+        IsDead = false;
+        IsDeathAnimationCompleted = false;
+        IsDestroyed = false;
     }
 }

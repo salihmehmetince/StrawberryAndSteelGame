@@ -5,12 +5,17 @@ public class EnemyAttackAnimationEventHandler : MonoBehaviour
 {
     private EnemyAttackSequenceSystem sequenceSystem;
 
-    public bool IsInitialized => sequenceSystem != null &&
-                                 sequenceSystem.IsInitialized;
+    public bool IsInitialized =>
+        sequenceSystem != null &&
+        sequenceSystem.IsInitialized;
 
-    public void Initialize(EnemyAttackSequenceSystem sequenceSystem)
+    public void Initialize(
+        EnemyAttackSequenceSystem sequenceSystem)
     {
-        if (sequenceSystem == null || !sequenceSystem.IsInitialized)
+        Clear();
+
+        if (sequenceSystem == null ||
+            !sequenceSystem.IsInitialized)
         {
             Debug.LogError(
                 "EnemyAttackAnimationEventHandler requires an initialized sequence system.",
@@ -52,5 +57,10 @@ public class EnemyAttackAnimationEventHandler : MonoBehaviour
             return;
 
         sequenceSystem.Interrupt();
+    }
+
+    public void Clear()
+    {
+        sequenceSystem = null;
     }
 }

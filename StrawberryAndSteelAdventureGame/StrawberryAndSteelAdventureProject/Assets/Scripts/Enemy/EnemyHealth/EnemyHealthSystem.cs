@@ -21,7 +21,12 @@ public class EnemyHealthSystem
     public EnemyHealthSystem(int maxHealth, float defense)
     {
         MaxHealth = maxHealth > 0 ? maxHealth : 1;
-        Defense = defense > 0f ? defense : 0f;
+
+        Defense = !float.IsNaN(defense) &&
+                  !float.IsInfinity(defense) &&
+                  defense > 0f
+            ? defense
+            : 0f;
 
         CurrentHealth = MaxHealth;
         IsDead = false;
@@ -32,9 +37,13 @@ public class EnemyHealthSystem
         if (IsDead || incomingDamage <= 0)
             return 0;
 
-        int actualDamage = (int)Math.Max(
-            0,
-            incomingDamage - Defense);
+        double calculatedDamage = Math.Max(
+            0d,
+            incomingDamage - (double)Defense);
+
+        int actualDamage = (int)Math.Min(
+            int.MaxValue,
+            calculatedDamage);
 
         int previousHealth = CurrentHealth;
 
@@ -66,9 +75,9 @@ public class EnemyHealthSystem
 
         int previousHealth = CurrentHealth;
 
-        CurrentHealth = Math.Min(
+        CurrentHealth = (int)Math.Min(
             MaxHealth,
-            CurrentHealth + healAmount);
+            (long)CurrentHealth + healAmount);
 
         int healedAmount = CurrentHealth - previousHealth;
 

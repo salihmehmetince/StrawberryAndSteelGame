@@ -45,7 +45,11 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float attackDamage;
     [SerializeField] private float attackRange;
     [SerializeField] private float attackCooldown;
-
+    [SerializeField] private float attackPreparationDuration;
+    [SerializeField] private float attackDuration;
+    [SerializeField] private float attackRecoveryDuration;
+    [SerializeField] private float projectileSpeed;
+    [SerializeField] private float projectileLifetime;
 
     [Header("Target Search")]
     [SerializeField] private float targetSearchSpeed;
@@ -96,6 +100,18 @@ public class EnemyDefinition : ScriptableObject
     targetSearchVerticalArrivalDistance;
 
     public EnemyAttackType AttackType => attackType;
+
+    public float AttackPreparationDuration =>
+    attackPreparationDuration;
+
+    public float AttackDuration =>
+        attackDuration;
+
+    public float AttackRecoveryDuration =>
+        attackRecoveryDuration;
+
+    public float ProjectileSpeed => projectileSpeed;
+    public float ProjectileLifetime => projectileLifetime;
     public bool HasCapability(EnemyCapability capability)
     {
         return (capabilities & capability) == capability;
@@ -134,6 +150,18 @@ public class EnemyDefinition : ScriptableObject
         targetSearchDuration = Mathf.Max(0.01f, targetSearchDuration);
         targetSearchVerticalArrivalDistance =
     Mathf.Max(0f, targetSearchVerticalArrivalDistance);
+
+        attackPreparationDuration =
+    Mathf.Max(0f, attackPreparationDuration);
+
+        attackDuration =
+            Mathf.Max(0.01f, attackDuration);
+
+        attackRecoveryDuration =
+            Mathf.Max(0f, attackRecoveryDuration);
+
+        projectileSpeed = Mathf.Max(0f, projectileSpeed);
+        projectileLifetime = Mathf.Max(0.01f, projectileLifetime);
 
         if (!System.Enum.IsDefined(typeof(EnemyAttackType), attackType))
         {

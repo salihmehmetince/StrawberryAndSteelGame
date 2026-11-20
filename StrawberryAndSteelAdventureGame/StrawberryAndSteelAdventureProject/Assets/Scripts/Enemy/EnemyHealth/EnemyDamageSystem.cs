@@ -12,10 +12,13 @@ public class EnemyDamageSystem
 
     public void Initialize(EnemyHealthSystem healthSystem)
     {
+        this.healthSystem = null;
+
         if (healthSystem == null)
         {
             Debug.LogError(
                 "EnemyDamageSystem requires an EnemyHealthSystem.");
+
             return;
         }
 
@@ -26,8 +29,19 @@ public class EnemyDamageSystem
         int incomingDamage,
         Vector2 attackPosition)
     {
-        if (healthSystem == null)
+        if (!IsInitialized)
             return 0;
+
+        if (incomingDamage <= 0)
+            return 0;
+
+        if (float.IsNaN(attackPosition.x) ||
+            float.IsInfinity(attackPosition.x) ||
+            float.IsNaN(attackPosition.y) ||
+            float.IsInfinity(attackPosition.y))
+        {
+            return 0;
+        }
 
         int appliedDamage = healthSystem.TakeDamage(incomingDamage);
 

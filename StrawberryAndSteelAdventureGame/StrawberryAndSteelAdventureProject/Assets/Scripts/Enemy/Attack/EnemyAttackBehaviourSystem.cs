@@ -14,6 +14,8 @@ public class EnemyAttackBehaviourSystem
 
     public bool SetBehaviour(IEnemyAttackBehaviour behaviour)
     {
+        activeBehaviour = null;
+
         if (behaviour == null)
         {
             Debug.LogError(

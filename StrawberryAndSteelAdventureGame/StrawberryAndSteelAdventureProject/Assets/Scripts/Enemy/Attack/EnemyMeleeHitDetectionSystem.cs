@@ -8,21 +8,34 @@ public class EnemyMeleeHitDetectionSystem
     private float hitRadius;
     private LayerMask targetLayers;
 
-    public bool IsInitialized => attackOrigin != null;
+    public bool IsInitialized =>
+        attackOrigin != null &&
+        !float.IsNaN(hitRadius) &&
+        !float.IsInfinity(hitRadius) &&
+        hitRadius >= 0f;
 
     public Vector2 AttackOriginPosition =>
-    attackOrigin != null
-        ? (Vector2)attackOrigin.position
-        : Vector2.zero;
+        attackOrigin != null
+            ? (Vector2)attackOrigin.position
+            : Vector2.zero;
+
     public void Initialize(
         Transform attackOrigin,
         float hitRadius,
         LayerMask targetLayers)
     {
-        if (attackOrigin == null || hitRadius < 0f)
+        this.attackOrigin = null;
+        this.hitRadius = 0f;
+        this.targetLayers = default;
+
+        if (attackOrigin == null ||
+            float.IsNaN(hitRadius) ||
+            float.IsInfinity(hitRadius) ||
+            hitRadius < 0f)
         {
             Debug.LogError(
                 "EnemyMeleeHitDetectionSystem received invalid initialization values.");
+
             return;
         }
 

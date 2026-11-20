@@ -10,10 +10,7 @@ public class EnemyFeedbackSystem
     private AudioClip hurtSound;
     private AudioClip deathSound;
 
-    public bool IsInitialized =>
-        audioSource != null ||
-        hurtEffect != null ||
-        deathEffect != null;
+    public bool IsInitialized { get; private set; }
 
     public void Initialize(
         AudioSource audioSource,
@@ -22,15 +19,22 @@ public class EnemyFeedbackSystem
         ParticleSystem hurtEffect,
         ParticleSystem deathEffect)
     {
+        Clear();
+
         this.audioSource = audioSource;
         this.hurtSound = hurtSound;
         this.deathSound = deathSound;
         this.hurtEffect = hurtEffect;
         this.deathEffect = deathEffect;
+
+        IsInitialized = true;
     }
 
     public void PlayHurtFeedback()
     {
+        if (!IsInitialized)
+            return;
+
         if (audioSource != null && hurtSound != null)
             audioSource.PlayOneShot(hurtSound);
 
@@ -40,10 +44,25 @@ public class EnemyFeedbackSystem
 
     public void PlayDeathFeedback()
     {
+        if (!IsInitialized)
+            return;
+
         if (audioSource != null && deathSound != null)
             audioSource.PlayOneShot(deathSound);
 
         if (deathEffect != null)
             deathEffect.Play();
+    }
+
+    private void Clear()
+    {
+        audioSource = null;
+        hurtEffect = null;
+        deathEffect = null;
+
+        hurtSound = null;
+        deathSound = null;
+
+        IsInitialized = false;
     }
 }

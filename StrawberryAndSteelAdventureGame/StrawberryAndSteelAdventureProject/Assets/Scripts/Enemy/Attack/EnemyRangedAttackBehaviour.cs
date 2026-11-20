@@ -36,13 +36,28 @@ public class EnemyRangedAttackBehaviour : IEnemyAttackBehaviour
         float projectileSpeed,
         float projectileLifetime)
     {
+        this.attackSystem = null;
+        this.targetSystem = null;
+        this.damageSystem = null;
+        this.validationSystem = null;
+
+        this.projectileSpawnPoint = null;
+        this.projectilePrefab = null;
+
+        this.projectileSpeed = 0f;
+        this.projectileLifetime = 0f;
+
         if (attackSystem == null ||
             targetSystem == null ||
             damageSystem == null ||
             validationSystem == null ||
             projectileSpawnPoint == null ||
             projectilePrefab == null ||
-            projectileSpeed < 0f ||
+            float.IsNaN(projectileSpeed) ||
+            float.IsInfinity(projectileSpeed) ||
+            projectileSpeed <= 0f ||
+            float.IsNaN(projectileLifetime) ||
+            float.IsInfinity(projectileLifetime) ||
             projectileLifetime <= 0f)
         {
             Debug.LogError(
@@ -84,16 +99,31 @@ public class EnemyRangedAttackBehaviour : IEnemyAttackBehaviour
 
         Transform target = targetSystem.CurrentTarget;
 
+        if (target == null)
+            return false;
+
         Vector2 direction =
             (Vector2)(target.position - projectileSpawnPoint.position);
 
-        if (direction.sqrMagnitude <= 0f)
+        if (float.IsNaN(direction.x) ||
+            float.IsInfinity(direction.x) ||
+            float.IsNaN(direction.y) ||
+            float.IsInfinity(direction.y) ||
+            direction.sqrMagnitude <= Mathf.Epsilon ||
+            float.IsInfinity(direction.sqrMagnitude))
+        {
             return false;
+        }
+
+        direction.Normalize();
 
         EnemyProjectile projectile = Object.Instantiate(
             projectilePrefab,
             projectileSpawnPoint.position,
             Quaternion.identity);
+
+        if (projectile == null)
+            return false;
 
         projectile.Initialize(
             projectileSpawnPoint.root,
@@ -103,12 +133,6 @@ public class EnemyRangedAttackBehaviour : IEnemyAttackBehaviour
             projectileLifetime);
 
         if (!projectile.IsInitialized)
-        {
-            Object.Destroy(projectile.gameObject);
-            return false;
-        }
-
-        if (!attackSystem.TryStartAttack())
         {
             Object.Destroy(projectile.gameObject);
             return false;

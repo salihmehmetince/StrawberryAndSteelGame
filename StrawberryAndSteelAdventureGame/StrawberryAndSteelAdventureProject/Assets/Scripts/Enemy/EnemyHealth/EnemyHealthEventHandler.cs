@@ -9,7 +9,12 @@ public class EnemyHealthEventHandler
     private EnemyDeathSystem deathSystem;
     private EnemyFeedbackSystem feedbackSystem;
 
-    public bool IsInitialized => healthSystem != null;
+    public bool IsInitialized =>
+        healthSystem != null &&
+        damageSystem != null &&
+        hurtSystem != null &&
+        deathSystem != null &&
+        feedbackSystem != null;
 
     public void Initialize(
         EnemyHealthSystem healthSystem,
@@ -18,6 +23,8 @@ public class EnemyHealthEventHandler
         EnemyDeathSystem deathSystem,
         EnemyFeedbackSystem feedbackSystem)
     {
+        Dispose();
+
         if (healthSystem == null ||
             damageSystem == null ||
             hurtSystem == null ||
@@ -26,6 +33,7 @@ public class EnemyHealthEventHandler
         {
             Debug.LogError(
                 "EnemyHealthEventHandler requires all systems.");
+
             return;
         }
 
@@ -45,6 +53,9 @@ public class EnemyHealthEventHandler
         int damageAmount,
         Vector2 attackPosition)
     {
+        if (!IsInitialized)
+            return;
+
         if (healthSystem.IsDead || deathSystem.IsDead)
             return;
 
@@ -54,24 +65,28 @@ public class EnemyHealthEventHandler
 
     private void HandleHealed(int healAmount)
     {
-        // Ýyileþtirme geri bildirimini sonraki adýmda baðlayacaðýz.
+        // Ýyileþtirme geri bildirimi sonraki aþamada baðlanacak.
     }
 
     private void HandleDied()
     {
+        if (!IsInitialized)
+            return;
+
         deathSystem.Die();
         feedbackSystem.PlayDeathFeedback();
     }
 
     public void Dispose()
     {
-        if (healthSystem == null)
-            return;
+        if (damageSystem != null)
+            damageSystem.OnDamageReceived -= HandleDamageReceived;
 
-        damageSystem.OnDamageReceived -= HandleDamageReceived;
-
-        healthSystem.OnHealed -= HandleHealed;
-        healthSystem.OnDied -= HandleDied;
+        if (healthSystem != null)
+        {
+            healthSystem.OnHealed -= HandleHealed;
+            healthSystem.OnDied -= HandleDied;
+        }
 
         healthSystem = null;
         damageSystem = null;

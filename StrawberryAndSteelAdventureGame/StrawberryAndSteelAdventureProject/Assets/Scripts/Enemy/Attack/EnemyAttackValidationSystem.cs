@@ -20,12 +20,17 @@ public class EnemyAttackValidationSystem
         EnemyAttackTargetSystem targetSystem,
         EnemyAttackLineOfSightSystem lineOfSightSystem)
     {
+        this.attackSystem = null;
+        this.targetSystem = null;
+        this.lineOfSightSystem = null;
+
         if (attackSystem == null ||
             targetSystem == null ||
             lineOfSightSystem == null)
         {
             Debug.LogError(
                 "EnemyAttackValidationSystem requires all attack systems.");
+
             return;
         }
 
@@ -35,6 +40,7 @@ public class EnemyAttackValidationSystem
         {
             Debug.LogError(
                 "EnemyAttackValidationSystem received an uninitialized system.");
+
             return;
         }
 
@@ -48,6 +54,9 @@ public class EnemyAttackValidationSystem
         if (!IsInitialized)
             return false;
 
+        if (!attackSystem.CanAttack())
+            return false;
+
         if (!targetSystem.HasValidTarget())
             return false;
 
@@ -55,11 +64,11 @@ public class EnemyAttackValidationSystem
             return false;
 
         if (!lineOfSightSystem.HasLineOfSight(
-            targetSystem.CurrentTarget))
+                targetSystem.CurrentTarget))
         {
             return false;
         }
 
-        return attackSystem.CanAttack();
+        return true;
     }
 }

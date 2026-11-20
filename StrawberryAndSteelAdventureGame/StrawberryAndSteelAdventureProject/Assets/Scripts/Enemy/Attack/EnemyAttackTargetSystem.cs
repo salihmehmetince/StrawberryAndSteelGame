@@ -9,11 +9,14 @@ public class EnemyAttackTargetSystem
 
     public bool IsInitialized =>
         attackOrigin != null &&
+        !float.IsNaN(attackRange) &&
+        !float.IsInfinity(attackRange) &&
         attackRange >= 0f;
 
-    public Transform CurrentTarget => currentTarget;
+    public Transform CurrentTarget =>
+        HasValidTarget() ? currentTarget : null;
 
-    public bool HasTarget => currentTarget != null;
+    public bool HasTarget => HasValidTarget();
 
     public bool IsTargetInRange
     {
@@ -32,10 +35,18 @@ public class EnemyAttackTargetSystem
         Transform attackOrigin,
         float attackRange)
     {
-        if (attackOrigin == null || attackRange < 0f)
+        this.attackOrigin = null;
+        this.currentTarget = null;
+        this.attackRange = 0f;
+
+        if (attackOrigin == null ||
+            float.IsNaN(attackRange) ||
+            float.IsInfinity(attackRange) ||
+            attackRange < 0f)
         {
             Debug.LogError(
                 "EnemyAttackTargetSystem received invalid initialization values.");
+
             return;
         }
 
@@ -45,22 +56,27 @@ public class EnemyAttackTargetSystem
 
     public void SetTarget(Transform target)
     {
+        if (target == null)
+        {
+            ClearTarget();
+            return;
+        }
+
+        if (!target.gameObject.activeInHierarchy ||
+            !target.root.gameObject.activeInHierarchy)
+        {
+            ClearTarget();
+            return;
+        }
+
         currentTarget = target;
     }
 
-
     public bool HasValidTarget()
     {
-        if (currentTarget == null)
-            return false;
-
-        if (!currentTarget.gameObject.activeInHierarchy)
-            return false;
-
-        if (!currentTarget.root.gameObject.activeInHierarchy)
-            return false;
-
-        return true;
+        return currentTarget != null &&
+               currentTarget.gameObject.activeInHierarchy &&
+               currentTarget.root.gameObject.activeInHierarchy;
     }
 
     public void ClearTarget()
@@ -70,8 +86,14 @@ public class EnemyAttackTargetSystem
 
     public bool IsTargetInRangeOf(float range)
     {
-        if (!IsInitialized || !HasValidTarget() || range < 0f)
+        if (!IsInitialized ||
+            !HasValidTarget() ||
+            float.IsNaN(range) ||
+            float.IsInfinity(range) ||
+            range < 0f)
+        {
             return false;
+        }
 
         return Vector2.Distance(
             attackOrigin.position,

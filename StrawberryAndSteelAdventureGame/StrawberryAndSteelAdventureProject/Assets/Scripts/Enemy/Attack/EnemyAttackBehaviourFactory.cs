@@ -18,6 +18,21 @@ public class EnemyAttackBehaviourFactory
         float projectileSpeed,
         float projectileLifetime)
     {
+        if (attackSystem == null ||
+            !attackSystem.IsInitialized ||
+            targetSystem == null ||
+            !targetSystem.IsInitialized ||
+            damageSystem == null ||
+            !damageSystem.IsInitialized ||
+            validationSystem == null ||
+            !validationSystem.IsInitialized)
+        {
+            Debug.LogError(
+                "EnemyAttackBehaviourFactory received invalid common attack systems.");
+
+            return null;
+        }
+
         switch (attackType)
         {
             case EnemyAttackType.None:
@@ -67,6 +82,15 @@ public class EnemyAttackBehaviourFactory
         EnemyAttackValidationSystem validationSystem,
         EnemyMeleeHitDetectionSystem hitDetectionSystem)
     {
+        if (hitDetectionSystem == null ||
+            !hitDetectionSystem.IsInitialized)
+        {
+            Debug.LogError(
+                "Melee attack requires an initialized hit detection system.");
+
+            return null;
+        }
+
         EnemyMeleeAttackBehaviour behaviour =
             new EnemyMeleeAttackBehaviour();
 
@@ -90,6 +114,17 @@ public class EnemyAttackBehaviourFactory
         float projectileSpeed,
         float projectileLifetime)
     {
+        if (projectileSpawnPoint == null ||
+            projectilePrefab == null ||
+            !IsValidPositiveValue(projectileSpeed) ||
+            !IsValidPositiveValue(projectileLifetime))
+        {
+            Debug.LogError(
+                "Ranged attack received invalid projectile configuration.");
+
+            return null;
+        }
+
         EnemyRangedAttackBehaviour behaviour =
             new EnemyRangedAttackBehaviour();
 
@@ -115,6 +150,15 @@ public class EnemyAttackBehaviourFactory
         float areaAttackRadius,
         LayerMask targetLayers)
     {
+        if (attackOrigin == null ||
+            !IsValidPositiveValue(areaAttackRadius))
+        {
+            Debug.LogError(
+                "Area attack received invalid attack origin or radius.");
+
+            return null;
+        }
+
         EnemyAreaAttackBehaviour behaviour =
             new EnemyAreaAttackBehaviour();
 
@@ -128,5 +172,12 @@ public class EnemyAttackBehaviourFactory
             targetLayers);
 
         return behaviour.IsInitialized ? behaviour : null;
+    }
+
+    private bool IsValidPositiveValue(float value)
+    {
+        return !float.IsNaN(value) &&
+               !float.IsInfinity(value) &&
+               value > 0f;
     }
 }

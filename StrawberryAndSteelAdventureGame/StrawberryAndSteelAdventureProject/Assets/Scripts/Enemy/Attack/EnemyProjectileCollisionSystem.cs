@@ -12,17 +12,19 @@ public class EnemyProjectileCollisionSystem
 
     public void Initialize(Transform projectileOwner)
     {
+        this.projectileOwner = null;
+        hasCollided = false;
+
         if (projectileOwner == null)
         {
             Debug.LogError(
                 "EnemyProjectileCollisionSystem requires a projectile owner.");
+
             return;
         }
 
         this.projectileOwner = projectileOwner;
-        hasCollided = false;
     }
-
     public bool TryHandleCollision(
         Collider2D other,
         int damage,

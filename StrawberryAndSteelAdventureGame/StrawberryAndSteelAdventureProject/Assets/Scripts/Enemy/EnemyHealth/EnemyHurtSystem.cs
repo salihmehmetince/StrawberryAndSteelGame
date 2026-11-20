@@ -10,7 +10,10 @@ public class EnemyHurtSystem
     private float knockbackForce;
     private float verticalKnockbackForce;
 
-    public bool IsInitialized => enemyController != null;
+    public bool IsInitialized =>
+        enemyController != null &&
+        enemyRigidbody != null;
+
     public bool IsHurting { get; private set; }
 
     public void Initialize(
@@ -20,6 +23,8 @@ public class EnemyHurtSystem
         float knockbackForce,
         float verticalKnockbackForce)
     {
+        Clear();
+
         if (enemyController == null || enemyRigidbody == null)
         {
             Debug.LogError(
@@ -28,7 +33,8 @@ public class EnemyHurtSystem
             return;
         }
 
-        if (knockbackForce < 0f || verticalKnockbackForce < 0f)
+        if (!IsValidForce(knockbackForce) ||
+            !IsValidForce(verticalKnockbackForce))
         {
             Debug.LogError(
                 "EnemyHurtSystem received invalid knockback values.");
@@ -39,10 +45,9 @@ public class EnemyHurtSystem
         this.enemyController = enemyController;
         this.enemyRigidbody = enemyRigidbody;
         this.enemyAnimator = enemyAnimator;
+
         this.knockbackForce = knockbackForce;
         this.verticalKnockbackForce = verticalKnockbackForce;
-
-        IsHurting = false;
     }
 
     public void ApplyKnockback(Vector2 attackPosition)
@@ -50,11 +55,13 @@ public class EnemyHurtSystem
         if (!IsInitialized || IsHurting)
             return;
 
-        float directionX = Mathf.Sign(
-            enemyRigidbody.position.x - attackPosition.x);
+        if (!IsValidPosition(attackPosition))
+            return;
 
-        if (directionX == 0f)
-            directionX = 1f;
+        float directionX =
+            enemyRigidbody.position.x - attackPosition.x;
+
+        directionX = directionX < 0f ? -1f : 1f;
 
         Vector2 direction = new Vector2(
             directionX,
@@ -73,5 +80,32 @@ public class EnemyHurtSystem
     public void CompleteHurt()
     {
         IsHurting = false;
+    }
+
+    private void Clear()
+    {
+        enemyController = null;
+        enemyRigidbody = null;
+        enemyAnimator = null;
+
+        knockbackForce = 0f;
+        verticalKnockbackForce = 0f;
+
+        IsHurting = false;
+    }
+
+    private bool IsValidForce(float value)
+    {
+        return !float.IsNaN(value) &&
+               !float.IsInfinity(value) &&
+               value >= 0f;
+    }
+
+    private bool IsValidPosition(Vector2 position)
+    {
+        return !float.IsNaN(position.x) &&
+               !float.IsInfinity(position.x) &&
+               !float.IsNaN(position.y) &&
+               !float.IsInfinity(position.y);
     }
 }

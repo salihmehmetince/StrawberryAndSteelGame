@@ -33,12 +33,23 @@ public class EnemyAreaAttackBehaviour : IEnemyAttackBehaviour
         float attackRadius,
         LayerMask targetLayers)
     {
+        this.attackSystem = null;
+        this.damageSystem = null;
+        this.targetSystem = null;
+        this.validationSystem = null;
+
+        this.attackOrigin = null;
+        this.attackRadius = 0f;
+        this.targetLayers = default;
+
         if (attackSystem == null ||
             damageSystem == null ||
             targetSystem == null ||
             validationSystem == null ||
             attackOrigin == null ||
-            attackRadius < 0f)
+            float.IsNaN(attackRadius) ||
+            float.IsInfinity(attackRadius) ||
+            attackRadius <= 0f)
         {
             Debug.LogError(
                 "EnemyAreaAttackBehaviour received invalid initialization values.");
@@ -85,6 +96,9 @@ public class EnemyAreaAttackBehaviour : IEnemyAttackBehaviour
 
         foreach (Collider2D targetCollider in colliders)
         {
+            if (targetCollider == null)
+                continue;
+
             if (targetCollider.transform.root == attackOrigin.root)
                 continue;
 
@@ -104,16 +118,19 @@ public class EnemyAreaAttackBehaviour : IEnemyAttackBehaviour
         if (uniqueTargets.Count == 0)
             return false;
 
-        if (!attackSystem.TryStartAttack())
-            return false;
-
         Vector2 attackPosition = attackOrigin.position;
+
+        bool damageApplied = false;
 
         foreach (IDamageable target in uniqueTargets)
         {
-            damageSystem.ApplyDamage(target, attackPosition);
+            if (target == null)
+                continue;
+
+            if (damageSystem.ApplyDamage(target, attackPosition))
+                damageApplied = true;
         }
 
-        return true;
+        return damageApplied;
     }
 }
