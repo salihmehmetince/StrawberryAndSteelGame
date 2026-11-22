@@ -77,6 +77,9 @@ public class EnemyController : MonoBehaviour,IDamageable
     private EnemyAirStateSystem airStateSystem;
     private JumpBehaviour jumpBehaviour;
 
+    [Header("Dialogue Configuration")]
+    [SerializeField] private AudioSource dialogueAudioSource;
+
     private bool isInitialized;
 
     private EnemyTargetScanner targetScanner;
@@ -94,7 +97,7 @@ public class EnemyController : MonoBehaviour,IDamageable
     private EnemyDeathSystem deathSystem;
     private EnemyFeedbackSystem feedbackSystem;
     private EnemyHealthEventHandler healthEventHandler;
-
+    private EnemyDialogueSystem dialogueSystem;
     public EnemyDefinition Definition => definition;
 
     public Rigidbody2D EnemyRigidbody => enemyRigidbody;
@@ -188,6 +191,8 @@ public class EnemyController : MonoBehaviour,IDamageable
     public IEnemyMovementAction ActiveMovementAction =>
         movementSystem != null ? movementSystem.ActiveAction : null;
 
+    public EnemyDialogueSystem DialogueSystem => dialogueSystem;
+
     public bool IsNormalMovementActive =>
         movementSystem != null && movementSystem.IsNormalMovementActive;
 
@@ -229,6 +234,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         targetSearchBehaviour?.Update(Time.fixedDeltaTime);
     }
 
+
     private void Update()
     {
         if (!isInitialized)
@@ -242,6 +248,10 @@ public class EnemyController : MonoBehaviour,IDamageable
         attackSequenceSystem?.Update(Time.deltaTime);
 
         deathSystem?.Update(Time.deltaTime);
+
+        dialogueSystem?.Update(
+            Time.deltaTime,
+            stateSystem.CurrentState == EnemyState.Idle);
     }
 
 
@@ -307,6 +317,8 @@ public class EnemyController : MonoBehaviour,IDamageable
 
             return;
         }
+
+        InitializeDialogueSystem();
 
         isInitialized = true;
     }
@@ -539,8 +551,15 @@ public class EnemyController : MonoBehaviour,IDamageable
 
     public bool SetTarget(Transform target)
     {
-        return targetSystem != null &&
-               targetSystem.SetTarget(target);
+        if (targetSystem == null)
+            return false;
+
+        bool targetSet = targetSystem.SetTarget(target);
+
+        if (targetSet)
+            PlayDialogue(EnemyDialogueType.PlayerDetected);
+
+        return targetSet;
     }
 
     public bool StartTrackingTarget()
@@ -561,8 +580,15 @@ public class EnemyController : MonoBehaviour,IDamageable
 
     public bool LoseTarget()
     {
-        return targetSystem != null &&
-               targetSystem.LoseTarget();
+        if (targetSystem == null)
+            return false;
+
+        bool targetLost = targetSystem.LoseTarget();
+
+        if (targetLost)
+            PlayDialogue(EnemyDialogueType.LostTarget);
+
+        return targetLost;
     }
 
     public bool StartSearchingForTarget()
@@ -743,7 +769,11 @@ public class EnemyController : MonoBehaviour,IDamageable
             damageSystem,
             hurtSystem,
             deathSystem,
-            feedbackSystem);
+            feedbackSystem,
+            dialogueType =>
+            {
+                PlayDialogue(dialogueType);
+            });
 
         if (!healthEventHandler.IsInitialized)
         {
@@ -949,7 +979,19 @@ public class EnemyController : MonoBehaviour,IDamageable
         if (!attackValidationSystem.CanAttack())
             return false;
 
-        return attackSequenceSystem.StartSequence();
+        bool attackStarted = attackSequenceSystem.StartSequence();
+
+        if (attackStarted)
+            PlayDialogue(EnemyDialogueType.Attack);
+
+        return attackStarted;
+    }
+    public bool PlayDialogue(EnemyDialogueType dialogueType)
+    {
+        if (!isInitialized || dialogueSystem == null)
+            return false;
+
+        return dialogueSystem.PlayDialogue(dialogueType);
     }
     public int ReceiveDamage(
         int incomingDamage,
@@ -981,8 +1023,10 @@ public class EnemyController : MonoBehaviour,IDamageable
     {
         healthEventHandler?.Dispose();
         healthEventHandler = null;
-    }
 
+        dialogueSystem?.Clear();
+        dialogueSystem = null;
+    }
     private void InitializeAnimationEventRelay()
     {
         if (animator == null)
@@ -1103,5 +1147,51 @@ public class EnemyController : MonoBehaviour,IDamageable
 
         attackAnimationEventHandler = null;
         attackHitEventHandler = null;
+    }
+
+    private void InitializeDialogueSystem()
+    {
+        if (dialogueAudioSource == null)
+        {
+            Debug.LogWarning(
+                $"Dialogue AudioSource is missing on {gameObject.name}. Dialogue system will be disabled.",
+                gameObject);
+
+            return;
+        }
+
+        if (definition.DialogueDefinition == null)
+        {
+            Debug.LogWarning(
+                $"Dialogue Definition is missing on {gameObject.name}. Dialogue system will be disabled.",
+                gameObject);
+
+            return;
+        }
+
+        if (dialogueAudioSource == feedbackAudioSource)
+        {
+            Debug.LogError(
+                $"Dialogue AudioSource and Feedback AudioSource must be different on {gameObject.name}. Dialogue system will be disabled.",
+                gameObject);
+
+            return;
+        }
+
+        dialogueSystem = new EnemyDialogueSystem();
+
+        dialogueSystem.Initialize(
+            dialogueAudioSource,
+            definition.DialogueDefinition);
+
+        if (!dialogueSystem.IsInitialized)
+        {
+            Debug.LogWarning(
+                $"Failed to initialize dialogue system on {gameObject.name}. Dialogue system will be disabled.",
+                gameObject);
+
+            dialogueSystem.Clear();
+            dialogueSystem = null;
+        }
     }
 }

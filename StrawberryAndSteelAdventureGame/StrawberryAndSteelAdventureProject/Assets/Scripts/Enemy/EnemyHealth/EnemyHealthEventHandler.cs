@@ -1,4 +1,5 @@
 
+using System;
 using UnityEngine;
 
 public class EnemyHealthEventHandler
@@ -8,6 +9,8 @@ public class EnemyHealthEventHandler
     private EnemyHurtSystem hurtSystem;
     private EnemyDeathSystem deathSystem;
     private EnemyFeedbackSystem feedbackSystem;
+
+    private Action<EnemyDialogueType> playDialogue;
 
     public bool IsInitialized =>
         healthSystem != null &&
@@ -21,7 +24,8 @@ public class EnemyHealthEventHandler
         EnemyDamageSystem damageSystem,
         EnemyHurtSystem hurtSystem,
         EnemyDeathSystem deathSystem,
-        EnemyFeedbackSystem feedbackSystem)
+        EnemyFeedbackSystem feedbackSystem,
+        Action<EnemyDialogueType> playDialogue)
     {
         Dispose();
 
@@ -42,6 +46,7 @@ public class EnemyHealthEventHandler
         this.hurtSystem = hurtSystem;
         this.deathSystem = deathSystem;
         this.feedbackSystem = feedbackSystem;
+        this.playDialogue = playDialogue;
 
         damageSystem.OnDamageReceived += HandleDamageReceived;
 
@@ -61,6 +66,8 @@ public class EnemyHealthEventHandler
 
         hurtSystem.ApplyKnockback(attackPosition);
         feedbackSystem.PlayHurtFeedback();
+
+        playDialogue?.Invoke(EnemyDialogueType.Hurt);
     }
 
     private void HandleHealed(int healAmount)
@@ -75,6 +82,8 @@ public class EnemyHealthEventHandler
 
         deathSystem.Die();
         feedbackSystem.PlayDeathFeedback();
+
+        playDialogue?.Invoke(EnemyDialogueType.Death);
     }
 
     public void Dispose()
@@ -93,5 +102,7 @@ public class EnemyHealthEventHandler
         hurtSystem = null;
         deathSystem = null;
         feedbackSystem = null;
+
+        playDialogue = null;
     }
 }

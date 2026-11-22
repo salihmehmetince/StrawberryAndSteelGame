@@ -23,8 +23,6 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float defense;
     [SerializeField] private int xpReward;
 
-
-
     [Header("Movement")]
     [SerializeField] private float movementSpeed;
     [SerializeField] private float acceleration;
@@ -33,8 +31,6 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float airDeceleration;
     [SerializeField] private float turnDeceleration;
     [SerializeField] private float airTurnDeceleration;
-
-
 
     [Header("Detection")]
     [SerializeField] private float detectionRange;
@@ -57,6 +53,8 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float targetSearchDuration;
     [SerializeField] private float targetSearchVerticalArrivalDistance;
 
+    [Header("Dialogue")]
+    [SerializeField] private EnemyDialogueDefinition dialogueDefinition;
 
     public string EnemyId => enemyId;
     public string EnemyName => enemyName;
@@ -81,13 +79,11 @@ public class EnemyDefinition : ScriptableObject
 
     public float AirAcceleration => airAcceleration;
 
-
     public float Deceleration => deceleration;
     public float AirDeceleration => airDeceleration;
 
     public float TurnDeceleration => turnDeceleration;
     public float AirTurnDeceleration => airTurnDeceleration;
-
 
     public float TargetSearchSpeed => targetSearchSpeed;
 
@@ -97,26 +93,28 @@ public class EnemyDefinition : ScriptableObject
     public float TargetSearchDuration => targetSearchDuration;
 
     public float TargetSearchVerticalArrivalDistance =>
-    targetSearchVerticalArrivalDistance;
+        targetSearchVerticalArrivalDistance;
 
     public EnemyAttackType AttackType => attackType;
 
     public float AttackPreparationDuration =>
-    attackPreparationDuration;
+        attackPreparationDuration;
 
-    public float AttackDuration =>
-        attackDuration;
+    public float AttackDuration => attackDuration;
 
     public float AttackRecoveryDuration =>
         attackRecoveryDuration;
 
     public float ProjectileSpeed => projectileSpeed;
     public float ProjectileLifetime => projectileLifetime;
+
+    public EnemyDialogueDefinition DialogueDefinition =>
+        dialogueDefinition;
+
     public bool HasCapability(EnemyCapability capability)
     {
         return (capabilities & capability) == capability;
     }
-
 
     private void OnValidate()
     {
@@ -141,21 +139,20 @@ public class EnemyDefinition : ScriptableObject
         turnDeceleration = Mathf.Max(0f, turnDeceleration);
         airTurnDeceleration = Mathf.Max(0f, airTurnDeceleration);
 
-
         targetSearchSpeed = Mathf.Max(0.01f, targetSearchSpeed);
 
         targetSearchArrivalDistance =
             Mathf.Max(0f, targetSearchArrivalDistance);
 
         targetSearchDuration = Mathf.Max(0.01f, targetSearchDuration);
+
         targetSearchVerticalArrivalDistance =
-    Mathf.Max(0f, targetSearchVerticalArrivalDistance);
+            Mathf.Max(0f, targetSearchVerticalArrivalDistance);
 
         attackPreparationDuration =
-    Mathf.Max(0f, attackPreparationDuration);
+            Mathf.Max(0f, attackPreparationDuration);
 
-        attackDuration =
-            Mathf.Max(0.01f, attackDuration);
+        attackDuration = Mathf.Max(0.01f, attackDuration);
 
         attackRecoveryDuration =
             Mathf.Max(0f, attackRecoveryDuration);
@@ -167,7 +164,5 @@ public class EnemyDefinition : ScriptableObject
         {
             attackType = EnemyAttackType.None;
         }
-
     }
-
 }
