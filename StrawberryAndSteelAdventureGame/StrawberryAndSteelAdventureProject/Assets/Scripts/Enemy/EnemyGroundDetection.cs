@@ -9,30 +9,33 @@ public class EnemyGroundDetection
 
     public bool IsGrounded { get; private set; }
 
+    public bool IsInitialized => groundCheck != null && groundCheckRadius > 0f;
+
     public void Initialize(
         Transform groundCheck,
         LayerMask groundLayer,
         float groundCheckRadius)
     {
+        this.groundCheck = null;
+        this.groundLayer = default;
+        this.groundCheckRadius = 0f;
+
+        if (groundCheck == null ||
+            float.IsNaN(groundCheckRadius) ||
+            float.IsInfinity(groundCheckRadius) ||
+            groundCheckRadius <= 0f ||
+            groundLayer.value == 0)
+        {
+            IsGrounded = false;
+            Debug.LogError("EnemyGroundDetection requires a GroundCheck transform, a positive finite radius, and a non-empty ground layer.");
+            return;
+        }
+
         this.groundCheck = groundCheck;
         this.groundLayer = groundLayer;
         this.groundCheckRadius = groundCheckRadius;
 
         IsGrounded = false;
-
-        if (groundCheck == null)
-        {
-            Debug.LogError(
-                "EnemyGroundDetection requires a GroundCheck transform.");
-            return;
-        }
-
-        if (groundCheckRadius <= 0f)
-        {
-            Debug.LogError(
-                "EnemyGroundDetection requires a positive ground check radius.");
-            return;
-        }
 
         CheckGround();
     }

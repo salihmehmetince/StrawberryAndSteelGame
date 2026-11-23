@@ -16,6 +16,7 @@ public class JumpBehaviour : IEnemyMovementAction
         EnemyMovementActionPriority.Jump;
 
     public bool IsActive { get; private set; }
+    public bool IsInitialized { get; private set; }
 
     public bool IsGrounded =>
         groundDetection != null && groundDetection.IsGrounded;
@@ -26,38 +27,34 @@ public class JumpBehaviour : IEnemyMovementAction
         float jumpForce,
         float takeoffTimeout)
     {
-        enemyRigidbody = controller.EnemyRigidbody;
+        enemyRigidbody = null;
         this.groundDetection = groundDetection;
-        this.jumpForce = jumpForce;
-        this.takeoffTimeout = takeoffTimeout;
+        this.jumpForce = 0f;
+        this.takeoffTimeout = 0f;
 
         IsActive = false;
+        IsInitialized = false;
         hasLeftGround = false;
         takeoffTimer = 0f;
 
-        if (enemyRigidbody == null)
+        if (controller == null || controller.EnemyRigidbody == null ||
+            groundDetection == null || !groundDetection.IsInitialized ||
+            !IsFinite(jumpForce) || jumpForce <= 0f ||
+            !IsFinite(takeoffTimeout) || takeoffTimeout <= 0f)
         {
-            Debug.LogError(
-                "JumpBehaviour requires a Rigidbody2D component.");
+            Debug.LogError("JumpBehaviour requires a Rigidbody2D, initialized ground detection, and positive finite jump settings.");
             return;
         }
 
-        if (groundDetection == null)
-        {
-            Debug.LogError(
-                "JumpBehaviour requires an EnemyGroundDetection instance.");
-        }
-
-        if (takeoffTimeout <= 0f)
-        {
-            Debug.LogError(
-                "JumpBehaviour requires a positive takeoff timeout.");
-        }
+        enemyRigidbody = controller.EnemyRigidbody;
+        this.jumpForce = jumpForce;
+        this.takeoffTimeout = takeoffTimeout;
+        IsInitialized = true;
     }
 
     public bool StartJump()
     {
-        if (enemyRigidbody == null ||
+        if (!IsInitialized || enemyRigidbody == null ||
             groundDetection == null ||
             IsActive)
         {
@@ -88,7 +85,8 @@ public class JumpBehaviour : IEnemyMovementAction
 
     public void Update(float deltaTime)
     {
-        if (!IsActive || groundDetection == null)
+        if (!IsInitialized || !IsActive || groundDetection == null ||
+            !IsFinite(deltaTime) || deltaTime < 0f)
             return;
 
         bool isGrounded = groundDetection.CheckGround();
@@ -118,5 +116,10 @@ public class JumpBehaviour : IEnemyMovementAction
         IsActive = false;
         hasLeftGround = false;
         takeoffTimer = 0f;
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

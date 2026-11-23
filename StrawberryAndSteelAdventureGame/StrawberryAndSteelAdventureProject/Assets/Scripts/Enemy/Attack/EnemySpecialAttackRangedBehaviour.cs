@@ -25,12 +25,16 @@ public class EnemySpecialAttackRangedBehaviour : IEnemySpecialAttackBehaviour
         if (targetSystem == null ||
             projectileSpawnPoint == null ||
             targetSystem.CurrentTarget == null ||
-            definition.ProjectilePrefab == null)
+            definition.ProjectilePrefab == null ||
+            definition.Damage <= 0 ||
+            !IsFinite(definition.ProjectileSpeed) || definition.ProjectileSpeed <= 0f ||
+            !IsFinite(definition.ProjectileLifetime) || definition.ProjectileLifetime <= 0f)
         {
             return false;
         }
 
-        return true;
+        Vector2 direction = (Vector2)(targetSystem.CurrentTarget.position - projectileSpawnPoint.position);
+        return IsFinite(direction.x) && IsFinite(direction.y) && direction.sqrMagnitude > 0f;
     }
 
     public void Execute(EnemySpecialAttackDefinition definition)
@@ -48,6 +52,9 @@ public class EnemySpecialAttackRangedBehaviour : IEnemySpecialAttackBehaviour
             projectileSpawnPoint.position,
             Quaternion.identity);
 
+        if (projectile == null)
+            return;
+
         projectile.Initialize(
             projectileSpawnPoint.root,
             definition.Damage,
@@ -59,5 +66,10 @@ public class EnemySpecialAttackRangedBehaviour : IEnemySpecialAttackBehaviour
         {
             Object.Destroy(projectile.gameObject);
         }
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

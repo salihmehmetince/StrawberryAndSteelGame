@@ -17,7 +17,8 @@ public class EnemySpecialAttackMeleeBehaviour : IEnemySpecialAttackBehaviour
 
     public bool CanExecute(EnemySpecialAttackDefinition definition)
     {
-        if (definition == null)
+        if (definition == null || definition.Damage <= 0 ||
+            !IsFinite(definition.MeleeHitRadius) || definition.MeleeHitRadius <= 0f)
             return false;
 
         if (definition.AttackType != EnemySpecialAttackType.Melee)
@@ -31,7 +32,16 @@ public class EnemySpecialAttackMeleeBehaviour : IEnemySpecialAttackBehaviour
             definition.MeleeHitRadius,
             targetLayers);
 
-        return targets.Length > 0;
+        foreach (Collider2D target in targets)
+        {
+            if (target == null || target.transform.root == attackOrigin.root)
+                continue;
+
+            if (target.GetComponentInParent<IDamageable>() != null)
+                return true;
+        }
+
+        return false;
     }
 
     public void Execute(EnemySpecialAttackDefinition definition)
@@ -49,6 +59,9 @@ public class EnemySpecialAttackMeleeBehaviour : IEnemySpecialAttackBehaviour
 
         foreach (Collider2D target in targets)
         {
+            if (target == null || target.transform.root == attackOrigin.root)
+                continue;
+
             IDamageable damageable =
                 target.GetComponentInParent<IDamageable>();
 
@@ -62,5 +75,10 @@ public class EnemySpecialAttackMeleeBehaviour : IEnemySpecialAttackBehaviour
                 definition.Damage,
                 attackOrigin.position);
         }
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

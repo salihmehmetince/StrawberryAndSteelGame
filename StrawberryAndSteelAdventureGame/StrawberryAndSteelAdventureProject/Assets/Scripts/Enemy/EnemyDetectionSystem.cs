@@ -14,6 +14,11 @@ public class EnemyDetectionSystem
         Transform visualRoot,
         EnemyDetectionSettings settings)
     {
+        this.detectionOrigin = null;
+        this.visualRoot = null;
+        this.settings = null;
+        IsInitialized = false;
+
         if (detectionOrigin == null)
         {
             Debug.LogError(
@@ -32,6 +37,13 @@ public class EnemyDetectionSystem
         {
             Debug.LogError(
                 "EnemyDetectionSystem requires detection settings.");
+            return;
+        }
+
+        if (float.IsNaN(settings.DetectionRange) || float.IsInfinity(settings.DetectionRange) ||
+            float.IsNaN(settings.VisionAngle) || float.IsInfinity(settings.VisionAngle))
+        {
+            Debug.LogError("EnemyDetectionSystem received non-finite settings.");
             return;
         }
 
@@ -99,13 +111,26 @@ public class EnemyDetectionSystem
         if (distance <= 0.0001f)
             return true;
 
-        RaycastHit2D hit = Physics2D.Raycast(
+        RaycastHit2D[] hits = Physics2D.RaycastAll(
             origin,
             direction.normalized,
             distance,
             settings.ObstacleLayers);
 
-        return hit.collider == null;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider == null)
+                continue;
+
+            Transform hitRoot = hit.collider.transform.root;
+
+            if (hitRoot == detectionOrigin.root || hitRoot == target.root)
+                continue;
+
+            return false;
+        }
+
+        return true;
     }
 
     public bool CanSeeTarget(Transform target)

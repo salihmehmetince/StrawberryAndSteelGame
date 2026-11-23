@@ -7,6 +7,8 @@ public class EnemyAnimationEventRelay : MonoBehaviour
 
     public void Initialize(EnemyController enemyController)
     {
+        this.enemyController = null;
+
         if (enemyController == null)
         {
             Debug.LogError(
@@ -15,6 +17,11 @@ public class EnemyAnimationEventRelay : MonoBehaviour
         }
 
         this.enemyController = enemyController;
+    }
+
+    public void Clear()
+    {
+        enemyController = null;
     }
 
     public void CompleteHurtAnimation()

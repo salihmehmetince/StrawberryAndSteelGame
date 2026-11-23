@@ -8,6 +8,8 @@ public class EnemyAirStateSystem
 
     private const float VerticalSpeedThreshold = 0.05f;
 
+    public bool IsInitialized => enemyRigidbody != null && groundDetection != null;
+
     public EnemyAirState CurrentState { get; private set; }
 
     public bool IsGrounded =>

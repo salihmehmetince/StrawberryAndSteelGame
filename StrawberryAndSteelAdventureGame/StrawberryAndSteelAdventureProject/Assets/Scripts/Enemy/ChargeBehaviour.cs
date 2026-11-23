@@ -7,6 +7,8 @@ public class ChargeBehaviour : IEnemyMovementAction
 
     private float chargeSpeed;
     private float chargeDuration;
+    private float cooldownDuration;
+    private float cooldownRemaining;
     private float remainingDuration;
 
     private Vector2 chargeDirection;
@@ -15,42 +17,55 @@ public class ChargeBehaviour : IEnemyMovementAction
         EnemyMovementActionPriority.Charge;
 
     public bool IsActive { get; private set; }
+    public bool IsInitialized { get; private set; }
+    public bool IsReady => !IsActive && cooldownRemaining <= 0f;
 
     public void Initialize(
         EnemyController controller,
         float chargeSpeed,
-        float chargeDuration)
+        float chargeDuration,
+        float cooldownDuration)
     {
         enemyRigidbody = controller.EnemyRigidbody;
 
         this.chargeSpeed = chargeSpeed;
         this.chargeDuration = chargeDuration;
+        this.cooldownDuration = cooldownDuration;
 
         remainingDuration = 0f;
+        cooldownRemaining = 0f;
         IsActive = false;
+        IsInitialized = false;
 
-        if (enemyRigidbody == null)
+        if (enemyRigidbody == null ||
+            !IsFinite(chargeSpeed) || chargeSpeed <= 0f ||
+            !IsFinite(chargeDuration) || chargeDuration <= 0f ||
+            !IsFinite(cooldownDuration) || cooldownDuration < 0f)
         {
             Debug.LogError(
-                "ChargeBehaviour requires a Rigidbody2D component.");
+                "ChargeBehaviour requires a Rigidbody2D and valid speed, duration, and cooldown values.");
 
             return;
         }
+
+        IsInitialized = true;
     }
 
     public bool StartCharge(Vector2 targetPosition)
     {
-        if (enemyRigidbody == null || IsActive)
+        if (!IsInitialized || enemyRigidbody == null || !IsReady)
             return false;
 
         Vector2 direction =
             targetPosition - enemyRigidbody.position;
 
-        if (direction.sqrMagnitude == 0f || chargeDuration <= 0f)
+        if (!IsFinite(direction.x) || !IsFinite(direction.y) ||
+            direction.sqrMagnitude <= 0f || chargeDuration <= 0f)
             return false;
 
         chargeDirection = direction.normalized;
         remainingDuration = chargeDuration;
+        cooldownRemaining = cooldownDuration;
         IsActive = true;
 
         ApplyChargeVelocity();
@@ -60,7 +75,8 @@ public class ChargeBehaviour : IEnemyMovementAction
 
     public void Update(float deltaTime)
     {
-        if (!IsActive || enemyRigidbody == null)
+        if (!IsInitialized || !IsActive || enemyRigidbody == null ||
+            !IsFinite(deltaTime) || deltaTime < 0f)
             return;
 
         remainingDuration -= deltaTime;
@@ -74,6 +90,14 @@ public class ChargeBehaviour : IEnemyMovementAction
         ApplyChargeVelocity();
     }
 
+    public void TickCooldown(float deltaTime)
+    {
+        if (!IsInitialized || !IsFinite(deltaTime) || deltaTime < 0f)
+            return;
+
+        cooldownRemaining = Mathf.Max(0f, cooldownRemaining - deltaTime);
+    }
+
     private void ApplyChargeVelocity()
     {
         enemyRigidbody.linearVelocity =
@@ -84,5 +108,10 @@ public class ChargeBehaviour : IEnemyMovementAction
     {
         IsActive = false;
         remainingDuration = 0f;
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

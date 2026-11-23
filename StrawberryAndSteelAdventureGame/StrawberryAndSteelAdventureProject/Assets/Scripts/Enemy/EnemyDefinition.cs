@@ -6,6 +6,22 @@ using UnityEngine;
     menuName = "Strawberry And Steel/Enemies/Enemy Definition")]
 public class EnemyDefinition : ScriptableObject
 {
+    private const EnemyCapability ImplementedCapabilities =
+        EnemyCapability.GroundMovement |
+        EnemyCapability.Flying |
+        EnemyCapability.Swimming |
+        EnemyCapability.Jumping |
+        EnemyCapability.Dashing |
+        EnemyCapability.Charging |
+        EnemyCapability.MeleeCombat |
+        EnemyCapability.RangedCombat |
+        EnemyCapability.AreaCombat;
+
+    private const EnemyCapability ConfiguredCombatCapabilities =
+        EnemyCapability.MeleeCombat |
+        EnemyCapability.RangedCombat |
+        EnemyCapability.AreaCombat;
+
     [Header("General")]
     [SerializeField] private string enemyId;
     [SerializeField] private string enemyName;
@@ -61,6 +77,18 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float targetSearchDuration;
     [SerializeField] private float targetSearchVerticalArrivalDistance;
 
+    [Header("Patrol")]
+    [SerializeField] private EnemyPatrolSettings patrolSettings = new EnemyPatrolSettings();
+
+    [Header("Retreat")]
+    [SerializeField] private EnemyRetreatSettings retreatSettings = new EnemyRetreatSettings();
+
+    [Header("Dash")]
+    [SerializeField] private EnemyDashSettings dashSettings = new EnemyDashSettings();
+
+    [Header("Charge")]
+    [SerializeField] private EnemyChargeSettings chargeSettings = new EnemyChargeSettings();
+
     [Header("Dialogue")]
     [SerializeField] private EnemyDialogueDefinition dialogueDefinition;
 
@@ -69,7 +97,14 @@ public class EnemyDefinition : ScriptableObject
     public string Description => description;
     public GameObject EnemyPrefab => enemyPrefab;
 
-    public EnemyCapability Capabilities => capabilities;
+    /// <summary>Capabilities that have a working implementation in this code layer.</summary>
+    public EnemyCapability Capabilities => GetEffectiveCapabilities();
+
+    /// <summary>The serialized flags, including reserved capabilities not yet implemented.</summary>
+    public EnemyCapability ConfiguredCapabilities => capabilities;
+
+    public EnemyCapability UnsupportedCapabilities =>
+        capabilities & ~ImplementedCapabilities;
 
     public int MaxHealth => maxHealth;
     public float Defense => defense;
@@ -103,6 +138,11 @@ public class EnemyDefinition : ScriptableObject
     public float TargetSearchVerticalArrivalDistance =>
         targetSearchVerticalArrivalDistance;
 
+    public EnemyPatrolSettings PatrolSettings => patrolSettings;
+    public EnemyRetreatSettings RetreatSettings => retreatSettings;
+    public EnemyDashSettings DashSettings => dashSettings;
+    public EnemyChargeSettings ChargeSettings => chargeSettings;
+
     public EnemyAttackType AttackType => attackType;
 
     public float AttackPreparationDuration =>
@@ -133,67 +173,151 @@ public class EnemyDefinition : ScriptableObject
 
     public bool HasCapability(EnemyCapability capability)
     {
-        return (capabilities & capability) == capability;
+        if (capability == EnemyCapability.None ||
+            (capability & ~ImplementedCapabilities) != 0)
+        {
+            return capability == EnemyCapability.None;
+        }
+
+        return (GetEffectiveCapabilities() & capability) == capability;
+    }
+
+    private EnemyCapability GetEffectiveCapabilities()
+    {
+        EnemyCapability effective = capabilities &
+            (EnemyCapability.GroundMovement |
+             EnemyCapability.Flying |
+             EnemyCapability.Swimming |
+             EnemyCapability.Jumping);
+
+        if (dashSettings != null && dashSettings.Enabled &&
+            (capabilities & EnemyCapability.Dashing) != 0)
+        {
+            effective |= EnemyCapability.Dashing;
+        }
+
+        if (chargeSettings != null && chargeSettings.Enabled &&
+            (capabilities & EnemyCapability.Charging) != 0)
+        {
+            effective |= EnemyCapability.Charging;
+        }
+
+        switch (attackType)
+        {
+            case EnemyAttackType.Melee:
+                effective |= EnemyCapability.MeleeCombat;
+                break;
+            case EnemyAttackType.Ranged:
+                effective |= EnemyCapability.RangedCombat;
+                break;
+            case EnemyAttackType.Area:
+                effective |= EnemyCapability.AreaCombat;
+                break;
+        }
+
+        return effective;
     }
 
     private void OnValidate()
     {
+        if (patrolSettings == null)
+            patrolSettings = new EnemyPatrolSettings();
+
+        if (retreatSettings == null)
+            retreatSettings = new EnemyRetreatSettings();
+
+        if (dashSettings == null)
+            dashSettings = new EnemyDashSettings();
+
+        if (chargeSettings == null)
+            chargeSettings = new EnemyChargeSettings();
+
+        patrolSettings.Validate();
+        retreatSettings.Validate();
+        dashSettings.Validate();
+        chargeSettings.Validate();
+
         maxHealth = Mathf.Max(1, maxHealth);
-        defense = Mathf.Max(0f, defense);
+        defense = ClampFinite(defense, 0f, 0f);
         xpReward = Mathf.Max(0, xpReward);
 
-        movementSpeed = Mathf.Max(0f, movementSpeed);
-        acceleration = Mathf.Max(0f, acceleration);
-        airAcceleration = Mathf.Max(0f, airAcceleration);
+        movementSpeed = ClampFinite(movementSpeed, 0f, 0f);
+        acceleration = ClampFinite(acceleration, 0f, 0f);
+        airAcceleration = ClampFinite(airAcceleration, 0f, 0f);
 
-        detectionRange = Mathf.Max(0f, detectionRange);
-        visionAngle = Mathf.Clamp(visionAngle, 0f, 360f);
+        detectionRange = ClampFinite(detectionRange, 0f, 0f);
+        visionAngle = Mathf.Clamp(ClampFinite(visionAngle, 0f, 0f), 0f, 360f);
 
-        attackDamage = Mathf.Max(0f, attackDamage);
-        attackRange = Mathf.Max(0f, attackRange);
-        attackCooldown = Mathf.Max(0f, attackCooldown);
+        attackDamage = ClampFinite(attackDamage, 0f, 0f);
+        attackRange = ClampFinite(attackRange, 0f, 0f);
+        attackCooldown = ClampFinite(attackCooldown, 0f, 0f);
 
-        deceleration = Mathf.Max(0f, deceleration);
-        airDeceleration = Mathf.Max(0f, airDeceleration);
+        deceleration = ClampFinite(deceleration, 0f, 0f);
+        airDeceleration = ClampFinite(airDeceleration, 0f, 0f);
 
-        turnDeceleration = Mathf.Max(0f, turnDeceleration);
-        airTurnDeceleration = Mathf.Max(0f, airTurnDeceleration);
+        turnDeceleration = ClampFinite(turnDeceleration, 0f, 0f);
+        airTurnDeceleration = ClampFinite(airTurnDeceleration, 0f, 0f);
 
-        targetSearchSpeed = Mathf.Max(0.01f, targetSearchSpeed);
+        targetSearchSpeed = ClampFinite(targetSearchSpeed, 0.01f, 0.01f);
 
         targetSearchArrivalDistance =
-            Mathf.Max(0f, targetSearchArrivalDistance);
+            ClampFinite(targetSearchArrivalDistance, 0f, 0f);
 
-        targetSearchDuration = Mathf.Max(0.01f, targetSearchDuration);
+        targetSearchDuration = ClampFinite(targetSearchDuration, 0.01f, 0.01f);
 
         targetSearchVerticalArrivalDistance =
-            Mathf.Max(0f, targetSearchVerticalArrivalDistance);
+            ClampFinite(targetSearchVerticalArrivalDistance, 0f, 0f);
 
         attackPreparationDuration =
-            Mathf.Max(0f, attackPreparationDuration);
+            ClampFinite(attackPreparationDuration, 0f, 0f);
 
-        attackDuration = Mathf.Max(0.01f, attackDuration);
+        attackDuration = ClampFinite(attackDuration, 0.01f, 0.01f);
 
         attackRecoveryDuration =
-            Mathf.Max(0f, attackRecoveryDuration);
+            ClampFinite(attackRecoveryDuration, 0f, 0f);
 
-        projectileSpeed = Mathf.Max(0f, projectileSpeed);
-        projectileLifetime = Mathf.Max(0.01f, projectileLifetime);
+        projectileSpeed = ClampFinite(projectileSpeed, 0f, 0f);
+        projectileLifetime = ClampFinite(projectileLifetime, 0.01f, 0.01f);
 
         specialAttackCheckIntervalMin =
-            Mathf.Max(0f, specialAttackCheckIntervalMin);
+            ClampFinite(specialAttackCheckIntervalMin, 0f, 0f);
 
-        specialAttackCheckIntervalMax =
-            Mathf.Max(
-                specialAttackCheckIntervalMin,
-                specialAttackCheckIntervalMax);
+        specialAttackCheckIntervalMax = Mathf.Max(
+            specialAttackCheckIntervalMin,
+            ClampFinite(specialAttackCheckIntervalMax, specialAttackCheckIntervalMin, 0f));
 
         specialAttackHealthThreshold =
-            Mathf.Clamp(specialAttackHealthThreshold, 0f, 100f);
+            Mathf.Clamp(ClampFinite(specialAttackHealthThreshold, 0f, 0f), 0f, 100f);
 
         if (!System.Enum.IsDefined(typeof(EnemyAttackType), attackType))
         {
             attackType = EnemyAttackType.None;
         }
+
+        // AttackType is the source of truth for implemented combat modes.
+        // Keep legacy serialized bits intact, but do not expose mismatched bits as active.
+        EnemyCapability configuredCombat = capabilities & ConfiguredCombatCapabilities;
+        EnemyCapability expectedCombat = attackType switch
+        {
+            EnemyAttackType.Melee => EnemyCapability.MeleeCombat,
+            EnemyAttackType.Ranged => EnemyCapability.RangedCombat,
+            EnemyAttackType.Area => EnemyCapability.AreaCombat,
+            _ => EnemyCapability.None
+        };
+
+        if (configuredCombat != EnemyCapability.None && configuredCombat != expectedCombat)
+        {
+            Debug.LogWarning(
+                $"{name}: AttackType controls the active combat capability; serialized combat flags do not match it.",
+                this);
+        }
+    }
+
+    private static float ClampFinite(float value, float fallback, float minimum)
+    {
+        if (float.IsNaN(value) || float.IsInfinity(value))
+            return fallback;
+
+        return Mathf.Max(minimum, value);
     }
 }

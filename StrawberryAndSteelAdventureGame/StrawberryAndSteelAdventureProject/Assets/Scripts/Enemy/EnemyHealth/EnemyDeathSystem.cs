@@ -5,10 +5,12 @@ public class EnemyDeathSystem
 {
     private EnemyController enemyController;
     private Rigidbody2D enemyRigidbody;
-    private Collider2D enemyCollider;
+    private Collider2D[] enemyColliders;
 
     private float destroyDelay;
     private float destroyTimer;
+    private float animationTimeout;
+    private float remainingAnimationTimeout;
 
     public bool IsInitialized => enemyController != null;
     public bool IsDead { get; private set; }
@@ -18,8 +20,9 @@ public class EnemyDeathSystem
     public void Initialize(
         EnemyController enemyController,
         Rigidbody2D enemyRigidbody,
-        Collider2D enemyCollider,
-        float destroyDelay)
+        Collider2D[] enemyColliders,
+        float destroyDelay,
+        float animationTimeout)
     {
         Clear();
 
@@ -33,9 +36,14 @@ public class EnemyDeathSystem
 
         this.enemyController = enemyController;
         this.enemyRigidbody = enemyRigidbody;
-        this.enemyCollider = enemyCollider;
+        this.enemyColliders = enemyColliders;
 
-        this.destroyDelay = Mathf.Max(0f, destroyDelay);
+        this.destroyDelay = IsValidDuration(destroyDelay)
+            ? Mathf.Max(0f, destroyDelay)
+            : 0f;
+        this.animationTimeout = IsValidDuration(animationTimeout)
+            ? Mathf.Max(0.01f, animationTimeout)
+            : 5f;
     }
 
     public void Die()
@@ -44,8 +52,9 @@ public class EnemyDeathSystem
             return;
 
         IsDead = true;
+        remainingAnimationTimeout = animationTimeout;
 
-        enemyController.StopMovement();
+        enemyController.OnDeathStarted();
 
         if (enemyRigidbody != null)
         {
@@ -53,8 +62,14 @@ public class EnemyDeathSystem
             enemyRigidbody.simulated = false;
         }
 
-        if (enemyCollider != null)
-            enemyCollider.enabled = false;
+        if (enemyColliders != null)
+        {
+            foreach (Collider2D enemyCollider in enemyColliders)
+            {
+                if (enemyCollider != null)
+                    enemyCollider.enabled = false;
+            }
+        }
 
         if (enemyController.HasAnimator)
         {
@@ -81,11 +96,19 @@ public class EnemyDeathSystem
 
     public void Update(float deltaTime)
     {
-        if (!IsInitialized ||
-            !IsDeathAnimationCompleted ||
-            IsDestroyed)
+        if (!IsInitialized || IsDestroyed ||
+            float.IsNaN(deltaTime) || float.IsInfinity(deltaTime) || deltaTime < 0f)
         {
             return;
+        }
+
+        if (!IsDeathAnimationCompleted)
+        {
+            remainingAnimationTimeout -= deltaTime;
+            if (remainingAnimationTimeout > 0f)
+                return;
+
+            CompleteDeathAnimation();
         }
 
         destroyTimer -= deltaTime;
@@ -102,13 +125,20 @@ public class EnemyDeathSystem
     {
         enemyController = null;
         enemyRigidbody = null;
-        enemyCollider = null;
+        enemyColliders = null;
 
         destroyDelay = 0f;
         destroyTimer = 0f;
+        animationTimeout = 0f;
+        remainingAnimationTimeout = 0f;
 
         IsDead = false;
         IsDeathAnimationCompleted = false;
         IsDestroyed = false;
+    }
+
+    private static bool IsValidDuration(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

@@ -17,6 +17,12 @@ public class EnemyTargetScanner
         float scanRadius,
         LayerMask targetLayers)
     {
+        this.detectionSystem = null;
+        this.detectionOrigin = null;
+        this.scanRadius = 0f;
+        this.targetLayers = default;
+        IsInitialized = false;
+
         if (detectionSystem == null)
         {
             Debug.LogError(
@@ -31,7 +37,7 @@ public class EnemyTargetScanner
             return;
         }
 
-        if (scanRadius <= 0f)
+        if (float.IsNaN(scanRadius) || float.IsInfinity(scanRadius) || scanRadius <= 0f)
         {
             Debug.LogError(
                 "EnemyTargetScanner requires a positive scan radius.");

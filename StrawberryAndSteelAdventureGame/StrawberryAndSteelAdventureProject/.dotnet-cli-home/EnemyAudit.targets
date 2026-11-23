@@ -1,0 +1,6 @@
+<Project>
+  <ItemGroup Condition="'$(MSBuildProjectName)' == 'Assembly-CSharp'">
+    <Compile Include="$(MSBuildProjectDirectory)\Assets\Scripts\Enemy\EnemyDashSettings.cs" />
+    <Compile Include="$(MSBuildProjectDirectory)\Assets\Scripts\Enemy\EnemyChargeSettings.cs" />
+  </ItemGroup>
+</Project>

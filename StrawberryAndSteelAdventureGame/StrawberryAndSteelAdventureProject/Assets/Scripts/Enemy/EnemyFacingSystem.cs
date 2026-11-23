@@ -8,11 +8,23 @@ public class EnemyFacingSystem
 
     public EnemyFacingDirection CurrentDirection { get; private set; }
 
+    public bool IsInitialized => visualRoot != null;
+
     public void Initialize(Transform visualRoot)
     {
+        this.visualRoot = null;
+        originalScale = Vector3.one;
+
         if (visualRoot == null)
         {
             Debug.LogError("EnemyFacingSystem requires a Visual Root.");
+            return;
+        }
+
+        Vector3 scale = visualRoot.localScale;
+        if (!IsFinite(scale.x) || !IsFinite(scale.y) || !IsFinite(scale.z))
+        {
+            Debug.LogError("EnemyFacingSystem received a non-finite visual scale.");
             return;
         }
 
@@ -54,5 +66,10 @@ public class EnemyFacingSystem
     public bool IsFacing(EnemyFacingDirection direction)
     {
         return CurrentDirection == direction;
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

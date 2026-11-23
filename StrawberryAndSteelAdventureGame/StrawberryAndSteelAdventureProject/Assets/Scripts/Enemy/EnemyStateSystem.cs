@@ -25,7 +25,7 @@ public class EnemyStateSystem
 
     public void ResetState()
     {
-        CurrentState = EnemyState.Idle;
+        SetState(EnemyState.Idle);
     }
 
 }

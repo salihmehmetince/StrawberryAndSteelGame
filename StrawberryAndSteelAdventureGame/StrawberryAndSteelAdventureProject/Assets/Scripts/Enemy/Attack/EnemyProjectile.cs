@@ -28,6 +28,7 @@ public class EnemyProjectile : MonoBehaviour
         IsInitialized = false;
         this.damage = 0;
         collisionSystem = null;
+        isBeingDestroyed = false;
 
         if (owner == null ||
             damage <= 0 ||

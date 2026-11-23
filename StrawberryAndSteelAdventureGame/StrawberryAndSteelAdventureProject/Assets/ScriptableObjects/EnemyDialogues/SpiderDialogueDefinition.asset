@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46942165977bacc4f95ebf037b27401f, type: 3}
+  m_Name: SpiderDialogueDefinition
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDialogueDefinition
+  dialogueGroups:
+  - dialogueType: 0
+    audioClips:
+    - {fileID: 8300000, guid: 33f2addb7cfbdc14caff9c5268872bb7, type: 3}
+  - dialogueType: 1
+    audioClips:
+    - {fileID: 8300000, guid: 65e1b30e54367624c83cf81a8cbaa7b3, type: 3}
+  - dialogueType: 2
+    audioClips:
+    - {fileID: 8300000, guid: 824862c499cd7cc478ee2ba2833d0947, type: 3}
+  - dialogueType: 3
+    audioClips:
+    - {fileID: 8300000, guid: 82d5aecf4f844fd4ea4d9c0f824b1f8e, type: 3}
+  - dialogueType: 4
+    audioClips:
+    - {fileID: 8300000, guid: b86f7ae68206c1a47b67031e66d99f3e, type: 3}
+  - dialogueType: 5
+    audioClips:
+    - {fileID: 8300000, guid: bf69b91ed8724cc429b5bafb65bccd1f, type: 3}
+  - dialogueType: 6
+    audioClips:
+    - {fileID: 8300000, guid: b30f641a64bdcba4aa378e8915c42211, type: 3}
+  ambientCheckInterval: 8
+  ambientPlayChance: 0.25
+  dialogueCooldown: 2.5
+  defaultDialogueClip: {fileID: 8300000, guid: bf69b91ed8724cc429b5bafb65bccd1f, type: 3}

@@ -13,6 +13,8 @@ public class EnemyHealthDisplaySystem
         EnemyHealthSystem healthSystem,
         Image healthBarFill)
     {
+        Dispose();
+
         if (healthSystem == null || healthBarFill == null)
         {
             Debug.LogError(
@@ -44,10 +46,8 @@ public class EnemyHealthDisplaySystem
 
     public void Dispose()
     {
-        if (healthSystem == null)
-            return;
-
-        healthSystem.OnHealthChanged -= UpdateHealthDisplay;
+        if (healthSystem != null)
+            healthSystem.OnHealthChanged -= UpdateHealthDisplay;
 
         healthSystem = null;
         healthBarFill = null;

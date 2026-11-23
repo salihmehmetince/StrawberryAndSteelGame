@@ -53,27 +53,35 @@ public class EnemySpecialAttackDefinition : ScriptableObject
         }
 
         damage = Mathf.Max(0, damage);
-        cooldown = Mathf.Max(0f, cooldown);
+        cooldown = ClampFinite(cooldown, 0f, 0f);
 
         preparationDuration =
-            Mathf.Max(0f, preparationDuration);
+            ClampFinite(preparationDuration, 0f, 0f);
 
         attackDuration =
-            Mathf.Max(0.01f, attackDuration);
+            ClampFinite(attackDuration, 0.01f, 0.01f);
 
         recoveryDuration =
-            Mathf.Max(0f, recoveryDuration);
+            ClampFinite(recoveryDuration, 0f, 0f);
 
         meleeHitRadius =
-            Mathf.Max(0f, meleeHitRadius);
+            ClampFinite(meleeHitRadius, 0f, 0f);
 
         projectileSpeed =
-            Mathf.Max(0f, projectileSpeed);
+            ClampFinite(projectileSpeed, 0f, 0f);
 
         projectileLifetime =
-            Mathf.Max(0.01f, projectileLifetime);
+            ClampFinite(projectileLifetime, 0.01f, 0.01f);
 
         areaRadius =
-            Mathf.Max(0f, areaRadius);
+            ClampFinite(areaRadius, 0f, 0f);
+    }
+
+    private static float ClampFinite(float value, float fallback, float minimum)
+    {
+        if (float.IsNaN(value) || float.IsInfinity(value))
+            return fallback;
+
+        return Mathf.Max(minimum, value);
     }
 }

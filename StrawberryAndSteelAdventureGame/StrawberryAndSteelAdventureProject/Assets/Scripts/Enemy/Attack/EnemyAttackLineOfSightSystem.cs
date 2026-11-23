@@ -47,12 +47,25 @@ public class EnemyAttackLineOfSightSystem
         if (distance <= 0f)
             return true;
 
-        RaycastHit2D hit = Physics2D.Raycast(
+        RaycastHit2D[] hits = Physics2D.RaycastAll(
             origin,
             direction.normalized,
             distance,
             obstacleLayers);
 
-        return hit.collider == null;
+        foreach (RaycastHit2D hit in hits)
+        {
+            if (hit.collider == null)
+                continue;
+
+            Transform hitRoot = hit.collider.transform.root;
+
+            if (hitRoot == attackOrigin.root || hitRoot == target.root)
+                continue;
+
+            return false;
+        }
+
+        return true;
     }
 }

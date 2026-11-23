@@ -1,4 +1,3 @@
-
 using System;
 using UnityEngine;
 
@@ -15,9 +14,13 @@ public class EnemyHealthEventHandler
     public bool IsInitialized =>
         healthSystem != null &&
         damageSystem != null &&
+        damageSystem.IsInitialized &&
         hurtSystem != null &&
+        hurtSystem.IsInitialized &&
         deathSystem != null &&
-        feedbackSystem != null;
+        deathSystem.IsInitialized &&
+        feedbackSystem != null &&
+        feedbackSystem.IsInitialized;
 
     public void Initialize(
         EnemyHealthSystem healthSystem,
@@ -33,11 +36,13 @@ public class EnemyHealthEventHandler
             damageSystem == null ||
             hurtSystem == null ||
             deathSystem == null ||
-            feedbackSystem == null)
+            feedbackSystem == null ||
+            !damageSystem.IsInitialized ||
+            !hurtSystem.IsInitialized ||
+            !deathSystem.IsInitialized ||
+            !feedbackSystem.IsInitialized)
         {
-            Debug.LogError(
-                "EnemyHealthEventHandler requires all systems.");
-
+            Debug.LogError("EnemyHealthEventHandler requires all systems.");
             return;
         }
 
@@ -49,30 +54,26 @@ public class EnemyHealthEventHandler
         this.playDialogue = playDialogue;
 
         damageSystem.OnDamageReceived += HandleDamageReceived;
-
         healthSystem.OnHealed += HandleHealed;
         healthSystem.OnDied += HandleDied;
     }
 
-    private void HandleDamageReceived(
-        int damageAmount,
-        Vector2 attackPosition)
+    private void HandleDamageReceived(int damageAmount, Vector2 attackPosition)
     {
-        if (!IsInitialized)
-            return;
-
-        if (healthSystem.IsDead || deathSystem.IsDead)
+        if (!IsInitialized || healthSystem.IsDead || deathSystem.IsDead)
             return;
 
         hurtSystem.ApplyKnockback(attackPosition);
         feedbackSystem.PlayHurtFeedback();
-
         playDialogue?.Invoke(EnemyDialogueType.Hurt);
     }
 
     private void HandleHealed(int healAmount)
     {
-        // Ýyileþtirme geri bildirimi sonraki aþamada baðlanacak.
+        if (!IsInitialized || healAmount <= 0)
+            return;
+
+        feedbackSystem.PlayHealFeedback();
     }
 
     private void HandleDied()
@@ -82,7 +83,6 @@ public class EnemyHealthEventHandler
 
         deathSystem.Die();
         feedbackSystem.PlayDeathFeedback();
-
         playDialogue?.Invoke(EnemyDialogueType.Death);
     }
 
@@ -102,7 +102,6 @@ public class EnemyHealthEventHandler
         hurtSystem = null;
         deathSystem = null;
         feedbackSystem = null;
-
         playDialogue = null;
     }
 }

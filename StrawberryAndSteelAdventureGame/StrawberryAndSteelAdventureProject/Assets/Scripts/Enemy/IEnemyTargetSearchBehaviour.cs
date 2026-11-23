@@ -2,6 +2,7 @@ using UnityEngine;
 
 public interface IEnemyTargetSearchBehaviour
 {
+    bool IsInitialized { get; }
     bool IsSearching { get; }
 
     void Initialize(

@@ -8,5 +8,6 @@ public enum EnemyState
     Hurt,
     Stunned,
     Returning,
-    Dead
+    Dead,
+    Retreat
 }

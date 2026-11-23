@@ -15,9 +15,18 @@ public class EnemyDetectionSettings
         LayerMask targetLayers,
         LayerMask obstacleLayers)
     {
-        DetectionRange = Mathf.Max(0f, detectionRange);
-        VisionAngle = Mathf.Clamp(visionAngle, 0f, 360f);
+        DetectionRange = IsFinite(detectionRange)
+            ? Mathf.Max(0f, detectionRange)
+            : 0f;
+        VisionAngle = IsFinite(visionAngle)
+            ? Mathf.Clamp(visionAngle, 0f, 360f)
+            : 0f;
         TargetLayers = targetLayers;
         ObstacleLayers = obstacleLayers;
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
     }
 }

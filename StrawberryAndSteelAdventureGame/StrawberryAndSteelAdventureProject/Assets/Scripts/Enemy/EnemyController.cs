@@ -32,16 +32,22 @@ public class EnemyController : MonoBehaviour, IDamageable
     [Header("Hurt Configuration")]
     [SerializeField] private float knockbackForce;
     [SerializeField] private float verticalKnockbackForce;
+    [SerializeField, Min(0.01f)] private float knockbackDuration = 0.2f;
+    [SerializeField, Min(0.01f)] private float hurtAnimationFallbackDuration = 1f;
+    [SerializeField, Min(0f)] private float attackAnimationEventFallbackGraceDuration = 0.5f;
 
     [Header("Death Configuration")]
     [SerializeField] private float deathDestroyDelay;
+    [SerializeField, Min(0.01f)] private float deathAnimationTimeout = 5f;
 
     [Header("Feedback Configuration")]
     [SerializeField] private AudioSource feedbackAudioSource;
     [SerializeField] private AudioClip hurtSound;
     [SerializeField] private AudioClip deathSound;
+    [SerializeField] private AudioClip healSound;
     [SerializeField] private ParticleSystem hurtEffect;
     [SerializeField] private ParticleSystem deathEffect;
+    [SerializeField] private ParticleSystem healEffect;
 
     [Header("Dialogue Configuration")]
     [SerializeField] private AudioSource dialogueAudioSource;
@@ -79,6 +85,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private Rigidbody2D enemyRigidbody;
     private Collider2D mainCollider;
+    private Collider2D[] enemyColliders;
     private Animator animator;
     private SpriteRenderer[] spriteRenderers;
 
@@ -96,6 +103,8 @@ public class EnemyController : MonoBehaviour, IDamageable
     private EnemyGroundDetection groundDetection;
     private EnemyAirStateSystem airStateSystem;
     private JumpBehaviour jumpBehaviour;
+    private DashBehaviour dashBehaviour;
+    private ChargeBehaviour chargeBehaviour;
 
     // Detection and Target Systems
 
@@ -112,6 +121,12 @@ public class EnemyController : MonoBehaviour, IDamageable
     private EnemyDeathSystem deathSystem;
     private EnemyFeedbackSystem feedbackSystem;
     private EnemyHealthEventHandler healthEventHandler;
+    private KnockbackBehaviour knockbackBehaviour;
+
+    // Reusable movement behaviours
+
+    private EnemyPatrolSystem patrolSystem;
+    private EnemyRetreatSystem retreatSystem;
 
     // Dialogue
 
@@ -131,6 +146,7 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public bool IsInitialized => isInitialized;
     public bool IsDead => healthSystem != null && healthSystem.IsDead;
+    public bool IsHurting => hurtSystem != null && hurtSystem.IsHurting;
 
     public int CurrentHealth =>
         healthSystem != null ? healthSystem.CurrentHealth : 0;
@@ -143,12 +159,17 @@ public class EnemyController : MonoBehaviour, IDamageable
     public EnemyStateSystem StateSystem => stateSystem;
     public EnemyMovementSystem MovementSystem => movementSystem;
     public EnemyFacingSystem FacingSystem => facingSystem;
+    public EnemyPatrolSystem PatrolSystem => patrolSystem;
+    public EnemyRetreatSystem RetreatSystem => retreatSystem;
 
     public EnemyGroundDetection GroundDetection => groundDetection;
     public EnemyAirStateSystem AirStateSystem => airStateSystem;
 
     public bool IsJumping =>
         movementSystem != null && movementSystem.IsJumping;
+
+    public bool IsDashing => dashBehaviour != null && dashBehaviour.IsActive;
+    public bool IsCharging => chargeBehaviour != null && chargeBehaviour.IsActive;
 
     public bool IsGrounded =>
         airStateSystem != null && airStateSystem.IsGrounded;
@@ -260,6 +281,14 @@ public class EnemyController : MonoBehaviour, IDamageable
         (specialAttackSequenceSystem != null &&
          specialAttackSequenceSystem.IsSequenceRunning);
 
+    public bool IsAttackInProgress =>
+        (attackSequenceSystem != null &&
+         (attackSequenceSystem.CurrentState == EnemyAttackState.Preparing ||
+          attackSequenceSystem.CurrentState == EnemyAttackState.Attacking ||
+          attackSequenceSystem.CurrentState == EnemyAttackState.Recovery)) ||
+        (specialAttackSequenceSystem != null &&
+         specialAttackSequenceSystem.IsSequenceRunning);
+
     public bool IsAttacking =>
         (attackStateSystem != null &&
          attackStateSystem.IsAttacking) ||
@@ -286,21 +315,37 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void FixedUpdate()
     {
-        if (!isInitialized)
+        if (!isInitialized || IsDead)
             return;
 
         groundDetection.CheckGround();
         airStateSystem.Update();
+        targetSearchBehaviour?.Update(Time.fixedDeltaTime);
+        patrolSystem?.Update(Time.fixedDeltaTime);
+        retreatSystem?.Update(Time.fixedDeltaTime);
+        dashBehaviour?.TickCooldown(Time.fixedDeltaTime);
+        chargeBehaviour?.TickCooldown(Time.fixedDeltaTime);
+        bool hadActiveMovementAction = movementSystem.HasActiveAction;
         movementSystem.Update(Time.fixedDeltaTime);
 
-        UpdateMovementAnimation();
+        if (hadActiveMovementAction && !movementSystem.HasActiveAction)
+            RefreshAIStateAfterMovement();
 
-        targetSearchBehaviour?.Update(Time.fixedDeltaTime);
+        UpdateMovementAnimation();
     }
+
     private void Update()
     {
         if (!isInitialized)
             return;
+
+        deathSystem?.Update(Time.deltaTime);
+
+        if (IsDead)
+            return;
+
+        if (hurtSystem != null && hurtSystem.Update(Time.deltaTime))
+            CompleteHurtAnimation();
 
         if (attackTargetSystem != null && targetSystem != null)
         {
@@ -309,6 +354,17 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         attackSequenceSystem?.Update(Time.deltaTime);
 
+        bool specialAttackWasActive =
+            specialAttackSystem != null && specialAttackSystem.IsAttackActive;
+        specialAttackSequenceSystem?.Update(Time.deltaTime);
+
+        if (specialAttackWasActive &&
+            specialAttackSequenceSystem != null &&
+            specialAttackSequenceSystem.CurrentState == EnemyAttackState.Idle)
+        {
+            specialAttackSystem?.CompleteActiveAttack();
+        }
+
         if (!IsDead)
         {
             specialAttackSystem?.Update(
@@ -316,7 +372,7 @@ public class EnemyController : MonoBehaviour, IDamageable
                 healthSystem.HealthPercentage);
         }
 
-        deathSystem?.Update(Time.deltaTime);
+        RefreshAttackState();
 
         dialogueSystem?.Update(
             Time.deltaTime,
@@ -330,13 +386,63 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (isInitialized)
             return;
 
+        CleanupRuntimeSystems();
+
+        if (!InitializeSystems())
+            CleanupRuntimeSystems();
+        else
+            isInitialized = true;
+    }
+
+    private bool InitializeSystems()
+    {
+
         if (definition == null)
         {
             Debug.LogError(
                 $"EnemyDefinition is missing on {gameObject.name}.",
                 gameObject);
 
-            return;
+            return false;
+        }
+
+        if (definition.UnsupportedCapabilities != EnemyCapability.None)
+        {
+            Debug.LogWarning(
+                $"Enemy {gameObject.name} has reserved, unsupported capabilities that will be ignored: {definition.UnsupportedCapabilities}.",
+                gameObject);
+        }
+
+        if ((definition.ConfiguredCapabilities & EnemyCapability.Dashing) != 0 &&
+            (definition.DashSettings == null || !definition.DashSettings.Enabled))
+        {
+            Debug.LogWarning(
+                $"Enemy {gameObject.name} has Dashing configured without enabled dash settings; dashing is inactive.",
+                gameObject);
+        }
+
+        if ((definition.ConfiguredCapabilities & EnemyCapability.Charging) != 0 &&
+            (definition.ChargeSettings == null || !definition.ChargeSettings.Enabled))
+        {
+            Debug.LogWarning(
+                $"Enemy {gameObject.name} has Charging configured without enabled charge settings; charging is inactive.",
+                gameObject);
+        }
+
+        if (definition.DashSettings != null && definition.DashSettings.Enabled &&
+            (definition.ConfiguredCapabilities & EnemyCapability.Dashing) == 0)
+        {
+            Debug.LogWarning(
+                $"Enemy {gameObject.name} has enabled dash settings without the Dashing capability; the settings are inactive.",
+                gameObject);
+        }
+
+        if (definition.ChargeSettings != null && definition.ChargeSettings.Enabled &&
+            (definition.ConfiguredCapabilities & EnemyCapability.Charging) == 0)
+        {
+            Debug.LogWarning(
+                $"Enemy {gameObject.name} has enabled charge settings without the Charging capability; the settings are inactive.",
+                gameObject);
         }
 
         CacheComponents();
@@ -347,11 +453,14 @@ public class EnemyController : MonoBehaviour, IDamageable
                 $"Rigidbody2D is missing on {gameObject.name}.",
                 gameObject);
 
-            return;
+            return false;
         }
 
-        animationController = new EnemyAnimationController();
-        animationController.Initialize(animator);
+        if (animator != null)
+        {
+            animationController = new EnemyAnimationController();
+            animationController.Initialize(animator);
+        }
 
         InitializeAnimationEventRelay();
 
@@ -359,36 +468,80 @@ public class EnemyController : MonoBehaviour, IDamageable
         movementSystem = new EnemyMovementSystem(this);
 
         InitializeGroundDetection();
+        if (RequiresGroundDetection() && !groundDetection.IsInitialized)
+            return false;
+
         InitializeAirStateSystem();
-        InitializeJumpBehaviour();
+        if (!airStateSystem.IsInitialized)
+            return false;
+
+        if (!InitializeDefaultMovementBehaviour())
+            return false;
+
+        if (!InitializeJumpBehaviour())
+            return false;
+
+        if (!InitializeDashAndChargeBehaviours())
+            return false;
         InitializeFacingSystem();
+        if (!facingSystem.IsInitialized)
+            return false;
+
         InitializeDetectionSystem();
         InitializeTargetScanner();
+        if (detectionSystem == null || !detectionSystem.IsInitialized ||
+            targetScanner == null || !targetScanner.IsInitialized)
+        {
+            Debug.LogError(
+                $"Detection Origin, Visual Root, and a positive scan radius are required on {gameObject.name}.",
+                gameObject);
+            return false;
+        }
+
+        if (targetLayers.value == 0)
+        {
+            Debug.LogWarning(
+                $"Target Layers are empty on {gameObject.name}; this enemy will not acquire targets.",
+                gameObject);
+        }
+
+        if (definition.DetectionRange <= 0f)
+        {
+            Debug.LogWarning(
+                $"Detection Range is not positive on {gameObject.name}; this enemy will only see targets at its origin.",
+                gameObject);
+        }
 
         targetSystem = new EnemyTargetSystem();
 
         InitializeTargetSearchBehaviour();
+        if (targetSearchBehaviour == null || !targetSearchBehaviour.IsInitialized)
+            return false;
+
+        InitializePatrolSystem();
+        if (patrolSystem == null || !patrolSystem.IsInitialized)
+            return false;
+
+        InitializeRetreatSystem();
+        if (retreatSystem == null || !retreatSystem.IsInitialized)
+            return false;
 
         if (!InitializeHealthSystems())
-            return;
+            return false;
 
         if (!InitializeAttackSystems())
-        {
-            healthEventHandler?.Dispose();
-            healthEventHandler = null;
-
-            return;
-        }
+            return false;
 
         InitializeDialogueSystem();
 
-        isInitialized = true;
+        return true;
     }
 
     private void CacheComponents()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>();
         mainCollider = GetComponent<Collider2D>();
+        enemyColliders = GetComponentsInChildren<Collider2D>(true);
         animator = GetComponentInChildren<Animator>(true);
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
     }
@@ -399,10 +552,25 @@ public class EnemyController : MonoBehaviour, IDamageable
     {
         groundDetection = new EnemyGroundDetection();
 
+        if (!RequiresGroundDetection())
+            return;
+
         groundDetection.Initialize(
             groundCheck,
             groundLayer,
             groundCheckRadius);
+    }
+
+    private bool RequiresGroundDetection()
+    {
+        bool flies = definition != null &&
+                     definition.HasCapability(EnemyCapability.Flying);
+        bool swims = definition != null &&
+                     definition.HasCapability(EnemyCapability.Swimming);
+        bool jumps = definition != null &&
+                     definition.HasCapability(EnemyCapability.Jumping);
+
+        return (!flies && !swims) || jumps;
     }
 
     private void InitializeAirStateSystem()
@@ -416,8 +584,45 @@ public class EnemyController : MonoBehaviour, IDamageable
         airStateSystem.Update();
     }
 
-    private void InitializeJumpBehaviour()
+    private bool InitializeDefaultMovementBehaviour()
     {
+        bool canFly = definition.HasCapability(EnemyCapability.Flying);
+        bool canSwim = definition.HasCapability(EnemyCapability.Swimming);
+        bool canMoveOnGround = definition.HasCapability(EnemyCapability.GroundMovement);
+
+        int movementTypes = (canFly ? 1 : 0) +
+                            (canSwim ? 1 : 0) +
+                            (canMoveOnGround ? 1 : 0);
+
+        if (movementTypes != 1)
+        {
+            Debug.LogError(
+                movementTypes == 0
+                    ? $"Enemy {gameObject.name} has no implemented locomotion capability. Configure exactly one movement mode."
+                    : $"Enemy {gameObject.name} has conflicting locomotion capabilities. Configure exactly one movement mode.",
+                gameObject);
+
+            return false;
+        }
+
+        IEnemyMovementBehaviour behaviour = canFly
+            ? (IEnemyMovementBehaviour)new FlyingMovement()
+            : canSwim
+                ? new SwimmingMovement()
+                : new GroundMovement();
+
+        movementSystem.SetBehaviour(behaviour);
+        return true;
+    }
+
+    private bool InitializeJumpBehaviour()
+    {
+        if (!definition.HasCapability(EnemyCapability.Jumping))
+        {
+            jumpBehaviour = null;
+            return true;
+        }
+
         jumpBehaviour = new JumpBehaviour();
 
         jumpBehaviour.Initialize(
@@ -427,6 +632,61 @@ public class EnemyController : MonoBehaviour, IDamageable
             takeoffTimeout);
 
         movementSystem.SetJumpBehaviour(jumpBehaviour);
+        if (!jumpBehaviour.IsInitialized)
+        {
+            Debug.LogError($"Failed to initialize jump behaviour on {gameObject.name}.", gameObject);
+            return false;
+        }
+
+        return true;
+    }
+
+    private bool InitializeDashAndChargeBehaviours()
+    {
+        dashBehaviour = null;
+        chargeBehaviour = null;
+
+        if (definition.HasCapability(EnemyCapability.Dashing))
+        {
+            EnemyDashSettings settings = definition.DashSettings;
+            if (settings == null)
+                return FailMovementInitialization("Dash settings are missing.");
+
+            dashBehaviour = new DashBehaviour();
+            dashBehaviour.Initialize(
+                this,
+                settings.Speed,
+                settings.Duration,
+                settings.Cooldown);
+
+            if (!dashBehaviour.IsInitialized)
+                return FailMovementInitialization("Failed to initialize dash behaviour.");
+        }
+
+        if (definition.HasCapability(EnemyCapability.Charging))
+        {
+            EnemyChargeSettings settings = definition.ChargeSettings;
+            if (settings == null)
+                return FailMovementInitialization("Charge settings are missing.");
+
+            chargeBehaviour = new ChargeBehaviour();
+            chargeBehaviour.Initialize(
+                this,
+                settings.Speed,
+                settings.Duration,
+                settings.Cooldown);
+
+            if (!chargeBehaviour.IsInitialized)
+                return FailMovementInitialization("Failed to initialize charge behaviour.");
+        }
+
+        return true;
+    }
+
+    private bool FailMovementInitialization(string message)
+    {
+        Debug.LogError($"{message} Enemy: {gameObject.name}.", gameObject);
+        return false;
     }
 
     private void InitializeFacingSystem()
@@ -521,10 +781,92 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public bool Jump()
     {
-        if (!isInitialized)
+        if (!isInitialized || IsDead || IsHurting || IsAttackInProgress ||
+            definition == null ||
+            !definition.HasCapability(EnemyCapability.Jumping))
+        {
             return false;
+        }
 
         return movementSystem.Jump();
+    }
+
+    public bool TryDash(Vector2 direction)
+    {
+        if (!isInitialized || IsDead || IsHurting || IsAttackInProgress ||
+            definition == null || !definition.HasCapability(EnemyCapability.Dashing) ||
+            dashBehaviour == null || !dashBehaviour.IsReady ||
+            IsPatrolRetreatOrSearching())
+        {
+            return false;
+        }
+
+        if (float.IsNaN(direction.x) || float.IsInfinity(direction.x) ||
+            float.IsNaN(direction.y) || float.IsInfinity(direction.y) ||
+            direction.sqrMagnitude <= 0f)
+        {
+            return false;
+        }
+
+        bool started = movementSystem.TryActivateAction(
+            dashBehaviour,
+            () => dashBehaviour.StartDash(direction));
+
+        if (started)
+        {
+            if (Mathf.Abs(direction.x) > 0.001f)
+                Face(direction.x < 0f ? EnemyFacingDirection.Left : EnemyFacingDirection.Right);
+
+            SetAIState(targetSystem != null && targetSystem.HasTarget
+                ? EnemyState.Chase
+                : EnemyState.Idle);
+        }
+
+        return started;
+    }
+
+    public bool TryCharge(Vector2 targetPosition)
+    {
+        if (!isInitialized || IsDead || IsHurting || IsAttackInProgress ||
+            definition == null || !definition.HasCapability(EnemyCapability.Charging) ||
+            chargeBehaviour == null || !chargeBehaviour.IsReady ||
+            IsPatrolRetreatOrSearching())
+        {
+            return false;
+        }
+
+        if (float.IsNaN(targetPosition.x) || float.IsInfinity(targetPosition.x) ||
+            float.IsNaN(targetPosition.y) || float.IsInfinity(targetPosition.y))
+        {
+            return false;
+        }
+
+        Vector2 direction = targetPosition - (Vector2)transform.position;
+        bool started = movementSystem.TryActivateAction(
+            chargeBehaviour,
+            () => chargeBehaviour.StartCharge(targetPosition));
+
+        if (started)
+        {
+            if (Mathf.Abs(direction.x) > 0.001f)
+                Face(direction.x < 0f ? EnemyFacingDirection.Left : EnemyFacingDirection.Right);
+
+            SetAIState(targetSystem != null && targetSystem.HasTarget
+                ? EnemyState.Chase
+                : EnemyState.Idle);
+        }
+
+        return started;
+    }
+
+    public bool IsDashReady => dashBehaviour != null && dashBehaviour.IsReady;
+    public bool IsChargeReady => chargeBehaviour != null && chargeBehaviour.IsReady;
+
+    private bool IsPatrolRetreatOrSearching()
+    {
+        return (patrolSystem != null && patrolSystem.IsPatrolling) ||
+               (retreatSystem != null && retreatSystem.IsRetreating) ||
+               IsTargetSearchBehaviourActive();
     }
 
     public bool TryActivateMovementAction(
@@ -577,6 +919,114 @@ public class EnemyController : MonoBehaviour, IDamageable
             return;
 
         movementSystem.Unlock();
+    }
+
+    public bool StartPatrol()
+    {
+        if (!isInitialized || IsDead || IsHurting || IsAttackInProgress ||
+            IsSpecialMovementActive ||
+            targetSystem == null || targetSystem.HasTarget)
+            return false;
+
+        StopTargetSearching();
+        retreatSystem?.StopRetreat();
+        return patrolSystem != null && patrolSystem.StartPatrol();
+    }
+
+    public void StopPatrol()
+    {
+        patrolSystem?.StopPatrol();
+    }
+
+    public bool TryStartRetreat(Transform target)
+    {
+        if (!isInitialized || IsDead || IsHurting || IsAttackInProgress ||
+            IsSpecialMovementActive || retreatSystem == null)
+            return false;
+
+        if (retreatSystem.IsRetreating)
+            return true;
+
+        float healthPercentage = healthSystem != null
+            ? healthSystem.HealthPercentage
+            : 1f;
+
+        if (!retreatSystem.ShouldRetreat(target, healthPercentage))
+            return false;
+
+        return StartRetreat(target);
+    }
+
+    public bool StartRetreat(Transform target)
+    {
+        if (!isInitialized || IsDead || IsHurting || IsAttackInProgress ||
+            IsSpecialMovementActive || retreatSystem == null)
+            return false;
+
+        StopTargetSearching();
+        patrolSystem?.StopPatrol();
+        return retreatSystem.StartRetreat(target);
+    }
+
+    public void StopRetreat()
+    {
+        retreatSystem?.StopRetreat();
+    }
+
+    public void SetAIState(EnemyState state)
+    {
+        if (!isInitialized || IsDead || stateSystem == null)
+            return;
+
+        stateSystem.SetState(state);
+    }
+
+    public void RefreshAIStateAfterMovement()
+    {
+        if (stateSystem == null)
+            return;
+
+        if (IsDead)
+        {
+            stateSystem.SetState(EnemyState.Dead);
+            return;
+        }
+
+        if (IsHurting)
+        {
+            stateSystem.SetState(EnemyState.Hurt);
+            return;
+        }
+
+        if (IsAttackInProgress)
+        {
+            stateSystem.SetState(EnemyState.Attack);
+            return;
+        }
+
+        if (retreatSystem != null && retreatSystem.IsRetreating)
+        {
+            stateSystem.SetState(EnemyState.Retreat);
+            return;
+        }
+
+        if (patrolSystem != null && patrolSystem.IsPatrolling)
+        {
+            stateSystem.SetState(EnemyState.Patrol);
+            return;
+        }
+
+        if (targetSystem != null &&
+            (targetSystem.CurrentState == EnemyTargetState.Searching ||
+             targetSystem.CurrentState == EnemyTargetState.Lost))
+        {
+            stateSystem.SetState(EnemyState.Returning);
+            return;
+        }
+
+        stateSystem.SetState(targetSystem != null && targetSystem.HasTarget
+            ? EnemyState.Chase
+            : EnemyState.Idle);
     }
 
     // Detection Initialization
@@ -645,6 +1095,21 @@ public class EnemyController : MonoBehaviour, IDamageable
         return detectionSystem.HasLineOfSight(target);
     }
 
+    public bool IsTargetInNormalAttackRangeAndSight(Transform target)
+    {
+        if (!isInitialized || target == null || attackOrigin == null ||
+            definition == null || definition.AttackType == EnemyAttackType.None ||
+            attackLineOfSightSystem == null || !attackLineOfSightSystem.IsInitialized)
+        {
+            return false;
+        }
+
+        if (Vector2.Distance(attackOrigin.position, target.position) > definition.AttackRange)
+            return false;
+
+        return attackLineOfSightSystem.HasLineOfSight(target);
+    }
+
     public Transform FindNearestVisibleTarget()
     {
         if (!isInitialized || targetScanner == null)
@@ -657,27 +1122,38 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public bool SetTarget(Transform target)
     {
-        if (targetSystem == null)
+        if (!isInitialized || IsDead || targetSystem == null)
             return false;
 
         bool targetSet = targetSystem.SetTarget(target);
 
         if (targetSet)
+        {
+            patrolSystem?.StopPatrol();
             PlayDialogue(EnemyDialogueType.PlayerDetected);
+        }
 
         return targetSet;
     }
 
     public bool StartTrackingTarget()
     {
-        return targetSystem != null &&
-               targetSystem.StartTracking();
+        bool started = targetSystem != null && targetSystem.StartTracking();
+
+        if (started)
+            SetAIState(EnemyState.Chase);
+
+        return started;
     }
 
     public bool ReacquireTarget()
     {
-        return targetSystem != null &&
-               targetSystem.ReacquireTarget();
+        bool reacquired = targetSystem != null && targetSystem.ReacquireTarget();
+
+        if (reacquired)
+            SetAIState(EnemyState.Chase);
+
+        return reacquired;
     }
 
     public void UpdateLastKnownTargetPosition()
@@ -700,13 +1176,19 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public bool StartSearchingForTarget()
     {
-        return targetSystem != null &&
-               targetSystem.StartSearching();
+        bool started = targetSystem != null && targetSystem.StartSearching();
+
+        if (started)
+            SetAIState(EnemyState.Returning);
+
+        return started;
     }
 
     public void ClearTarget()
     {
         targetSystem?.ClearTarget();
+        retreatSystem?.StopRetreat();
+        RefreshAIStateAfterMovement();
     }
 
     public bool CanCurrentlySeeTarget(Transform target)
@@ -717,8 +1199,12 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public bool CompleteTargetSearching()
     {
-        return targetSystem != null &&
-               targetSystem.CompleteSearching();
+        bool completed = targetSystem != null && targetSystem.CompleteSearching();
+
+        if (completed)
+            RefreshAIStateAfterMovement();
+
+        return completed;
     }
 
     public void InitializeTargetSearchBehaviour(
@@ -742,10 +1228,18 @@ public class EnemyController : MonoBehaviour, IDamageable
             horizontalArrivalDistance,
             verticalArrivalDistance,
             searchSpeed);
+
+        if (!targetSearchBehaviour.IsInitialized)
+        {
+            Debug.LogError($"Failed to initialize target search behaviour on {gameObject.name}.", gameObject);
+            targetSearchBehaviour = null;
+        }
     }
 
     public void StartTargetSearching(Vector2 targetPosition)
     {
+        patrolSystem?.StopPatrol();
+        retreatSystem?.StopRetreat();
         targetSearchBehaviour?.StartSearching(targetPosition);
     }
 
@@ -757,6 +1251,7 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void StopTargetSearching()
     {
         targetSearchBehaviour?.StopSearching();
+        RefreshAIStateAfterMovement();
     }
 
     public bool IsTargetSearchBehaviourActive()
@@ -775,6 +1270,18 @@ public class EnemyController : MonoBehaviour, IDamageable
             definition.TargetSearchArrivalDistance,
             definition.TargetSearchVerticalArrivalDistance,
             definition.TargetSearchSpeed);
+    }
+
+    private void InitializePatrolSystem()
+    {
+        patrolSystem = new EnemyPatrolSystem();
+        patrolSystem.Initialize(this, definition.PatrolSettings);
+    }
+
+    private void InitializeRetreatSystem()
+    {
+        retreatSystem = new EnemyRetreatSystem();
+        retreatSystem.Initialize(this, definition.RetreatSettings);
     }
 
     // Health Initialization
@@ -809,14 +1316,18 @@ public class EnemyController : MonoBehaviour, IDamageable
             return false;
         }
 
+        knockbackBehaviour = new KnockbackBehaviour();
+        knockbackBehaviour.Initialize(this, knockbackDuration);
+
         hurtSystem = new EnemyHurtSystem();
 
         hurtSystem.Initialize(
             this,
             enemyRigidbody,
-            animator,
+            knockbackBehaviour,
             knockbackForce,
-            verticalKnockbackForce);
+            verticalKnockbackForce,
+            hurtAnimationFallbackDuration);
 
         if (!hurtSystem.IsInitialized)
         {
@@ -832,8 +1343,9 @@ public class EnemyController : MonoBehaviour, IDamageable
         deathSystem.Initialize(
             this,
             enemyRigidbody,
-            mainCollider,
-            deathDestroyDelay);
+            enemyColliders,
+            deathDestroyDelay,
+            deathAnimationTimeout);
 
 
         if (!deathSystem.IsInitialized)
@@ -854,8 +1366,10 @@ public class EnemyController : MonoBehaviour, IDamageable
             feedbackAudioSource,
             hurtSound,
             deathSound,
+            healSound,
             hurtEffect,
-            deathEffect);
+            deathEffect,
+            healEffect);
 
         if (!feedbackSystem.IsInitialized)
         {
@@ -905,7 +1419,9 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         bool hasSpecialAttacks =
             definition.SpecialAttacks != null &&
-            definition.SpecialAttacks.Length > 0;
+            System.Array.Exists(
+                definition.SpecialAttacks,
+                item => item != null && item.AttackType != EnemySpecialAttackType.None);
 
         if (!hasNormalAttack && !hasSpecialAttacks)
             return true;
@@ -1059,7 +1575,8 @@ public class EnemyController : MonoBehaviour, IDamageable
             attackStateSystem,
             attackTimingSystem,
             attackCooldownSystem,
-            true);
+            true,
+            attackAnimationEventFallbackGraceDuration);
 
         if (!attackSequenceSystem.IsInitialized)
         {
@@ -1151,7 +1668,8 @@ public class EnemyController : MonoBehaviour, IDamageable
             new EnemySpecialAttackSequenceSystem();
 
         specialAttackSequenceSystem.Initialize(
-            specialAttackStateSystem);
+            specialAttackStateSystem,
+            attackAnimationEventFallbackGraceDuration);
 
         if (!specialAttackSequenceSystem.IsInitialized)
         {
@@ -1194,8 +1712,10 @@ public class EnemyController : MonoBehaviour, IDamageable
     private bool TryStartSpecialAttack(
         EnemySpecialAttackDefinition specialDefinition)
     {
-        if (IsDead ||
+        if (IsDead || IsHurting || IsPatrolRetreatOrSearching() ||
+            IsSpecialMovementActive ||
             specialDefinition == null ||
+            targetSystem == null || !targetSystem.HasTarget ||
             specialAttackSystem == null ||
             specialAttackSequenceSystem == null ||
             specialAttackBehaviourFactory == null)
@@ -1207,8 +1727,7 @@ public class EnemyController : MonoBehaviour, IDamageable
             return false;
 
         // A running normal attack must finish first.
-        if (attackSequenceSystem != null &&
-            attackSequenceSystem.IsSequenceRunning)
+        if (IsAttackInProgress)
         {
             return false;
         }
@@ -1219,12 +1738,14 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (!specialAttackBehaviourFactory.CanExecute(specialDefinition))
             return false;
 
-        if (!specialAttackSequenceSystem.StartSequence())
+        if (!specialAttackSequenceSystem.StartSequence(specialDefinition))
             return false;
 
+        StopNormalMovement();
+        SetAIState(EnemyState.Attack);
         animationController?.SetAttack();
 
-        PlayDialogue(EnemyDialogueType.Attack);
+        PlayDialogue(EnemyDialogueType.SpecialAttack);
 
         return true;
     }
@@ -1233,7 +1754,8 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public bool TryStartAttack()
     {
-        if (!isInitialized || IsDead)
+        if (!isInitialized || IsDead || IsHurting ||
+            IsPatrolRetreatOrSearching() || IsSpecialMovementActive)
             return false;
 
         // An active special attack blocks normal attacks.
@@ -1249,9 +1771,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         {
             specialAttackSystem.TryStartPendingAttack();
 
-            // Keep normal attacks blocked while the request is pending.
-            if (specialAttackSystem.IsAttackPending ||
-                specialAttackSystem.IsAttackActive)
+            if (specialAttackSystem.IsAttackActive)
             {
                 return false;
             }
@@ -1264,6 +1784,9 @@ public class EnemyController : MonoBehaviour, IDamageable
             return false;
         }
 
+        if (attackTargetSystem != null && targetSystem != null)
+            attackTargetSystem.SetTarget(targetSystem.CurrentTarget);
+
         if (!attackValidationSystem.CanAttack())
             return false;
 
@@ -1271,6 +1794,8 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         if (attackStarted)
         {
+            StopNormalMovement();
+            SetAIState(EnemyState.Attack);
             animationController?.SetAttack();
             PlayDialogue(EnemyDialogueType.Attack);
         }
@@ -1422,13 +1947,19 @@ public class EnemyController : MonoBehaviour, IDamageable
 
         if (IsDead)
         {
-            animationController?.SetDeath();
+            stateSystem?.SetState(EnemyState.Dead);
             return appliedDamage;
         }
 
-        if (hurtSystem != null && hurtSystem.IsHurting)
+        SetAIState(EnemyState.Hurt);
+
+        if (IsHurting && HasAnimator)
         {
             animationController?.SetHurt();
+        }
+        else if (IsHurting)
+        {
+            CompleteHurtAnimation();
         }
 
         return appliedDamage;
@@ -1445,12 +1976,36 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     public void CompleteHurtAnimation()
     {
+        if (!IsHurting)
+            return;
+
         hurtSystem?.CompleteHurt();
 
         if (IsDead)
             return;
 
+        attackSequenceSystem?.Reset();
+        specialAttackSequenceSystem?.Reset();
+        specialAttackSystem?.InterruptActiveAttack();
+
+        RefreshAIStateAfterMovement();
         UpdateMovementAnimation();
+    }
+
+    public void OnDeathStarted()
+    {
+        stateSystem?.SetState(EnemyState.Dead);
+
+        targetSearchBehaviour?.StopSearching();
+        targetSystem?.ClearTarget();
+        patrolSystem?.StopPatrol();
+        retreatSystem?.StopRetreat();
+
+        attackSequenceSystem?.Interrupt();
+        specialAttackSequenceSystem?.Interrupt();
+        specialAttackSystem?.InterruptActiveAttack();
+
+        movementSystem?.Lock();
     }
 
     public void CompleteDeathAnimation()
@@ -1537,16 +2092,59 @@ public class EnemyController : MonoBehaviour, IDamageable
 
     private void OnDestroy()
     {
+        CleanupRuntimeSystems();
+    }
+
+    private void CleanupRuntimeSystems()
+    {
+        isInitialized = false;
+
         healthEventHandler?.Dispose();
         healthEventHandler = null;
 
+        targetSearchBehaviour?.StopSearching();
+        patrolSystem?.StopPatrol();
+        retreatSystem?.StopRetreat();
+
+        movementSystem?.Reset();
         ClearAttackSystems();
 
+        animationEventRelay?.Clear();
+        animationEventRelay = null;
+
+        animationController?.ResetAnimationStates();
         animationController?.Clear();
         animationController = null;
 
         dialogueSystem?.Clear();
         dialogueSystem = null;
+
+        stateSystem = null;
+        movementSystem = null;
+        facingSystem = null;
+        groundDetection = null;
+        airStateSystem = null;
+        jumpBehaviour = null;
+        dashBehaviour = null;
+        chargeBehaviour = null;
+        targetScanner = null;
+        detectionSystem = null;
+        targetSystem = null;
+        targetSearchBehaviour = null;
+        healthSystem = null;
+        damageSystem = null;
+        hurtSystem = null;
+        deathSystem = null;
+        feedbackSystem = null;
+        knockbackBehaviour = null;
+        patrolSystem = null;
+        retreatSystem = null;
+
+        enemyRigidbody = null;
+        mainCollider = null;
+        enemyColliders = null;
+        animator = null;
+        spriteRenderers = null;
     }
 
     private void UpdateMovementAnimation()
@@ -1557,12 +2155,7 @@ public class EnemyController : MonoBehaviour, IDamageable
         if (hurtSystem != null && hurtSystem.IsHurting)
             return;
 
-        if (attackSequenceSystem != null &&
-            attackSequenceSystem.IsSequenceRunning)
-            return;
-
-        if (specialAttackSequenceSystem != null &&
-            specialAttackSequenceSystem.IsSequenceRunning)
+        if (IsAttackInProgress)
             return;
 
         if (movementSystem.IsMoving)
@@ -1574,6 +2167,53 @@ public class EnemyController : MonoBehaviour, IDamageable
     public void PlayDeathAnimation()
     {
         animationController?.SetDeath();
+    }
+
+    private void RefreshAttackState()
+    {
+        if (stateSystem == null || IsDead || IsHurting)
+            return;
+
+        if (attackSequenceSystem != null &&
+            attackSequenceSystem.CurrentState == EnemyAttackState.Interrupted)
+        {
+            attackSequenceSystem.Reset();
+        }
+
+        if (specialAttackSequenceSystem != null &&
+            specialAttackSequenceSystem.CurrentState == EnemyAttackState.Interrupted)
+        {
+            specialAttackSequenceSystem.Reset();
+            specialAttackSystem?.InterruptActiveAttack();
+        }
+
+        if (stateSystem.CurrentState != EnemyState.Attack || IsAttackInProgress)
+            return;
+
+        RefreshAIStateAfterMovement();
+    }
+
+    private void OnValidate()
+    {
+        groundCheckRadius = ClampFinite(groundCheckRadius, 0f, 0f);
+        targetScanRadius = ClampFinite(targetScanRadius, 0f, 0f);
+        knockbackForce = ClampFinite(knockbackForce, 0f, 0f);
+        verticalKnockbackForce = ClampFinite(verticalKnockbackForce, 0f, 0f);
+        knockbackDuration = ClampFinite(knockbackDuration, 0.2f, 0.01f);
+        hurtAnimationFallbackDuration =
+            ClampFinite(hurtAnimationFallbackDuration, 1f, 0.01f);
+        deathDestroyDelay = ClampFinite(deathDestroyDelay, 0f, 0f);
+        deathAnimationTimeout = ClampFinite(deathAnimationTimeout, 5f, 0.01f);
+        attackAnimationEventFallbackGraceDuration =
+            ClampFinite(attackAnimationEventFallbackGraceDuration, 0.5f, 0f);
+    }
+
+    private static float ClampFinite(float value, float fallback, float minimum)
+    {
+        if (float.IsNaN(value) || float.IsInfinity(value))
+            return fallback;
+
+        return Mathf.Max(minimum, value);
     }
 
 }

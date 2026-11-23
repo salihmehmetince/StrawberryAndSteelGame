@@ -13,6 +13,7 @@ public class GroundTargetSearchBehaviour : IEnemyTargetSearchBehaviour
 
     private float originalMovementSpeed;
 
+    public bool IsInitialized => controller != null;
     public bool IsSearching { get; private set; }
 
     public void Initialize(
@@ -21,6 +22,13 @@ public class GroundTargetSearchBehaviour : IEnemyTargetSearchBehaviour
         float verticalArrivalDistance,
         float searchSpeed)
     {
+        StopSearching();
+        this.controller = null;
+        horizontalArrivalDistance = 0f;
+        verticalArrivalDistance = 0f;
+        searchSpeed = 0f;
+        originalMovementSpeed = 0f;
+
         if (controller == null)
         {
             Debug.LogError(
@@ -29,9 +37,9 @@ public class GroundTargetSearchBehaviour : IEnemyTargetSearchBehaviour
             return;
         }
 
-        if (horizontalArrivalDistance < 0f ||
-            verticalArrivalDistance < 0f ||
-            searchSpeed <= 0f)
+        if (!IsFinite(horizontalArrivalDistance) || horizontalArrivalDistance < 0f ||
+            !IsFinite(verticalArrivalDistance) || verticalArrivalDistance < 0f ||
+            !IsFinite(searchSpeed) || searchSpeed <= 0f || controller.Definition == null)
         {
             Debug.LogError(
                 "GroundTargetSearchBehaviour received invalid settings.");
@@ -52,7 +60,7 @@ public class GroundTargetSearchBehaviour : IEnemyTargetSearchBehaviour
 
     public void StartSearching(Vector2 targetPosition)
     {
-        if (controller == null)
+        if (controller == null || !IsFinite(targetPosition))
             return;
 
         this.targetPosition = targetPosition;
@@ -67,7 +75,7 @@ public class GroundTargetSearchBehaviour : IEnemyTargetSearchBehaviour
 
     public void SetSearchPosition(Vector2 targetPosition)
     {
-        if (!IsSearching)
+        if (!IsSearching || !IsFinite(targetPosition))
             return;
 
         this.targetPosition = targetPosition;
@@ -86,7 +94,8 @@ public class GroundTargetSearchBehaviour : IEnemyTargetSearchBehaviour
 
     public void Update(float deltaTime)
     {
-        if (!IsSearching || controller == null)
+        if (!IsSearching || controller == null ||
+            !IsFinite(deltaTime) || deltaTime < 0f)
             return;
 
         Vector2 currentPosition = controller.transform.position;
@@ -104,9 +113,32 @@ public class GroundTargetSearchBehaviour : IEnemyTargetSearchBehaviour
             return;
         }
 
-        float directionX = Mathf.Sign(
-            targetPosition.x - currentPosition.x);
+        Vector2 offset = targetPosition - currentPosition;
+        bool canMoveVertically =
+            controller.Definition.HasCapability(EnemyCapability.Flying) ||
+            controller.Definition.HasCapability(EnemyCapability.Swimming);
 
-        controller.Move(Vector2.right * directionX);
+        Vector2 direction = canMoveVertically
+            ? offset.normalized
+            : Vector2.right * Mathf.Sign(offset.x);
+
+        if (Mathf.Abs(direction.x) > 0.001f)
+        {
+            controller.Face(direction.x < 0f
+                ? EnemyFacingDirection.Left
+                : EnemyFacingDirection.Right);
+        }
+
+        controller.Move(direction);
+    }
+
+    private static bool IsFinite(float value)
+    {
+        return !float.IsNaN(value) && !float.IsInfinity(value);
+    }
+
+    private static bool IsFinite(Vector2 value)
+    {
+        return IsFinite(value.x) && IsFinite(value.y);
     }
 }
