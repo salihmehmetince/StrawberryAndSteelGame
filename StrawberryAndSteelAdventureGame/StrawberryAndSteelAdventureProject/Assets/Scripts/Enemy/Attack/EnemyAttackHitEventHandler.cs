@@ -7,49 +7,112 @@ public class EnemyAttackHitEventHandler : MonoBehaviour
     private EnemyAttackStateSystem stateSystem;
     private EnemyAttackSystem attackSystem;
 
+    private EnemySpecialAttackSystem specialAttackSystem;
+    private EnemySpecialAttackSequenceSystem specialSequenceSystem;
+    private EnemySpecialAttackBehaviourFactory specialBehaviourFactory;
+
     public bool IsInitialized =>
+        HasNormalAttackSystems ||
+        HasSpecialAttackSystems;
+
+    private bool HasNormalAttackSystems =>
         behaviourSystem != null &&
         stateSystem != null &&
         attackSystem != null &&
         behaviourSystem.IsInitialized &&
         attackSystem.IsInitialized;
 
+    private bool HasSpecialAttackSystems =>
+        specialAttackSystem != null &&
+        specialSequenceSystem != null &&
+        specialSequenceSystem.IsInitialized &&
+        specialBehaviourFactory != null;
+
     public void Initialize(
         EnemyAttackBehaviourSystem behaviourSystem,
         EnemyAttackStateSystem stateSystem,
-        EnemyAttackSystem attackSystem)
+        EnemyAttackSystem attackSystem,
+        EnemySpecialAttackSystem specialAttackSystem,
+        EnemySpecialAttackSequenceSystem specialSequenceSystem,
+        EnemySpecialAttackBehaviourFactory specialBehaviourFactory)
     {
         Clear();
 
-        if (behaviourSystem == null ||
-            stateSystem == null ||
-            attackSystem == null)
+        bool hasNormalSystems =
+            behaviourSystem != null &&
+            stateSystem != null &&
+            attackSystem != null &&
+            behaviourSystem.IsInitialized &&
+            attackSystem.IsInitialized;
+
+        bool hasSpecialSystems =
+            specialAttackSystem != null &&
+            specialSequenceSystem != null &&
+            specialSequenceSystem.IsInitialized &&
+            specialBehaviourFactory != null;
+
+        if (!hasNormalSystems && !hasSpecialSystems)
         {
             Debug.LogError(
-                "EnemyAttackHitEventHandler requires all attack systems.",
+                "EnemyAttackHitEventHandler requires at least one complete attack system.",
                 gameObject);
 
             return;
         }
 
-        if (!behaviourSystem.IsInitialized ||
-            !attackSystem.IsInitialized)
-        {
-            Debug.LogError(
-                "EnemyAttackHitEventHandler received an uninitialized system.",
-                gameObject);
+        this.behaviourSystem = hasNormalSystems
+            ? behaviourSystem
+            : null;
 
-            return;
-        }
+        this.stateSystem = hasNormalSystems
+            ? stateSystem
+            : null;
 
-        this.behaviourSystem = behaviourSystem;
-        this.stateSystem = stateSystem;
-        this.attackSystem = attackSystem;
+        this.attackSystem = hasNormalSystems
+            ? attackSystem
+            : null;
+
+        this.specialAttackSystem = hasSpecialSystems
+            ? specialAttackSystem
+            : null;
+
+        this.specialSequenceSystem = hasSpecialSystems
+            ? specialSequenceSystem
+            : null;
+
+        this.specialBehaviourFactory = hasSpecialSystems
+            ? specialBehaviourFactory
+            : null;
     }
 
     public void OnAttackHit()
     {
         if (!IsInitialized)
+            return;
+
+        if (specialAttackSystem != null &&
+            specialAttackSystem.IsAttackActive)
+        {
+            if (specialSequenceSystem.CurrentState !=
+                EnemyAttackState.Attacking)
+            {
+                return;
+            }
+
+            EnemySpecialAttackDefinition definition =
+                specialAttackSystem.ActiveAttack;
+
+            if (definition == null ||
+                !specialBehaviourFactory.CanExecute(definition))
+            {
+                return;
+            }
+
+            specialBehaviourFactory.Execute(definition);
+            return;
+        }
+
+        if (!HasNormalAttackSystems)
             return;
 
         if (!stateSystem.IsAttacking)
@@ -66,5 +129,9 @@ public class EnemyAttackHitEventHandler : MonoBehaviour
         behaviourSystem = null;
         stateSystem = null;
         attackSystem = null;
+
+        specialAttackSystem = null;
+        specialSequenceSystem = null;
+        specialBehaviourFactory = null;
     }
 }

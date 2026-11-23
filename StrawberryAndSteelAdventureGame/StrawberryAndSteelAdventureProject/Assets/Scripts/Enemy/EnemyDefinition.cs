@@ -47,6 +47,14 @@ public class EnemyDefinition : ScriptableObject
     [SerializeField] private float projectileSpeed;
     [SerializeField] private float projectileLifetime;
 
+    [Header("Special Attacks")]
+    [SerializeField] private EnemySpecialAttackDefinition[] specialAttacks;
+    [SerializeField] private float specialAttackCheckIntervalMin;
+    [SerializeField] private float specialAttackCheckIntervalMax;
+
+    [Range(0f, 100f)]
+    [SerializeField] private float specialAttackHealthThreshold;
+
     [Header("Target Search")]
     [SerializeField] private float targetSearchSpeed;
     [SerializeField] private float targetSearchArrivalDistance;
@@ -108,6 +116,18 @@ public class EnemyDefinition : ScriptableObject
     public float ProjectileSpeed => projectileSpeed;
     public float ProjectileLifetime => projectileLifetime;
 
+    public EnemySpecialAttackDefinition[] SpecialAttacks =>
+        specialAttacks;
+
+    public float SpecialAttackCheckIntervalMin =>
+        specialAttackCheckIntervalMin;
+
+    public float SpecialAttackCheckIntervalMax =>
+        specialAttackCheckIntervalMax;
+
+    public float SpecialAttackHealthThreshold =>
+        specialAttackHealthThreshold;
+
     public EnemyDialogueDefinition DialogueDefinition =>
         dialogueDefinition;
 
@@ -159,6 +179,17 @@ public class EnemyDefinition : ScriptableObject
 
         projectileSpeed = Mathf.Max(0f, projectileSpeed);
         projectileLifetime = Mathf.Max(0.01f, projectileLifetime);
+
+        specialAttackCheckIntervalMin =
+            Mathf.Max(0f, specialAttackCheckIntervalMin);
+
+        specialAttackCheckIntervalMax =
+            Mathf.Max(
+                specialAttackCheckIntervalMin,
+                specialAttackCheckIntervalMax);
+
+        specialAttackHealthThreshold =
+            Mathf.Clamp(specialAttackHealthThreshold, 0f, 100f);
 
         if (!System.Enum.IsDefined(typeof(EnemyAttackType), attackType))
         {

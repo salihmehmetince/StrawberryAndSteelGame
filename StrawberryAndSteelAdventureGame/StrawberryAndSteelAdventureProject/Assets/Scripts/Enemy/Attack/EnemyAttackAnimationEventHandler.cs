@@ -3,36 +3,71 @@ using UnityEngine;
 
 public class EnemyAttackAnimationEventHandler : MonoBehaviour
 {
-    private EnemyAttackSequenceSystem sequenceSystem;
+    private EnemyAttackSequenceSystem normalSequenceSystem;
+    private EnemySpecialAttackSequenceSystem specialSequenceSystem;
+    private EnemySpecialAttackSystem specialAttackSystem;
 
     public bool IsInitialized =>
-        sequenceSystem != null &&
-        sequenceSystem.IsInitialized;
+        (normalSequenceSystem != null &&
+         normalSequenceSystem.IsInitialized) ||
+        (specialSequenceSystem != null &&
+         specialSequenceSystem.IsInitialized &&
+         specialAttackSystem != null);
 
     public void Initialize(
-        EnemyAttackSequenceSystem sequenceSystem)
+        EnemyAttackSequenceSystem normalSequenceSystem,
+        EnemySpecialAttackSequenceSystem specialSequenceSystem,
+        EnemySpecialAttackSystem specialAttackSystem)
     {
         Clear();
 
-        if (sequenceSystem == null ||
-            !sequenceSystem.IsInitialized)
+        bool hasNormalSequence =
+            normalSequenceSystem != null &&
+            normalSequenceSystem.IsInitialized;
+
+        bool hasSpecialSequence =
+            specialSequenceSystem != null &&
+            specialSequenceSystem.IsInitialized &&
+            specialAttackSystem != null;
+
+        if (!hasNormalSequence && !hasSpecialSequence)
         {
             Debug.LogError(
-                "EnemyAttackAnimationEventHandler requires an initialized sequence system.",
+                "EnemyAttackAnimationEventHandler requires at least one initialized attack sequence.",
                 gameObject);
 
             return;
         }
 
-        this.sequenceSystem = sequenceSystem;
+        this.normalSequenceSystem = hasNormalSequence
+            ? normalSequenceSystem
+            : null;
+
+        this.specialSequenceSystem = hasSpecialSequence
+            ? specialSequenceSystem
+            : null;
+
+        this.specialAttackSystem = hasSpecialSequence
+            ? specialAttackSystem
+            : null;
     }
+
+    private bool IsSpecialAttackActive =>
+        specialAttackSystem != null &&
+        specialAttackSystem.IsAttackActive;
 
     public void OnAttackPreparationComplete()
     {
         if (!IsInitialized)
             return;
 
-        sequenceSystem.StartAttackPhaseFromAnimation();
+        if (IsSpecialAttackActive)
+        {
+            specialSequenceSystem.StartAttackPhaseFromAnimation();
+            return;
+        }
+
+        normalSequenceSystem?.StartAttackPhaseFromAnimation();
     }
 
     public void OnAttackAnimationComplete()
@@ -40,7 +75,13 @@ public class EnemyAttackAnimationEventHandler : MonoBehaviour
         if (!IsInitialized)
             return;
 
-        sequenceSystem.StartRecoveryPhaseFromAnimation();
+        if (IsSpecialAttackActive)
+        {
+            specialSequenceSystem.StartRecoveryPhaseFromAnimation();
+            return;
+        }
+
+        normalSequenceSystem?.StartRecoveryPhaseFromAnimation();
     }
 
     public void OnAttackRecoveryComplete()
@@ -48,7 +89,14 @@ public class EnemyAttackAnimationEventHandler : MonoBehaviour
         if (!IsInitialized)
             return;
 
-        sequenceSystem.CompleteRecoveryFromAnimation();
+        if (IsSpecialAttackActive)
+        {
+            specialSequenceSystem.CompleteRecoveryFromAnimation();
+            specialAttackSystem.CompleteActiveAttack();
+            return;
+        }
+
+        normalSequenceSystem?.CompleteRecoveryFromAnimation();
     }
 
     public void OnAttackInterrupted()
@@ -56,11 +104,20 @@ public class EnemyAttackAnimationEventHandler : MonoBehaviour
         if (!IsInitialized)
             return;
 
-        sequenceSystem.Interrupt();
+        if (IsSpecialAttackActive)
+        {
+            specialSequenceSystem.Interrupt();
+            specialAttackSystem.InterruptActiveAttack();
+            return;
+        }
+
+        normalSequenceSystem?.Interrupt();
     }
 
     public void Clear()
     {
-        sequenceSystem = null;
+        normalSequenceSystem = null;
+        specialSequenceSystem = null;
+        specialAttackSystem = null;
     }
 }

@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour,IDamageable
+public class EnemyController : MonoBehaviour, IDamageable
 {
     [Header("Enemy Configuration")]
     [SerializeField] private EnemyDefinition definition;
@@ -29,7 +29,6 @@ public class EnemyController : MonoBehaviour,IDamageable
     [Header("Target Scanning")]
     [SerializeField] private float targetScanRadius;
 
-
     [Header("Hurt Configuration")]
     [SerializeField] private float knockbackForce;
     [SerializeField] private float verticalKnockbackForce;
@@ -44,13 +43,16 @@ public class EnemyController : MonoBehaviour,IDamageable
     [SerializeField] private ParticleSystem hurtEffect;
     [SerializeField] private ParticleSystem deathEffect;
 
-    [Header("Attack Systems")]
+    [Header("Dialogue Configuration")]
+    [SerializeField] private AudioSource dialogueAudioSource;
+
+    // Normal Attack Systems
+
     private EnemyAttackSystem attackSystem;
     private EnemyAttackTargetSystem attackTargetSystem;
     private EnemyAttackDamageSystem attackDamageSystem;
     private EnemyAttackLineOfSightSystem attackLineOfSightSystem;
     private EnemyAttackValidationSystem attackValidationSystem;
-
     private EnemyMeleeHitDetectionSystem meleeHitDetectionSystem;
 
     private EnemyAttackCooldownSystem attackCooldownSystem;
@@ -61,13 +63,31 @@ public class EnemyController : MonoBehaviour,IDamageable
     private EnemyAttackBehaviourSystem attackBehaviourSystem;
     private EnemyAttackBehaviourFactory attackBehaviourFactory;
 
+    // Special Attack Systems
+
+    private EnemySpecialAttackSystem specialAttackSystem;
+    private EnemyAttackStateSystem specialAttackStateSystem;
+    private EnemySpecialAttackSequenceSystem specialAttackSequenceSystem;
+    private EnemySpecialAttackBehaviourFactory specialAttackBehaviourFactory;
+
+    // Attack Event Handlers
+
     private EnemyAttackAnimationEventHandler attackAnimationEventHandler;
     private EnemyAttackHitEventHandler attackHitEventHandler;
+
+    // Components
 
     private Rigidbody2D enemyRigidbody;
     private Collider2D mainCollider;
     private Animator animator;
     private SpriteRenderer[] spriteRenderers;
+
+    // Animation
+
+    private EnemyAnimationController animationController;
+    private EnemyAnimationEventRelay animationEventRelay;
+
+    // Movement Systems
 
     private EnemyStateSystem stateSystem;
     private EnemyMovementSystem movementSystem;
@@ -77,19 +97,14 @@ public class EnemyController : MonoBehaviour,IDamageable
     private EnemyAirStateSystem airStateSystem;
     private JumpBehaviour jumpBehaviour;
 
-    [Header("Dialogue Configuration")]
-    [SerializeField] private AudioSource dialogueAudioSource;
-
-    private bool isInitialized;
+    // Detection and Target Systems
 
     private EnemyTargetScanner targetScanner;
-
     private EnemyDetectionSystem detectionSystem;
-
     private EnemyTargetSystem targetSystem;
-
     private IEnemyTargetSearchBehaviour targetSearchBehaviour;
 
+    // Health Systems
 
     private EnemyHealthSystem healthSystem;
     private EnemyDamageSystem damageSystem;
@@ -97,15 +112,33 @@ public class EnemyController : MonoBehaviour,IDamageable
     private EnemyDeathSystem deathSystem;
     private EnemyFeedbackSystem feedbackSystem;
     private EnemyHealthEventHandler healthEventHandler;
+
+    // Dialogue
+
     private EnemyDialogueSystem dialogueSystem;
+
+    private bool isInitialized;
+
+    // General Properties
+
     public EnemyDefinition Definition => definition;
 
     public Rigidbody2D EnemyRigidbody => enemyRigidbody;
     public Collider2D MainCollider => mainCollider;
     public Animator Animator => animator;
 
-    private EnemyAnimationEventRelay animationEventRelay;
     public SpriteRenderer[] SpriteRenderers => spriteRenderers;
+
+    public bool IsInitialized => isInitialized;
+    public bool IsDead => healthSystem != null && healthSystem.IsDead;
+
+    public int CurrentHealth =>
+        healthSystem != null ? healthSystem.CurrentHealth : 0;
+
+    public int MaxHealth =>
+        healthSystem != null ? healthSystem.MaxHealth : 0;
+
+    // Movement Properties
 
     public EnemyStateSystem StateSystem => stateSystem;
     public EnemyMovementSystem MovementSystem => movementSystem;
@@ -113,57 +146,6 @@ public class EnemyController : MonoBehaviour,IDamageable
 
     public EnemyGroundDetection GroundDetection => groundDetection;
     public EnemyAirStateSystem AirStateSystem => airStateSystem;
-
-    public bool IsInitialized => isInitialized;
-
-    public EnemyDetectionSystem DetectionSystem => detectionSystem;
-
-    public EnemyTargetScanner TargetScanner => targetScanner;
-
-
-    public EnemyTargetSystem TargetSystem => targetSystem;
-
-    public IEnemyTargetSearchBehaviour TargetSearchBehaviour =>
-    targetSearchBehaviour;
-
-
-    public EnemyHealthSystem HealthSystem => healthSystem;
-    public EnemyDamageSystem DamageSystem => damageSystem;
-    public EnemyHurtSystem HurtSystem => hurtSystem;
-    public EnemyDeathSystem DeathSystem => deathSystem;
-    public EnemyFeedbackSystem FeedbackSystem => feedbackSystem;
-
-    public EnemyAttackSystem AttackSystem => attackSystem;
-
-    public EnemyAttackTargetSystem AttackTargetSystem =>
-        attackTargetSystem;
-
-    public EnemyAttackDamageSystem AttackDamageSystem =>
-        attackDamageSystem;
-
-    public EnemyAttackValidationSystem AttackValidationSystem =>
-        attackValidationSystem;
-
-    public EnemyAttackCooldownSystem AttackCooldownSystem =>
-        attackCooldownSystem;
-
-    public EnemyAttackStateSystem AttackStateSystem =>
-        attackStateSystem;
-
-    public EnemyAttackSequenceSystem AttackSequenceSystem =>
-        attackSequenceSystem;
-
-    public EnemyAttackBehaviourSystem AttackBehaviourSystem =>
-        attackBehaviourSystem;
-
-    public bool IsDead =>
-        healthSystem != null && healthSystem.IsDead;
-
-    public int CurrentHealth =>
-        healthSystem != null ? healthSystem.CurrentHealth : 0;
-
-    public int MaxHealth =>
-        healthSystem != null ? healthSystem.MaxHealth : 0;
 
     public bool IsJumping =>
         movementSystem != null && movementSystem.IsJumping;
@@ -191,8 +173,6 @@ public class EnemyController : MonoBehaviour,IDamageable
     public IEnemyMovementAction ActiveMovementAction =>
         movementSystem != null ? movementSystem.ActiveAction : null;
 
-    public EnemyDialogueSystem DialogueSystem => dialogueSystem;
-
     public bool IsNormalMovementActive =>
         movementSystem != null && movementSystem.IsNormalMovementActive;
 
@@ -202,22 +182,102 @@ public class EnemyController : MonoBehaviour,IDamageable
     public bool IsMovementLocked =>
         movementSystem != null && movementSystem.IsLocked;
 
-    public EnemyAttackState CurrentAttackState =>
-    attackSequenceSystem != null
-        ? attackSequenceSystem.CurrentState
-        : EnemyAttackState.Idle;
+    // Detection and Target Properties
+
+    public EnemyDetectionSystem DetectionSystem => detectionSystem;
+    public EnemyTargetScanner TargetScanner => targetScanner;
+    public EnemyTargetSystem TargetSystem => targetSystem;
+
+    public IEnemyTargetSearchBehaviour TargetSearchBehaviour =>
+        targetSearchBehaviour;
+
+    // Health Properties
+
+    public EnemyHealthSystem HealthSystem => healthSystem;
+    public EnemyDamageSystem DamageSystem => damageSystem;
+    public EnemyHurtSystem HurtSystem => hurtSystem;
+    public EnemyDeathSystem DeathSystem => deathSystem;
+    public EnemyFeedbackSystem FeedbackSystem => feedbackSystem;
+
+    // Normal Attack Properties
+
+    public EnemyAttackSystem AttackSystem => attackSystem;
+
+    public EnemyAttackTargetSystem AttackTargetSystem =>
+        attackTargetSystem;
+
+    public EnemyAttackDamageSystem AttackDamageSystem =>
+        attackDamageSystem;
+
+    public EnemyAttackValidationSystem AttackValidationSystem =>
+        attackValidationSystem;
+
+    public EnemyAttackCooldownSystem AttackCooldownSystem =>
+        attackCooldownSystem;
+
+    public EnemyAttackStateSystem AttackStateSystem =>
+        attackStateSystem;
+
+    public EnemyAttackSequenceSystem AttackSequenceSystem =>
+        attackSequenceSystem;
+
+    public EnemyAttackBehaviourSystem AttackBehaviourSystem =>
+        attackBehaviourSystem;
+
+    // Special Attack Properties
+
+    public EnemySpecialAttackSystem SpecialAttackSystem =>
+        specialAttackSystem;
+
+    public EnemySpecialAttackSequenceSystem SpecialAttackSequenceSystem =>
+        specialAttackSequenceSystem;
+
+    public EnemySpecialAttackBehaviourFactory SpecialAttackBehaviourFactory =>
+        specialAttackBehaviourFactory;
+
+    // Combined Attack Properties
+
+    public EnemyAttackState CurrentAttackState
+    {
+        get
+        {
+            if (specialAttackSystem != null &&
+                specialAttackSystem.IsAttackActive &&
+                specialAttackSequenceSystem != null)
+            {
+                return specialAttackSequenceSystem.CurrentState;
+            }
+
+            return attackSequenceSystem != null
+                ? attackSequenceSystem.CurrentState
+                : EnemyAttackState.Idle;
+        }
+    }
 
     public bool IsAttackSequenceRunning =>
-        attackSequenceSystem != null &&
-        attackSequenceSystem.IsSequenceRunning;
+        (attackSequenceSystem != null &&
+         attackSequenceSystem.IsSequenceRunning) ||
+        (specialAttackSequenceSystem != null &&
+         specialAttackSequenceSystem.IsSequenceRunning);
 
     public bool IsAttacking =>
-        attackStateSystem != null &&
-        attackStateSystem.IsAttacking;
+        (attackStateSystem != null &&
+         attackStateSystem.IsAttacking) ||
+        (specialAttackSystem != null &&
+         specialAttackSystem.IsAttackActive &&
+         specialAttackSequenceSystem != null &&
+         specialAttackSequenceSystem.CurrentState == EnemyAttackState.Attacking);
 
     public bool IsAttackOnCooldown =>
         attackCooldownSystem != null &&
         attackCooldownSystem.IsOnCooldown;
+
+    public bool HasAnimator => animationController != null &&
+                           animationController.IsInitialized;
+
+    // Dialogue
+
+    public EnemyDialogueSystem DialogueSystem => dialogueSystem;
 
     private void Awake()
     {
@@ -226,15 +286,17 @@ public class EnemyController : MonoBehaviour,IDamageable
 
     private void FixedUpdate()
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
 
         groundDetection.CheckGround();
         airStateSystem.Update();
         movementSystem.Update(Time.fixedDeltaTime);
+
+        UpdateMovementAnimation();
+
         targetSearchBehaviour?.Update(Time.fixedDeltaTime);
     }
-
-
     private void Update()
     {
         if (!isInitialized)
@@ -247,6 +309,13 @@ public class EnemyController : MonoBehaviour,IDamageable
 
         attackSequenceSystem?.Update(Time.deltaTime);
 
+        if (!IsDead)
+        {
+            specialAttackSystem?.Update(
+                Time.deltaTime,
+                healthSystem.HealthPercentage);
+        }
+
         deathSystem?.Update(Time.deltaTime);
 
         dialogueSystem?.Update(
@@ -254,17 +323,7 @@ public class EnemyController : MonoBehaviour,IDamageable
             stateSystem.CurrentState == EnemyState.Idle);
     }
 
-
-    public void CompleteHurtAnimation()
-    {
-        hurtSystem?.CompleteHurt();
-    }
-
-    public void CompleteDeathAnimation()
-    {
-        deathSystem?.CompleteDeathAnimation();
-    }
-
+    // Initialization
 
     public void Initialize()
     {
@@ -290,6 +349,9 @@ public class EnemyController : MonoBehaviour,IDamageable
 
             return;
         }
+
+        animationController = new EnemyAnimationController();
+        animationController.Initialize(animator);
 
         InitializeAnimationEventRelay();
 
@@ -322,6 +384,7 @@ public class EnemyController : MonoBehaviour,IDamageable
 
         isInitialized = true;
     }
+
     private void CacheComponents()
     {
         enemyRigidbody = GetComponent<Rigidbody2D>();
@@ -330,9 +393,12 @@ public class EnemyController : MonoBehaviour,IDamageable
         spriteRenderers = GetComponentsInChildren<SpriteRenderer>(true);
     }
 
+    // Movement Initialization
+
     private void InitializeGroundDetection()
     {
         groundDetection = new EnemyGroundDetection();
+
         groundDetection.Initialize(
             groundCheck,
             groundLayer,
@@ -342,13 +408,18 @@ public class EnemyController : MonoBehaviour,IDamageable
     private void InitializeAirStateSystem()
     {
         airStateSystem = new EnemyAirStateSystem();
-        airStateSystem.Initialize(enemyRigidbody, groundDetection);
+
+        airStateSystem.Initialize(
+            enemyRigidbody,
+            groundDetection);
+
         airStateSystem.Update();
     }
 
     private void InitializeJumpBehaviour()
     {
         jumpBehaviour = new JumpBehaviour();
+
         jumpBehaviour.Initialize(
             this,
             groundDetection,
@@ -368,7 +439,9 @@ public class EnemyController : MonoBehaviour,IDamageable
 
     public void Face(EnemyFacingDirection direction)
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         facingSystem.Face(direction);
     }
 
@@ -384,50 +457,73 @@ public class EnemyController : MonoBehaviour,IDamageable
 
     public void FaceTarget(Transform target)
     {
-        if (!isInitialized || target == null) return;
+        if (!isInitialized || target == null)
+            return;
 
         Vector2 currentPosition = enemyRigidbody != null
             ? enemyRigidbody.position
             : (Vector2)transform.position;
 
-        facingSystem.FaceTarget(target.position, currentPosition);
+        facingSystem.FaceTarget(
+            target.position,
+            currentPosition);
+    }
+
+    public bool IsFacing(EnemyFacingDirection direction)
+    {
+        if (!isInitialized)
+            return false;
+
+        return facingSystem.IsFacing(direction);
     }
 
     // Movement API
 
     public void SetMovementBehaviour(IEnemyMovementBehaviour behaviour)
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         movementSystem.SetBehaviour(behaviour);
     }
 
     public void Move(Vector2 direction)
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         movementSystem.Move(direction);
     }
 
     public void StopMovement()
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         movementSystem.Stop();
     }
 
     public void StopNormalMovement()
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         movementSystem.StopNormalMovement();
     }
 
     public void SetMovementSpeed(float speed)
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         movementSystem.SetSpeed(speed);
     }
 
     public bool Jump()
     {
-        if (!isInitialized) return false;
+        if (!isInitialized)
+            return false;
+
         return movementSystem.Jump();
     }
 
@@ -435,58 +531,66 @@ public class EnemyController : MonoBehaviour,IDamageable
         IEnemyMovementAction action,
         System.Func<bool> startAction)
     {
-        if (!isInitialized) return false;
+        if (!isInitialized)
+            return false;
 
-        return movementSystem.TryActivateAction(action, startAction);
+        return movementSystem.TryActivateAction(
+            action,
+            startAction);
     }
 
     public bool StopMovementAction(IEnemyMovementAction action)
     {
-        if (!isInitialized) return false;
+        if (!isInitialized)
+            return false;
+
         return movementSystem.StopAction(action);
     }
 
     public bool IsMovementActionActive(IEnemyMovementAction action)
     {
-        if (!isInitialized) return false;
+        if (!isInitialized)
+            return false;
+
         return movementSystem.IsActionActive(action);
     }
 
     public void StopActiveMovementAction()
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         movementSystem.StopActiveAction();
     }
 
     public void LockMovement()
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         movementSystem.Lock();
     }
 
     public void UnlockMovement()
     {
-        if (!isInitialized) return;
+        if (!isInitialized)
+            return;
+
         movementSystem.Unlock();
     }
 
-
-    public bool IsFacing(EnemyFacingDirection direction)
-    {
-        if (!isInitialized) return false;
-
-        return facingSystem.IsFacing(direction);
-    }
+    // Detection Initialization
 
     private void InitializeDetectionSystem()
     {
         detectionSystem = new EnemyDetectionSystem();
 
-        EnemyDetectionSettings settings = new EnemyDetectionSettings(
-            definition.DetectionRange,
-            definition.VisionAngle,
-            targetLayers,
-            obstacleLayers);
+        EnemyDetectionSettings settings =
+            new EnemyDetectionSettings(
+                definition.DetectionRange,
+                definition.VisionAngle,
+                targetLayers,
+                obstacleLayers);
 
         detectionSystem.Initialize(
             detectionOrigin,
@@ -508,6 +612,7 @@ public class EnemyController : MonoBehaviour,IDamageable
             scanRadius,
             targetLayers);
     }
+
     public bool CanSeeTarget(Transform target)
     {
         if (!isInitialized || detectionSystem == null)
@@ -548,6 +653,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         return targetScanner.FindNearestVisibleTarget();
     }
 
+    // Target API
 
     public bool SetTarget(Transform target)
     {
@@ -573,6 +679,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         return targetSystem != null &&
                targetSystem.ReacquireTarget();
     }
+
     public void UpdateLastKnownTargetPosition()
     {
         targetSystem?.UpdateLastKnownPosition();
@@ -602,20 +709,17 @@ public class EnemyController : MonoBehaviour,IDamageable
         targetSystem?.ClearTarget();
     }
 
-
     public bool CanCurrentlySeeTarget(Transform target)
     {
         return detectionSystem != null &&
                detectionSystem.CanSeeTarget(target);
     }
 
-
     public bool CompleteTargetSearching()
     {
         return targetSystem != null &&
                targetSystem.CompleteSearching();
     }
-
 
     public void InitializeTargetSearchBehaviour(
         IEnemyTargetSearchBehaviour behaviour,
@@ -639,7 +743,6 @@ public class EnemyController : MonoBehaviour,IDamageable
             verticalArrivalDistance,
             searchSpeed);
     }
-
 
     public void StartTargetSearching(Vector2 targetPosition)
     {
@@ -674,8 +777,7 @@ public class EnemyController : MonoBehaviour,IDamageable
             definition.TargetSearchSpeed);
     }
 
-
-
+    // Health Initialization
 
     private bool InitializeHealthSystems()
     {
@@ -708,6 +810,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         }
 
         hurtSystem = new EnemyHurtSystem();
+
         hurtSystem.Initialize(
             this,
             enemyRigidbody,
@@ -725,12 +828,13 @@ public class EnemyController : MonoBehaviour,IDamageable
         }
 
         deathSystem = new EnemyDeathSystem();
+
         deathSystem.Initialize(
             this,
             enemyRigidbody,
             mainCollider,
-            animator,
             deathDestroyDelay);
+
 
         if (!deathSystem.IsInitialized)
         {
@@ -790,17 +894,53 @@ public class EnemyController : MonoBehaviour,IDamageable
         return true;
     }
 
-
+    // Attack Initialization
 
     private bool InitializeAttackSystems()
     {
         ClearAttackSystems();
 
+        bool hasNormalAttack =
+            definition.AttackType != EnemyAttackType.None;
+
+        bool hasSpecialAttacks =
+            definition.SpecialAttacks != null &&
+            definition.SpecialAttacks.Length > 0;
+
+        if (!hasNormalAttack && !hasSpecialAttacks)
+            return true;
+
+        if (animator == null)
+        {
+            return FailAttackInitialization(
+                "Animator is missing. Attack systems cannot be initialized.");
+        }
+
+        if (hasNormalAttack)
+        {
+            if (!InitializeNormalAttackSystems())
+                return false;
+        }
+
+        if (hasSpecialAttacks)
+        {
+            if (!InitializeSpecialAttackSystems())
+                return false;
+        }
+
+        if (!InitializeAttackAnimationEventHandlers())
+        {
+            return FailAttackInitialization(
+                "Failed to initialize attack animation event handlers.");
+        }
+
+        return true;
+    }
+
+    private bool InitializeNormalAttackSystems()
+    {
         switch (definition.AttackType)
         {
-            case EnemyAttackType.None:
-                return true;
-
             case EnemyAttackType.Melee:
             case EnemyAttackType.Ranged:
             case EnemyAttackType.Area:
@@ -809,12 +949,6 @@ public class EnemyController : MonoBehaviour,IDamageable
             default:
                 return FailAttackInitialization(
                     $"Unsupported attack type: {definition.AttackType}.");
-        }
-
-        if (animator == null)
-        {
-            return FailAttackInitialization(
-                "Animator is missing. Attack systems cannot be initialized.");
         }
 
         if (attackOrigin == null)
@@ -833,6 +967,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         }
 
         attackTargetSystem = new EnemyAttackTargetSystem();
+
         attackTargetSystem.Initialize(
             attackOrigin,
             definition.AttackRange);
@@ -853,6 +988,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         }
 
         attackLineOfSightSystem = new EnemyAttackLineOfSightSystem();
+
         attackLineOfSightSystem.Initialize(
             attackOrigin,
             obstacleLayers);
@@ -864,6 +1000,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         }
 
         attackValidationSystem = new EnemyAttackValidationSystem();
+
         attackValidationSystem.Initialize(
             attackSystem,
             attackTargetSystem,
@@ -877,7 +1014,9 @@ public class EnemyController : MonoBehaviour,IDamageable
 
         if (definition.AttackType == EnemyAttackType.Melee)
         {
-            meleeHitDetectionSystem = new EnemyMeleeHitDetectionSystem();
+            meleeHitDetectionSystem =
+                new EnemyMeleeHitDetectionSystem();
+
             meleeHitDetectionSystem.Initialize(
                 attackOrigin,
                 definition.AttackRange,
@@ -902,6 +1041,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         attackStateSystem = new EnemyAttackStateSystem();
 
         attackTimingSystem = new EnemyAttackTimingSystem();
+
         attackTimingSystem.Initialize(
             definition.AttackPreparationDuration,
             definition.AttackDuration,
@@ -914,6 +1054,7 @@ public class EnemyController : MonoBehaviour,IDamageable
         }
 
         attackSequenceSystem = new EnemyAttackSequenceSystem();
+
         attackSequenceSystem.Initialize(
             attackStateSystem,
             attackTimingSystem,
@@ -958,18 +1099,165 @@ public class EnemyController : MonoBehaviour,IDamageable
                 "Failed to initialize attack behaviour system.");
         }
 
-        if (!InitializeAttackAnimationEventHandlers())
+        return true;
+    }
+
+    private bool InitializeSpecialAttackSystems()
+    {
+        bool hasRangedSpecialAttack = false;
+
+        foreach (EnemySpecialAttackDefinition specialDefinition
+                 in definition.SpecialAttacks)
+        {
+            if (specialDefinition == null)
+                continue;
+
+            if (specialDefinition.AttackType ==
+                EnemySpecialAttackType.Ranged)
+            {
+                hasRangedSpecialAttack = true;
+                break;
+            }
+        }
+
+        // Ranged special attacks need the current target.
+        if (hasRangedSpecialAttack && attackTargetSystem == null)
+        {
+            if (attackOrigin != null)
+            {
+                attackTargetSystem = new EnemyAttackTargetSystem();
+
+                attackTargetSystem.Initialize(
+                    attackOrigin,
+                    definition.AttackRange);
+
+                if (!attackTargetSystem.IsInitialized)
+                {
+                    return FailAttackInitialization(
+                        "Failed to initialize target system for ranged special attacks.");
+                }
+            }
+            else
+            {
+                Debug.LogWarning(
+                    $"Attack Origin is missing on {gameObject.name}. Ranged special attacks cannot execute.",
+                    gameObject);
+            }
+        }
+
+        specialAttackStateSystem = new EnemyAttackStateSystem();
+
+        specialAttackSequenceSystem =
+            new EnemySpecialAttackSequenceSystem();
+
+        specialAttackSequenceSystem.Initialize(
+            specialAttackStateSystem);
+
+        if (!specialAttackSequenceSystem.IsInitialized)
         {
             return FailAttackInitialization(
-                "Failed to initialize attack animation event handlers.");
+                "Failed to initialize special attack sequence system.");
+        }
+
+        specialAttackBehaviourFactory =
+            new EnemySpecialAttackBehaviourFactory(
+                new EnemySpecialAttackMeleeBehaviour(
+                    attackOrigin,
+                    targetLayers),
+
+                new EnemySpecialAttackRangedBehaviour(
+                    attackTargetSystem,
+                    projectileSpawnPoint),
+
+                new EnemySpecialAttackAreaBehaviour(
+                    attackOrigin,
+                    targetLayers));
+
+        specialAttackSystem = new EnemySpecialAttackSystem(
+            definition.SpecialAttacks,
+            definition.SpecialAttackCheckIntervalMin,
+            definition.SpecialAttackCheckIntervalMax,
+            definition.SpecialAttackHealthThreshold,
+            TryStartSpecialAttack);
+
+        if (!specialAttackSystem.IsInitialized)
+        {
+            return FailAttackInitialization(
+                "Failed to initialize special attack system.");
         }
 
         return true;
     }
+
+    // Special Attack Start
+
+    private bool TryStartSpecialAttack(
+        EnemySpecialAttackDefinition specialDefinition)
+    {
+        if (IsDead ||
+            specialDefinition == null ||
+            specialAttackSystem == null ||
+            specialAttackSequenceSystem == null ||
+            specialAttackBehaviourFactory == null)
+        {
+            return false;
+        }
+
+        if (specialAttackSystem.IsAttackActive)
+            return false;
+
+        // A running normal attack must finish first.
+        if (attackSequenceSystem != null &&
+            attackSequenceSystem.IsSequenceRunning)
+        {
+            return false;
+        }
+
+        if (specialAttackSequenceSystem.IsSequenceRunning)
+            return false;
+
+        if (!specialAttackBehaviourFactory.CanExecute(specialDefinition))
+            return false;
+
+        if (!specialAttackSequenceSystem.StartSequence())
+            return false;
+
+        animationController?.SetAttack();
+
+        PlayDialogue(EnemyDialogueType.Attack);
+
+        return true;
+    }
+
+    // Normal Attack Start
+
     public bool TryStartAttack()
     {
-        if (!isInitialized ||
-            attackSequenceSystem == null ||
+        if (!isInitialized || IsDead)
+            return false;
+
+        // An active special attack blocks normal attacks.
+        if (specialAttackSystem != null &&
+            specialAttackSystem.IsAttackActive)
+        {
+            return false;
+        }
+
+        // A pending special attack has priority.
+        if (specialAttackSystem != null &&
+            specialAttackSystem.IsAttackPending)
+        {
+            specialAttackSystem.TryStartPendingAttack();
+
+            // Keep normal attacks blocked while the request is pending.
+            if (specialAttackSystem.IsAttackPending ||
+                specialAttackSystem.IsAttackActive)
+            {
+                return false;
+            }
+        }
+
+        if (attackSequenceSystem == null ||
             attackValidationSystem == null ||
             attackBehaviourSystem == null)
         {
@@ -982,68 +1270,15 @@ public class EnemyController : MonoBehaviour,IDamageable
         bool attackStarted = attackSequenceSystem.StartSequence();
 
         if (attackStarted)
+        {
+            animationController?.SetAttack();
             PlayDialogue(EnemyDialogueType.Attack);
+        }
 
         return attackStarted;
     }
-    public bool PlayDialogue(EnemyDialogueType dialogueType)
-    {
-        if (!isInitialized || dialogueSystem == null)
-            return false;
 
-        return dialogueSystem.PlayDialogue(dialogueType);
-    }
-    public int ReceiveDamage(
-        int incomingDamage,
-        Vector2 attackPosition)
-    {
-        if (!isInitialized || IsDead)
-            return 0;
-
-        int appliedDamage = damageSystem.ReceiveDamage(
-            incomingDamage,
-            attackPosition);
-
-        if (appliedDamage > 0)
-            attackSequenceSystem?.Interrupt();
-
-        return appliedDamage;
-    }
-
-    public int Heal(int healAmount)
-    {
-        if (!isInitialized || IsDead)
-            return 0;
-
-        return healthSystem.Heal(healAmount);
-    }
-
-
-    private void OnDestroy()
-    {
-        healthEventHandler?.Dispose();
-        healthEventHandler = null;
-
-        dialogueSystem?.Clear();
-        dialogueSystem = null;
-    }
-    private void InitializeAnimationEventRelay()
-    {
-        if (animator == null)
-            return;
-
-        animationEventRelay =
-            animator.GetComponent<EnemyAnimationEventRelay>();
-
-        if (animationEventRelay == null)
-        {
-            animationEventRelay =
-                animator.gameObject.AddComponent<EnemyAnimationEventRelay>();
-        }
-
-        animationEventRelay.Initialize(this);
-    }
-
+    // Attack Event Handlers
 
     private bool InitializeAttackAnimationEventHandlers()
     {
@@ -1065,7 +1300,10 @@ public class EnemyController : MonoBehaviour,IDamageable
                 animator.gameObject.AddComponent<EnemyAttackAnimationEventHandler>();
         }
 
-        attackAnimationEventHandler.Initialize(attackSequenceSystem);
+        attackAnimationEventHandler.Initialize(
+            attackSequenceSystem,
+            specialAttackSequenceSystem,
+            specialAttackSystem);
 
         if (!attackAnimationEventHandler.IsInitialized)
         {
@@ -1091,7 +1329,10 @@ public class EnemyController : MonoBehaviour,IDamageable
         attackHitEventHandler.Initialize(
             attackBehaviourSystem,
             attackStateSystem,
-            attackSystem);
+            attackSystem,
+            specialAttackSystem,
+            specialAttackSequenceSystem,
+            specialAttackBehaviourFactory);
 
         if (!attackHitEventHandler.IsInitialized)
         {
@@ -1145,8 +1386,86 @@ public class EnemyController : MonoBehaviour,IDamageable
         attackBehaviourSystem = null;
         attackBehaviourFactory = null;
 
+        specialAttackSystem?.Clear();
+        specialAttackSequenceSystem?.Clear();
+
+        specialAttackSystem = null;
+        specialAttackStateSystem = null;
+        specialAttackSequenceSystem = null;
+        specialAttackBehaviourFactory = null;
+
         attackAnimationEventHandler = null;
         attackHitEventHandler = null;
+    }
+
+    // Health API
+
+
+    public int ReceiveDamage(
+        int incomingDamage,
+        Vector2 attackPosition)
+    {
+        if (!isInitialized || IsDead)
+            return 0;
+
+        int appliedDamage = damageSystem.ReceiveDamage(
+            incomingDamage,
+            attackPosition);
+
+        if (appliedDamage <= 0)
+            return 0;
+
+        attackSequenceSystem?.Interrupt();
+
+        specialAttackSequenceSystem?.Interrupt();
+        specialAttackSystem?.InterruptActiveAttack();
+
+        if (IsDead)
+        {
+            animationController?.SetDeath();
+            return appliedDamage;
+        }
+
+        if (hurtSystem != null && hurtSystem.IsHurting)
+        {
+            animationController?.SetHurt();
+        }
+
+        return appliedDamage;
+    }
+
+
+    public int Heal(int healAmount)
+    {
+        if (!isInitialized || IsDead)
+            return 0;
+
+        return healthSystem.Heal(healAmount);
+    }
+
+    public void CompleteHurtAnimation()
+    {
+        hurtSystem?.CompleteHurt();
+
+        if (IsDead)
+            return;
+
+        UpdateMovementAnimation();
+    }
+
+    public void CompleteDeathAnimation()
+    {
+        deathSystem?.CompleteDeathAnimation();
+    }
+
+    // Dialogue API
+
+    public bool PlayDialogue(EnemyDialogueType dialogueType)
+    {
+        if (!isInitialized || dialogueSystem == null)
+            return false;
+
+        return dialogueSystem.PlayDialogue(dialogueType);
     }
 
     private void InitializeDialogueSystem()
@@ -1194,4 +1513,67 @@ public class EnemyController : MonoBehaviour,IDamageable
             dialogueSystem = null;
         }
     }
+
+    // Animation Event Relay
+
+    private void InitializeAnimationEventRelay()
+    {
+        if (animator == null)
+            return;
+
+        animationEventRelay =
+            animator.GetComponent<EnemyAnimationEventRelay>();
+
+        if (animationEventRelay == null)
+        {
+            animationEventRelay =
+                animator.gameObject.AddComponent<EnemyAnimationEventRelay>();
+        }
+
+        animationEventRelay.Initialize(this);
+    }
+
+    // Cleanup
+
+    private void OnDestroy()
+    {
+        healthEventHandler?.Dispose();
+        healthEventHandler = null;
+
+        ClearAttackSystems();
+
+        animationController?.Clear();
+        animationController = null;
+
+        dialogueSystem?.Clear();
+        dialogueSystem = null;
+    }
+
+    private void UpdateMovementAnimation()
+    {
+        if (IsDead)
+            return;
+
+        if (hurtSystem != null && hurtSystem.IsHurting)
+            return;
+
+        if (attackSequenceSystem != null &&
+            attackSequenceSystem.IsSequenceRunning)
+            return;
+
+        if (specialAttackSequenceSystem != null &&
+            specialAttackSequenceSystem.IsSequenceRunning)
+            return;
+
+        if (movementSystem.IsMoving)
+            animationController?.SetRun();
+        else
+            animationController?.SetIdle();
+    }
+
+    public void PlayDeathAnimation()
+    {
+        animationController?.SetDeath();
+    }
+
 }

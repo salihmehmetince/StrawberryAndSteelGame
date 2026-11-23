@@ -6,7 +6,6 @@ public class EnemyDeathSystem
     private EnemyController enemyController;
     private Rigidbody2D enemyRigidbody;
     private Collider2D enemyCollider;
-    private Animator enemyAnimator;
 
     private float destroyDelay;
     private float destroyTimer;
@@ -20,7 +19,6 @@ public class EnemyDeathSystem
         EnemyController enemyController,
         Rigidbody2D enemyRigidbody,
         Collider2D enemyCollider,
-        Animator enemyAnimator,
         float destroyDelay)
     {
         Clear();
@@ -33,21 +31,11 @@ public class EnemyDeathSystem
             return;
         }
 
-        if (float.IsNaN(destroyDelay) ||
-            float.IsInfinity(destroyDelay) ||
-            destroyDelay < 0f)
-        {
-            Debug.LogError(
-                "EnemyDeathSystem received an invalid destroy delay.");
-
-            return;
-        }
-
         this.enemyController = enemyController;
         this.enemyRigidbody = enemyRigidbody;
         this.enemyCollider = enemyCollider;
-        this.enemyAnimator = enemyAnimator;
-        this.destroyDelay = destroyDelay;
+
+        this.destroyDelay = Mathf.Max(0f, destroyDelay);
     }
 
     public void Die()
@@ -57,7 +45,7 @@ public class EnemyDeathSystem
 
         IsDead = true;
 
-        enemyController.StopNormalMovement();
+        enemyController.StopMovement();
 
         if (enemyRigidbody != null)
         {
@@ -68,16 +56,24 @@ public class EnemyDeathSystem
         if (enemyCollider != null)
             enemyCollider.enabled = false;
 
-        if (enemyAnimator != null)
-            enemyAnimator.SetTrigger("Die");
+        if (enemyController.HasAnimator)
+        {
+            enemyController.PlayDeathAnimation();
+        }
         else
+        {
             CompleteDeathAnimation();
+        }
     }
 
     public void CompleteDeathAnimation()
     {
-        if (!IsDead || IsDeathAnimationCompleted)
+        if (!IsInitialized ||
+            !IsDead ||
+            IsDeathAnimationCompleted)
+        {
             return;
+        }
 
         IsDeathAnimationCompleted = true;
         destroyTimer = destroyDelay;
@@ -85,28 +81,20 @@ public class EnemyDeathSystem
 
     public void Update(float deltaTime)
     {
-        if (!IsDead ||
+        if (!IsInitialized ||
             !IsDeathAnimationCompleted ||
             IsDestroyed)
+        {
             return;
-
-        if (float.IsNaN(deltaTime) ||
-            float.IsInfinity(deltaTime) ||
-            deltaTime < 0f)
-            return;
+        }
 
         destroyTimer -= deltaTime;
 
-        if (destroyTimer <= 0f)
-            DestroyEnemy();
-    }
-
-    private void DestroyEnemy()
-    {
-        if (IsDestroyed || enemyController == null)
+        if (destroyTimer > 0f)
             return;
 
         IsDestroyed = true;
+
         Object.Destroy(enemyController.gameObject);
     }
 
@@ -115,7 +103,6 @@ public class EnemyDeathSystem
         enemyController = null;
         enemyRigidbody = null;
         enemyCollider = null;
-        enemyAnimator = null;
 
         destroyDelay = 0f;
         destroyTimer = 0f;

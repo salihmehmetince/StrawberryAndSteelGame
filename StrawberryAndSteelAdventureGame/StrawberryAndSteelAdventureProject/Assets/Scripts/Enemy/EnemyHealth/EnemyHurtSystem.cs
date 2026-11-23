@@ -5,7 +5,6 @@ public class EnemyHurtSystem
 {
     private EnemyController enemyController;
     private Rigidbody2D enemyRigidbody;
-    private Animator enemyAnimator;
 
     private float knockbackForce;
     private float verticalKnockbackForce;
@@ -44,7 +43,6 @@ public class EnemyHurtSystem
 
         this.enemyController = enemyController;
         this.enemyRigidbody = enemyRigidbody;
-        this.enemyAnimator = enemyAnimator;
 
         this.knockbackForce = knockbackForce;
         this.verticalKnockbackForce = verticalKnockbackForce;
@@ -72,9 +70,6 @@ public class EnemyHurtSystem
             direction.y * verticalKnockbackForce);
 
         IsHurting = true;
-
-        if (enemyAnimator != null)
-            enemyAnimator.SetTrigger("Hurt");
     }
 
     public void CompleteHurt()
@@ -86,7 +81,6 @@ public class EnemyHurtSystem
     {
         enemyController = null;
         enemyRigidbody = null;
-        enemyAnimator = null;
 
         knockbackForce = 0f;
         verticalKnockbackForce = 0f;
