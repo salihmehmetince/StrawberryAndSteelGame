@@ -1,3 +1,4 @@
+
 using SQLite;
 
 [Table("Item")]
@@ -18,4 +19,16 @@ public class Item
 
     [NotNull]
     public int IsActive { get; set; }
+
+    [NotNull]
+    public int CoinUniqueness { get; set; }
+
+    [NotNull]
+    public int DiamondUniqueness { get; set; }
+
+    [NotNull]
+    public int ItemUniqueness { get; set; }
+
+    [NotNull]
+    public string ItemImage { get; set; }
 }

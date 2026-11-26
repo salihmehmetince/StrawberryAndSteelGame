@@ -8,9 +8,7 @@ public class GameBootstrapper : MonoBehaviour
     public DatabaseContext DatabaseContext { get; private set; }
 
     public GameSession GameSession { get; private set; }
-
     public LevelCollectableSession LevelCollectableSession { get; private set; }
-
     public PlayerCharacterSession PlayerCharacterSession { get; private set; }
 
     // Services
@@ -31,9 +29,13 @@ public class GameBootstrapper : MonoBehaviour
     public PlayerLevelCompletionService PlayerLevelCompletionService { get; private set; }
     public EquipmentSlotService EquipmentSlotService { get; private set; }
     public ShopOfferService ShopOfferService { get; private set; }
+    public MarketSettingsService MarketSettingsService { get; private set; }
+
+    public PlayerMarketService PlayerMarketService { get; private set; }
+    public PlayerMarketOfferService PlayerMarketOfferService { get; private set; }
+
     public DatabaseSchemaVersionService DatabaseSchemaVersionService { get; private set; }
     public PlayerProfileService PlayerProfileService { get; private set; }
-
     public PlayerCharacterLevelStatsService PlayerCharacterLevelStatsService { get; private set; }
 
     private void Awake()
@@ -120,6 +122,15 @@ public class GameBootstrapper : MonoBehaviour
         ShopOfferRepository shopOfferRepository =
             new ShopOfferRepository(DatabaseContext);
 
+        MarketSettingsRepository marketSettingsRepository =
+            new MarketSettingsRepository(DatabaseContext);
+
+        PlayerMarketRepository playerMarketRepository =
+            new PlayerMarketRepository(DatabaseContext);
+
+        PlayerMarketOfferRepository playerMarketOfferRepository =
+            new PlayerMarketOfferRepository(DatabaseContext);
+
         DatabaseSchemaVersionRepository schemaVersionRepository =
             new DatabaseSchemaVersionRepository(DatabaseContext);
 
@@ -172,7 +183,7 @@ public class GameBootstrapper : MonoBehaviour
             new CharacterLevelDefinitionService(
                 characterLevelDefinitionRepository
             );
-            
+
         PlayerCharacterLevelStatsService =
             new PlayerCharacterLevelStatsService(
                 PlayerCharacterStatsService,
@@ -182,6 +193,7 @@ public class GameBootstrapper : MonoBehaviour
                 ItemService,
                 ItemStatModifierService
             );
+
         PlayerLevelCompletionService =
             new PlayerLevelCompletionService(
                 playerLevelCompletionRepository
@@ -193,11 +205,24 @@ public class GameBootstrapper : MonoBehaviour
         ShopOfferService =
             new ShopOfferService(shopOfferRepository);
 
+        MarketSettingsService =
+            new MarketSettingsService(marketSettingsRepository);
+
+        PlayerMarketService =
+            new PlayerMarketService(playerMarketRepository);
+
+        PlayerMarketOfferService =
+            new PlayerMarketOfferService(
+                playerMarketOfferRepository,
+                playerMarketRepository
+            );
+
         DatabaseSchemaVersionService =
             new DatabaseSchemaVersionService(schemaVersionRepository);
 
 
         // Player Profile
+
         PlayerProfileService = new PlayerProfileService(
             DatabaseContext,
             PlayerService,
@@ -206,6 +231,7 @@ public class GameBootstrapper : MonoBehaviour
             playerHasItemRepository,
             PlayerCharacterStatsService
         );
+
 
         // Default Settings
 

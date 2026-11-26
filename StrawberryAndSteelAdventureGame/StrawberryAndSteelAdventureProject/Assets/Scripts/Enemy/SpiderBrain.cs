@@ -15,6 +15,10 @@ public sealed class SpiderBrain : MonoBehaviour
     [SerializeField] private float patrolPointA = -2f;
     [SerializeField] private float patrolPointB = 2f;
 
+    [Header("Patrol / Idle Cycle")]
+    [SerializeField, Min(0.1f)] private float patrolDurationBeforeIdle = 20f;
+    [SerializeField, Min(0f)] private float patrolIdleDuration = 3f;
+
     [Header("Visual")]
     [Tooltip("Sprite, localScale.x pozitifken saða bakýyorsa açýk býrak. Sola bakýyorsa kapat.")]
     [SerializeField] private bool spriteFacesRight = true;
@@ -31,7 +35,7 @@ public sealed class SpiderBrain : MonoBehaviour
     [SerializeField, Min(0f)] private float stateAudioInterval = 5f;
 
     [Header("Debug")]
-    [SerializeField] private bool debugLogs;
+    [SerializeField] private bool debugLogs = true;
 
     private const float ArriveDistance = 0.08f;
     private const float FaceDeadZone = 0.05f;
@@ -54,6 +58,8 @@ public sealed class SpiderBrain : MonoBehaviour
     private float specialRecoveryTimer;
     private float audioTimer;
     private float hurtTimer;
+    private float patrolTimer;
+    private float patrolIdleTimer;
     private float previousHealth;
     private float lastFaceX;
     private bool stateInitialized;
@@ -62,6 +68,8 @@ public sealed class SpiderBrain : MonoBehaviour
     private bool playerWasDetected;
     private bool returningToStart;
     private bool deathHandled;
+    private bool isPatrolIdle;
+    private string lastLoggedAnimationInfo;
 
     private void Start()
     {
@@ -111,6 +119,18 @@ public sealed class SpiderBrain : MonoBehaviour
         activeProjectiles.Clear();
     }
 
+    private void LateUpdate()
+    {
+        if (!debugLogs || enemyController == null || enemyController.Animation == null)
+            return;
+
+        string animationInfo = enemyController.Animation.GetDebugStateDescription();
+        if (animationInfo == lastLoggedAnimationInfo)
+            return;
+
+        lastLoggedAnimationInfo = animationInfo;
+        Debug.Log($"[SpiderBrain] Animator: {animationInfo}", this);
+    }
     private void Update()
     {
         if (enemyController == null || health == null || health.IsDead)
@@ -130,6 +150,9 @@ public sealed class SpiderBrain : MonoBehaviour
         {
             previousHealth = health.CurrentHealth;
             hurtTimer = hurtDuration;
+            patrolTimer = 0f;
+            patrolIdleTimer = 0f;
+            isPatrolIdle = false;
             specialRecoveryTimer = 0f;
             attackAnimationTimer = 0f;
             StopMoving();
@@ -181,6 +204,12 @@ public sealed class SpiderBrain : MonoBehaviour
 
             specialTimerStarted = false;
             attackAnimationTimer = 0f;
+            if (UpdatePatrolIdleCycle(dt))
+            {
+                FaceMovementDirection();
+                UpdateStateAudio();
+                return;
+            }
             PatrolOrReturn();
             FaceMovementDirection();
             UpdateStateAudio();
@@ -188,6 +217,9 @@ public sealed class SpiderBrain : MonoBehaviour
         }
 
         playerWasDetected = true;
+        patrolTimer = 0f;
+        patrolIdleTimer = 0f;
+        isPatrolIdle = false;
         returningToStart = false;
         patrolStarted = false;
         FacePlayer(player);
@@ -265,6 +297,47 @@ public sealed class SpiderBrain : MonoBehaviour
             return !animation.IsStateFinished("SpiderHurt");
 
         return false;
+    }
+
+    private bool UpdatePatrolIdleCycle(float deltaTime)
+    {
+        if (returningToStart)
+        {
+            patrolTimer = 0f;
+            return false;
+        }
+
+        if (isPatrolIdle)
+        {
+            patrolIdleTimer = Mathf.Max(0f, patrolIdleTimer - deltaTime);
+            StopMoving();
+            SetState(EnemyState.Idle);
+            PlayAnimation(BrainAnimation.Idle);
+
+            if (patrolIdleTimer > 0f)
+                return true;
+
+            isPatrolIdle = false;
+            patrolTimer = 0f;
+            return false;
+        }
+
+        if (!patrolStarted || patrolDurationBeforeIdle <= 0f || patrolIdleDuration <= 0f)
+        {
+            patrolTimer = 0f;
+            return false;
+        }
+
+        patrolTimer += deltaTime;
+        if (patrolTimer < patrolDurationBeforeIdle)
+            return false;
+
+        isPatrolIdle = true;
+        patrolIdleTimer = patrolIdleDuration;
+        StopMoving();
+        SetState(EnemyState.Idle);
+        PlayAnimation(BrainAnimation.Idle);
+        return patrolIdleTimer > 0f;
     }
 
     private void StartPatrol()
@@ -434,7 +507,7 @@ public sealed class SpiderBrain : MonoBehaviour
             return;
 
         if (debugLogs && currentAnimation != kind)
-            Debug.Log($"[SpiderBrain] Animation: {currentAnimation} -> {kind}", this);
+            Debug.Log($"[SpiderBrain] Animation requested: {currentAnimation} -> {kind}", this);
 
         currentAnimation = kind;
 
@@ -485,6 +558,8 @@ public sealed class SpiderBrain : MonoBehaviour
     {
         attackCooldown = Mathf.Max(0.05f, attackCooldown);
         attackAnimationDuration = Mathf.Max(0.05f, attackAnimationDuration);
+        patrolDurationBeforeIdle = Mathf.Max(0.1f, patrolDurationBeforeIdle);
+        patrolIdleDuration = Mathf.Max(0f, patrolIdleDuration);
         specialAttackMinimumInterval = Mathf.Max(0f, specialAttackMinimumInterval);
         specialAttackMaximumInterval = Mathf.Max(specialAttackMinimumInterval, specialAttackMaximumInterval);
         specialAttackHealthThreshold = Mathf.Clamp(specialAttackHealthThreshold, 0f, 100f);

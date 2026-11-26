@@ -9733,7 +9733,7 @@ Transform:
   m_GameObject: {fileID: 1061198238}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4, y: 0, z: 0}
+  m_LocalPosition: {x: -0.17, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9823,13 +9823,18 @@ MonoBehaviour:
   projectileSpawnPoint: {fileID: 154691405}
   patrolPointA: -10
   patrolPointB: 10
+  patrolDurationBeforeIdle: 20
+  patrolIdleDuration: 3
+  spriteFacesRight: 1
   attackCooldown: 1.5
   attackAnimationDuration: 0.5
   specialAttackMinimumInterval: 4
   specialAttackMaximumInterval: 7
   specialAttackHealthThreshold: 50
   specialAttackRecoveryDuration: 0.75
+  hurtDuration: 0.35
   stateAudioInterval: 5
+  debugLogs: 1
 --- !u!114 &1061198243
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9875,6 +9880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDialogue
   audioDefinition: {fileID: 11400000, guid: 73d4cd42d91d8724d948a887b8b45cb4, type: 2}
+  debugLogs: 1
 --- !u!82 &1061198246
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9895,11 +9901,11 @@ AudioSource:
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  DopplerLevel: 0
+  MinDistance: 2
+  MaxDistance: 12
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -9932,7 +9938,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -22946,7 +22952,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8380566823044202087, guid: 00dccfdc61b81ab4ab0b18198691a102, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23954,7 +23960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c568c2e5857363419ab0b41208d4094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDetection
-  detectionRadius: 5
+  detectionRadius: 2.5
   attackRadius: 1.5
   playerLayer:
     serializedVersion: 2
@@ -23994,7 +24000,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 5
+  m_Radius: 2.5
 --- !u!1 &1872002142
 GameObject:
   m_ObjectHideFlags: 0

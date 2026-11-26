@@ -1,10 +1,9 @@
-
 using System;
 using SQLite;
 
 public static class DatabaseInitializer
 {
-    private const int CurrentSchemaVersion = 6;
+    private const int CurrentSchemaVersion = 9;
 
     public static void Initialize(DatabaseContext context)
     {
@@ -92,6 +91,9 @@ public static class DatabaseInitializer
         database.Execute("DROP TABLE IF EXISTS CharacterLevelDefinition;");
         database.Execute("DROP TABLE IF EXISTS EquipmentSlot;");
         database.Execute("DROP TABLE IF EXISTS ItemTypes;");
+        database.Execute("DROP TABLE IF EXISTS MarketSettings;");
+        database.Execute("DROP TABLE IF EXISTS PlayerMarket;");
+        database.Execute("DROP TABLE IF EXISTS PlayerMarketOffer;");
         database.Execute("DROP TABLE IF EXISTS GameSettings;");
         database.Execute("DROP TABLE IF EXISTS PlayerSettings;");
         database.Execute("DROP TABLE IF EXISTS Player;");
@@ -123,6 +125,59 @@ public static class DatabaseInitializer
                     CHECK (MusicLevel BETWEEN 0 AND 1),
                 Sensitivity REAL NOT NULL
                     CHECK (Sensitivity BETWEEN 0 AND 1)
+            );
+        ");
+
+        database.Execute(@"
+            CREATE TABLE IF NOT EXISTS MarketSettings
+            (
+                MarketSettingsId INTEGER PRIMARY KEY
+                    CHECK (MarketSettingsId = 1),
+                BaseCoinPrice INTEGER NOT NULL
+                    CHECK (BaseCoinPrice >= 0),
+                BaseDiamondPrice INTEGER NOT NULL
+                    CHECK (BaseDiamondPrice >= 0),
+                RefreshIntervalMinutes INTEGER NOT NULL
+                    CHECK (RefreshIntervalMinutes > 0)
+            );
+        ");
+        database.Execute(@"
+            CREATE TABLE IF NOT EXISTS PlayerMarket
+            (
+                PlayerMarketId INTEGER PRIMARY KEY AUTOINCREMENT,
+                PlayerId INTEGER NOT NULL UNIQUE,
+                CreatedAtUtc TEXT NOT NULL,
+                NextRefreshAtUtc TEXT NOT NULL,
+
+                FOREIGN KEY (PlayerId)
+                    REFERENCES Player(PlayerId)
+                    ON DELETE CASCADE
+            );
+        ");
+        database.Execute(@"
+            CREATE TABLE IF NOT EXISTS PlayerMarketOffer
+            (
+                PlayerMarketOfferId INTEGER PRIMARY KEY AUTOINCREMENT,
+                PlayerMarketId INTEGER NOT NULL,
+                SlotNumber INTEGER NOT NULL
+                    CHECK (SlotNumber BETWEEN 1 AND 6),
+                ItemId INTEGER NOT NULL,
+                CoinPrice INTEGER NOT NULL
+                    CHECK (CoinPrice >= 0),
+                DiamondPrice INTEGER NOT NULL
+                    CHECK (DiamondPrice >= 0),
+                IsPurchased INTEGER NOT NULL DEFAULT 0
+                    CHECK (IsPurchased IN (0, 1)),
+                PurchasedAtUtc TEXT,
+
+                UNIQUE (PlayerMarketId, SlotNumber),
+
+                FOREIGN KEY (PlayerMarketId)
+                    REFERENCES PlayerMarket(PlayerMarketId)
+                    ON DELETE CASCADE,
+
+                FOREIGN KEY (ItemId)
+                    REFERENCES Item(ItemId)
             );
         ");
 
@@ -167,8 +222,15 @@ public static class DatabaseInitializer
                 ItemTypeId INTEGER NOT NULL,
                 EquipmentSlotId INTEGER,
                 ItemDescription TEXT,
+                ItemImage TEXT NOT NULL,
                 IsActive INTEGER NOT NULL
                     CHECK (IsActive IN (0, 1)),
+                CoinUniqueness INTEGER NOT NULL
+                    CHECK (CoinUniqueness > 0),
+                DiamondUniqueness INTEGER NOT NULL
+                    CHECK (DiamondUniqueness > 0),
+                ItemUniqueness INTEGER NOT NULL
+                    CHECK (ItemUniqueness > 0),
 
                 FOREIGN KEY (ItemTypeId)
                     REFERENCES ItemTypes(ItemTypeId),
@@ -384,6 +446,7 @@ public static class DatabaseInitializer
     private static void SeedData(SQLiteConnection database)
     {
         InsertGameSettings(database);
+        InsertMarketSettings(database);
         InsertItemTypes(database);
         InsertEquipmentSlots(database);
         InsertCharacterLevels(database);
@@ -404,6 +467,21 @@ public static class DatabaseInitializer
             AudioLevel = 1f,
             MusicLevel = 1f,
             Sensitivity = 1f
+        });
+    }
+
+    // ==================================================
+    // MARKET SETTINGS
+    // ==================================================
+
+    private static void InsertMarketSettings(SQLiteConnection database)
+    {
+        database.Insert(new MarketSettings
+        {
+            MarketSettingsId = 1,
+            BaseCoinPrice = 10,
+            BaseDiamondPrice = 100,
+            RefreshIntervalMinutes = 30
         });
     }
 
@@ -659,7 +737,11 @@ public static class DatabaseInitializer
             "Coin",
             1,
             null,
-            "Basic game currency."
+            "Basic game currency.",
+            "Items/Currency/Coin",
+            1,
+            2,
+            6
         );
 
         AddItem(
@@ -667,7 +749,11 @@ public static class DatabaseInitializer
             "Diamond",
             1,
             null,
-            "Rare game currency."
+            "Rare game currency.",
+            "Items/Currency/Diamond",
+            1,
+            2,
+            6
         );
 
         InsertArmorItems(database);
@@ -736,6 +822,10 @@ public static class DatabaseInitializer
                     materialDefense[materialIndex] *
                     defenseMultipliers[partIndex];
 
+                int[] uniqueness = GetArmorMaterialUniqueness(
+                    materials[materialIndex]
+                );
+
                 AddEquipmentItem(
                     database,
                     itemName,
@@ -743,8 +833,12 @@ public static class DatabaseInitializer
                     slotIds[partIndex],
                     materials[materialIndex] + " " +
                     armorParts[partIndex] + ".",
+                    GetArmorImagePath(armorParts[partIndex], itemName),
                     "Defense",
-                    defense
+                    defense,
+                    uniqueness[0],
+                    uniqueness[1],
+                    uniqueness[2]
                 );
             }
         }
@@ -778,14 +872,20 @@ public static class DatabaseInitializer
 
         for (int i = 0; i < materials.Length; i++)
         {
+            int[] uniqueness = GetWeaponMaterialUniqueness(materials[i]);
+
             AddEquipmentItem(
                 database,
                 materials[i] + "Sword",
                 3,
                 7,
                 materials[i] + " sword.",
+                "Items/Sword/" + materials[i] + "Sword",
                 "Attack",
-                attackValues[i]
+                attackValues[i],
+                uniqueness[0],
+                uniqueness[1],
+                uniqueness[2]
             );
         }
     }
@@ -818,14 +918,20 @@ public static class DatabaseInitializer
 
         for (int i = 0; i < materials.Length; i++)
         {
+            int[] uniqueness = GetWeaponMaterialUniqueness(materials[i]);
+
             AddEquipmentItem(
                 database,
                 materials[i] + "Bow",
                 3,
                 8,
                 materials[i] + " bow with built-in unlimited ammunition. No separate ammunition is required.",
+                "Items/RangedWeapon/" + materials[i] + "Bow",
                 "Attack",
-                attackValues[i]
+                attackValues[i],
+                uniqueness[0],
+                uniqueness[1],
+                uniqueness[2]
             );
         }
     }
@@ -857,6 +963,24 @@ public static class DatabaseInitializer
             30, 24, 26, 25, 18
         };
 
+        int[] itemUniquenessValues =
+        {
+            3, 9, 7, 13, 17,
+            15, 11, 11, 11, 5
+        };
+
+        int[] coinUniquenessValues =
+        {
+            2, 8, 8, 12, 16,
+            16, 10, 12, 10, 4
+        };
+
+        int[] diamondUniquenessValues =
+        {
+            10, 14, 14, 18, 22,
+            22, 18, 18, 18, 10
+        };
+
         for (int i = 0; i < weaponNames.Length; i++)
         {
             AddEquipmentItem(
@@ -867,9 +991,46 @@ public static class DatabaseInitializer
                 weaponNames[i] == "Crossbow"
                     ? "Crossbow with built-in unlimited ammunition. No separate ammunition is required."
                     : weaponNames[i] + " weapon.",
+                weaponNames[i] == "Crossbow"
+                    ? "Items/RangedWeapon/Crossbow"
+                    : "Items/Sword/" + weaponNames[i],
                 "Attack",
-                attackValues[i]
+                attackValues[i],
+                itemUniquenessValues[i],
+                coinUniquenessValues[i],
+                diamondUniquenessValues[i]
             );
+        }
+    }
+
+    private static string GetArmorImagePath(
+        string armorPart,
+        string itemName)
+    {
+        switch (armorPart)
+        {
+            case "Helmet":
+                return "Items/Helmet/" + itemName;
+
+            case "Bracers":
+                return "Items/ArmArmor/" + itemName;
+
+            case "Chest":
+                return "Items/ChestArmor/" + itemName;
+
+            case "Legs":
+                return "Items/LegArmor/" + itemName;
+
+            case "Boots":
+                return "Items/Boots/" + itemName;
+
+            case "Shield":
+                return "Items/Shield/" + itemName;
+
+            default:
+                throw new InvalidOperationException(
+                    "Unknown armor part: " + armorPart
+                );
         }
     }
 
@@ -882,7 +1043,11 @@ public static class DatabaseInitializer
         string itemName,
         int itemTypeId,
         int? equipmentSlotId,
-        string description)
+        string description,
+        string itemImage,
+        int itemUniqueness,
+        int coinUniqueness,
+        int diamondUniqueness)
     {
         database.Insert(new Item
         {
@@ -890,7 +1055,11 @@ public static class DatabaseInitializer
             ItemTypeId = itemTypeId,
             EquipmentSlotId = equipmentSlotId,
             ItemDescription = description,
-            IsActive = 1
+            ItemImage = itemImage,
+            IsActive = 1,
+            CoinUniqueness = coinUniqueness,
+            DiamondUniqueness = diamondUniqueness,
+            ItemUniqueness = itemUniqueness
         });
     }
 
@@ -900,8 +1069,12 @@ public static class DatabaseInitializer
         int itemTypeId,
         int equipmentSlotId,
         string description,
+        string itemImage,
         string statType,
-        float modifierValue)
+        float modifierValue,
+        int itemUniqueness,
+        int coinUniqueness,
+        int diamondUniqueness)
     {
         Item item = new Item
         {
@@ -909,7 +1082,11 @@ public static class DatabaseInitializer
             ItemTypeId = itemTypeId,
             EquipmentSlotId = equipmentSlotId,
             ItemDescription = description,
-            IsActive = 1
+            ItemImage = itemImage,
+            IsActive = 1,
+            CoinUniqueness = coinUniqueness,
+            DiamondUniqueness = diamondUniqueness,
+            ItemUniqueness = itemUniqueness
         };
 
         database.Insert(item);
@@ -920,6 +1097,73 @@ public static class DatabaseInitializer
             StatType = statType,
             ModifierValue = modifierValue
         });
+    }
+
+    // ==================================================
+    // ITEM UNIQUENESS VALUES
+    // ==================================================
+
+    private static int[] GetArmorMaterialUniqueness(string material)
+    {
+        switch (material)
+        {
+            case "Cloth": return GetUniquenessValues(1);
+            case "Leather": return GetUniquenessValues(3);
+            case "Wooden": return GetUniquenessValues(5);
+            case "Stone": return GetUniquenessValues(7);
+            case "Iron": return GetUniquenessValues(9);
+            case "Steel": return GetUniquenessValues(11);
+            case "Silver": return GetUniquenessValues(13);
+            case "Gold": return GetUniquenessValues(15);
+            case "Crystal": return GetUniquenessValues(17);
+            case "Platinum": return GetUniquenessValues(19);
+            default:
+                throw new InvalidOperationException(
+                    "Unknown armor material: " + material
+                );
+        }
+    }
+
+    private static int[] GetWeaponMaterialUniqueness(string material)
+    {
+        switch (material)
+        {
+            case "Wooden": return GetUniquenessValues(1);
+            case "Stone": return GetUniquenessValues(3);
+            case "Iron": return GetUniquenessValues(5);
+            case "Steel": return GetUniquenessValues(7);
+            case "Silver": return GetUniquenessValues(9);
+            case "Gold": return GetUniquenessValues(11);
+            case "Crystal": return GetUniquenessValues(13);
+            case "Dark": return GetUniquenessValues(15);
+            case "Dragon": return GetUniquenessValues(17);
+            case "Legendary": return GetUniquenessValues(19);
+            default:
+                throw new InvalidOperationException(
+                    "Unknown weapon material: " + material
+                );
+        }
+    }
+
+    private static int[] GetUniquenessValues(int itemUniqueness)
+    {
+        switch (itemUniqueness)
+        {
+            case 1: return new[] { 1, 2, 6 };
+            case 3: return new[] { 3, 2, 10 };
+            case 5: return new[] { 5, 4, 10 };
+            case 7: return new[] { 7, 8, 14 };
+            case 9: return new[] { 9, 8, 14 };
+            case 11: return new[] { 11, 12, 18 };
+            case 13: return new[] { 13, 12, 18 };
+            case 15: return new[] { 15, 16, 22 };
+            case 17: return new[] { 17, 16, 22 };
+            case 19: return new[] { 19, 18, 26 };
+            default:
+                throw new InvalidOperationException(
+                    "Unsupported item uniqueness: " + itemUniqueness
+                );
+        }
     }
 
     // ==================================================
@@ -997,9 +1241,7 @@ public static class DatabaseInitializer
                 );
             }
         }
-    }
-
-    // --------------------------------------------------
+    }// --------------------------------------------------
     // SWORD SHOP OFFERS
     // --------------------------------------------------
 

@@ -50,6 +50,51 @@ public class EnemyAnimationController
         return stateInfo.IsName(stateName) && stateInfo.normalizedTime >= 1f;
     }
 
+    /// <summary>Returns the live Animator state and clip names for diagnostics.</summary>
+    public string GetDebugStateDescription()
+    {
+        if (animator == null || !animator.isActiveAndEnabled ||
+            animator.runtimeAnimatorController == null || animator.layerCount == 0)
+        {
+            return "Animator unavailable";
+        }
+
+        AnimatorStateInfo currentState = animator.GetCurrentAnimatorStateInfo(0);
+        string currentStateName = GetStateName(currentState);
+        string currentClips = GetClipNames(animator.GetCurrentAnimatorClipInfo(0));
+
+        if (!animator.IsInTransition(0))
+            return $"{currentStateName} | clip: {currentClips}";
+
+        AnimatorStateInfo nextState = animator.GetNextAnimatorStateInfo(0);
+        string nextStateName = GetStateName(nextState);
+        string nextClips = GetClipNames(animator.GetNextAnimatorClipInfo(0));
+        return $"Transition: {currentStateName} [{currentClips}] -> {nextStateName} [{nextClips}]";
+    }
+
+    private static string GetStateName(AnimatorStateInfo state)
+    {
+        if (state.IsName("SpiderIdle")) return "SpiderIdle";
+        if (state.IsName("SpiderWalk")) return "SpiderWalk";
+        if (state.IsName("SpiderAttack")) return "SpiderAttack";
+        if (state.IsName("SpiderHurt")) return "SpiderHurt";
+        if (state.IsName("SpiderDeath")) return "SpiderDeath";
+
+        return $"State#{state.shortNameHash}";
+    }
+
+    private static string GetClipNames(AnimatorClipInfo[] clips)
+    {
+        if (clips == null || clips.Length == 0)
+            return "none";
+
+        string[] names = new string[clips.Length];
+        for (int i = 0; i < clips.Length; i++)
+            names[i] = clips[i].clip != null ? clips[i].clip.name : "unknown";
+
+        return string.Join(", ", names);
+    }
+
     public void PlayDeath()
     {
         SetAnimation("IsDeath");

@@ -15,7 +15,7 @@ MonoBehaviour:
   defaultAudio: {fileID: 8300000, guid: 33f2addb7cfbdc14caff9c5268872bb7, type: 3}
   idleAudio: {fileID: 8300000, guid: bf69b91ed8724cc429b5bafb65bccd1f, type: 3}
   patrolAudio: {fileID: 8300000, guid: 824862c499cd7cc478ee2ba2833d0947, type: 3}
-  chaseAudio: {fileID: 8300000, guid: 824862c499cd7cc478ee2ba2833d0947, type: 3}
+  chaseAudio: {fileID: 8300000, guid: 82d5aecf4f844fd4ea4d9c0f824b1f8e, type: 3}
   attackAudio: {fileID: 8300000, guid: b86f7ae68206c1a47b67031e66d99f3e, type: 3}
   specialAttackAudio: {fileID: 8300000, guid: 82d5aecf4f844fd4ea4d9c0f824b1f8e, type: 3}
   hurtAudio: {fileID: 8300000, guid: 65e1b30e54367624c83cf81a8cbaa7b3, type: 3}
